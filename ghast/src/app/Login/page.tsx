@@ -1,21 +1,11 @@
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-
-interface InputFieldProps {
-    id: string;
-    label: string;
-    placeholder: string;
-    type?: string;
-}
-
-interface SocialLoginButtonProps {
-    icon: React.ReactNode;
-    text: string;
-}
+import { SocialLoginButtonProps, InputFieldProps } from "@/@types/props";
 
 export default function LoginPage() {
     return (
+        // Container principal
         <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen p-6 lg:p-10 bg-gray-50">
 
             {/* Logo visível apenas em telas grandes */}
@@ -23,6 +13,7 @@ export default function LoginPage() {
                 <Image src="/assets/GHAST.svg" alt="Ghast" width={150} height={150} />
             </div>
 
+            {/* Logo visível em telas pequenas */}
             <div className="lg:hidden">
             <Image src="/assets/GHAST.svg" alt="Ghast" width={150} height={150} />
             </div>
@@ -46,19 +37,14 @@ export default function LoginPage() {
 
                     {/* Formulário */}
                     <form className="w-full space-y-4">
-                        <InputField id="email" label="Email" placeholder="Digite seu email" />
+                        <InputField id="usuario" label="Usuario" placeholder="Digite seu nome de usuário" />
                         <InputField id="password" label="Senha" placeholder="Digite sua senha" type="password" />
+                        <ForgotPasswordLink />
                         <button type="submit" className="w-full py-3 mt-4 bg-primary text-white rounded-lg hover:bg-slate-800 transition duration-300">
                             Entrar
                         </button>
-                        <ForgotPasswordLink />
+                        
                     </form>
-
-                    {/* Opções de login social */}
-                    <div className="w-full border-t pt-4 space-y-4">
-                        <SocialLoginButton icon={<FcGoogle size={20} />} text="Entrar com Google" />
-                        <SocialLoginButton icon={<FaFacebook size={20} className="text-blue-600" />} text="Entrar com Facebook" />
-                    </div>
 
                     {/* Link de cadastro */}
                     <CadastroLink />
@@ -66,7 +52,7 @@ export default function LoginPage() {
 
                 {/* Imagem do Gengar para telas grandes */}
                 <div className="flex-1 hidden lg:flex justify-center select-none pointer-events-none">
-                    <Image src="/assets/LoginArt.svg" alt="Gengar" width={500} height={500} />
+                    <Image src="/assets/LoginArt.svg" alt="Gengar" width={504} height={500} />
                 </div>
 
             </div>
