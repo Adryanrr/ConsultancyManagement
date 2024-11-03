@@ -7,8 +7,9 @@ export default function LoginPage() {
             <Image className="absolute" src="/assets/GHAST.svg" alt="Ghast" width={200} height={200} />
             
             {/* Div Esquerda */}
-            <div className="flex flex-col mt-16 items-center justify-center flex-1 gap-20">
-                {/* Bem-Vindo */}
+            <div className="flex items-center justify-center flex-1">
+                <div className="bg-gray-100 p-8 flex flex-col gap-6">
+                    {/* Bem-Vindo */}
                 <div>
                     <h1>Olá, bem vindo! 👋</h1>
                     <p className="mt-10">Para acessa a plataforma, por favor realize o login.</p>
@@ -22,12 +23,18 @@ export default function LoginPage() {
                     <input type="password" placeholder="Insira sua Senha" className="p-2 w-full rounded-lg" />
                     <button className="mt-6 p-2 w-full rounded-lg bg-primary text-primary-foreground">Login</button>
                 </div>
+                <div>
+                    <p className="text-center">Não tem uma conta? <a href="#" className="text-blue-700">Registre-se</a></p>
+                </div>
+                </div>
+                
             </div>
 
             {/* Imagem */}
             <div className="flex justify-end">
                 <Image src="/assets/LoginArt.svg" alt="Gengar" width={680} height={680} />
             </div>
+
         </div>
     )
 }
