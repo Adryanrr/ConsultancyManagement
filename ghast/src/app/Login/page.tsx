@@ -1,97 +1,116 @@
 import Image from "next/image";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
-import { SocialLoginButtonProps, InputFieldProps } from "@/@types/props";
+import { SocialLoginButtonProps, InputFieldProps } from "@/lib/props";
 
 export default function LoginPage() {
-    return (
-        // Container principal
-        <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen p-6 lg:p-10 bg-gray-50">
-
-            {/* Logo visível apenas em telas grandes */}
-            <div className="hidden lg:flex absolute top-5 left-5 select-none pointer-events-none">
-                <Image src="/assets/GHAST.svg" alt="Ghast" width={150} height={150} />
-            </div>
-
-            {/* Logo visível em telas pequenas */}
-            <div className="lg:hidden">
-            <Image src="/assets/GHAST.svg" alt="Ghast" width={150} height={150} />
-            </div>
-
-            {/* Imagem do Gengar para mobile */}
-            <div className="flex mt-4 mb-8 lg:hidden select-none pointer-events-none">
-                <Image src="/assets/gengarMobile.svg" alt="Gengar" width={500} height={500} />
-            </div>
-
-            {/* Área principal de conteúdo */}
-            <div className="flex flex-col lg:flex-row items-center justify-between max-w-screen-lg w-full space-y-6 lg:space-y-0 lg:space-x-16">
-                
-                {/* Formulário de Login */}
-                <div className="flex flex-col items-center lg:items-start justify-center p-8 lg:px-12 bg-white shadow-lg rounded-xl max-w-md w-full space-y-6">
-                    
-                    {/* Mensagem de boas-vindas */}
-                    <div className="text-center lg:text-left">
-                        <h1 className="text-3xl font-bold">Olá, bem-vindo! 👋</h1>
-                        <p className="text-gray-600 mt-2">Para acessar a plataforma, por favor realize o login.</p>
-                    </div>
-
-                    {/* Formulário */}
-                    <form className="w-full space-y-4">
-                        <InputField id="usuario" label="Usuario" placeholder="Digite seu nome de usuário" />
-                        <InputField id="password" label="Senha" placeholder="Digite sua senha" type="password" />
-                        <ForgotPasswordLink />
-                        <button type="submit" className="w-full py-3 mt-4 bg-primary text-white rounded-lg hover:bg-slate-800 transition duration-300">
-                            Entrar
-                        </button>
-                        
-                    </form>
-
-                    {/* Link de cadastro */}
-                    <CadastroLink />
-                </div>
-
-                {/* Imagem do Gengar para telas grandes */}
-                <div className="flex-1 hidden lg:flex justify-center select-none pointer-events-none">
-                    <Image src="/assets/LoginArt.svg" alt="Gengar" width={504} height={500} />
-                </div>
-
-            </div>
+  return (
+    // Container principal
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 lg:p-10 bg-[url('/assets/BgBrancoMassa.svg')] bg-cover bg-center">
+      {/* Conteúdo principal */}
+      <div className="flex flex-col lg:flex-row items-center bg-white rounded-xl shadow-lg max-w-screen-lg w-full">
+        {/* Gengar para telas maiores */}
+        <div className="hidden lg:flex rounded-tl-xl rounded-bl-xl overflow-hidden">
+          <Image
+            src="/assets/gengarNormal.svg"
+            alt="Gengar"
+            width={500}
+            height={500}
+          />
         </div>
-    );
+
+        {/* Lado direito */}
+        <div className="flex flex-col items-center justify-center p-8 lg:px-12 rounded-xl w-full lg:w-[50%] space-y-6">
+          <div className="flex flex-col items-center gap-4 select-none pointer-events-none">
+            <Image
+              src="/assets/GHAST.svg"
+              alt="Ghast"
+              width={150}
+              height={150}
+            />
+            <p className="hidden lg:block text-black">
+              _______________________________________
+            </p>
+
+            {/* Gengar para dispositivos móveis */}
+            <div className="flex mt-4 mb-8 lg:hidden">
+              <Image
+                src="/assets/gengarMobile.svg"
+                alt="Gengar"
+                width={300}
+                height={300}
+              />
+            </div>
+          </div>
+
+          {/* Mensagem de boas-vindas */}
+          <div className="text-center">
+            <h1 className="text-2xl lg:text-3xl font-bold text-black">
+              Bem-vindo de volta!
+            </h1>
+            <p className="text-gray-600 mt-2 text-sm lg:text-base">
+              Para acessar a plataforma, por favor realize o login.
+            </p>
+          </div>
+
+          {/* Formulário */}
+          <form className="w-full space-y-4">
+            <InputField
+              id="usuario"
+              label="Usuário"
+              placeholder="Digite seu nome de usuário"
+            />
+            <InputField
+              id="password"
+              label="Senha"
+              placeholder="Digite sua senha"
+              type="password"
+            />
+            <ForgotPasswordLink />
+            <br />
+            <button
+              type="submit"
+              className="w-full py-3 bg-primary text-white rounded-lg hover:bg-slate-800 transition duration-300"
+            >
+              Entrar
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-function InputField({ id, label, placeholder, type = "text" }: InputFieldProps) {
-    return (
-        <div className="flex flex-col">
-            <label htmlFor={id} className="mb-1 text-gray-600">{label}</label>
-            <input type={type} id={id} placeholder={placeholder} className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary w-full" />
-        </div>
-    );
+function InputField({
+  id,
+  label,
+  placeholder,
+  type = "text",
+  required,
+}: InputFieldProps) {
+  return (
+    <div className="flex flex-col">
+      <label htmlFor={id} className="mb-1 text-gray-600">
+        {label}
+      </label>
+      <input
+        type={type}
+        id={id}
+        placeholder={placeholder}
+        required
+        className="p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary w-full bg-white"
+      />
+    </div>
+  );
 }
 
 function ForgotPasswordLink() {
-    return (
-        <div className="text-center mt-4">
-            <a href="#" className="text-blue-700 hover:underline">Esqueceu a senha?</a>
-        </div>
-    );
-}
-
-function SocialLoginButton({ icon, text }: SocialLoginButtonProps) {
-    return (
-        <button className="flex items-center justify-center w-full py-3 bg-slate-100 text-black rounded-lg hover:bg-slate-200 transition duration-300 space-x-3">
-            {icon}
-            <span>{text}</span>
-        </button>
-    );
-}
-
-function CadastroLink() {
-    return (
-        <div className="text-center w-full pt-2">
-            <p className="text-gray-600">
-                Não possui uma conta? <a href="#" className="text-blue-700 hover:underline">Criar conta</a>
-            </p>
-        </div>
-    );
+  return (
+    <div className="text-center mt-4">
+      <a
+        href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
+        className="text-blue-700 hover:underline text-sm lg:text-base"
+      >
+        Esqueceu a senha?
+      </a>
+    </div>
+  );
 }
