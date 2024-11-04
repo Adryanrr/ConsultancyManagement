@@ -26,7 +26,7 @@ export default function LoginPage() {
               width={150}
               height={150}
             />
-            <p className="hidden lg:block">
+            <p className="hidden lg:block text-black">
               _______________________________________
             </p>
 
@@ -43,7 +43,7 @@ export default function LoginPage() {
 
           {/* Mensagem de boas-vindas */}
           <div className="text-center">
-            <h1 className="text-2xl lg:text-3xl font-bold">
+            <h1 className="text-2xl lg:text-3xl font-bold text-black">
               Bem-vindo de volta!
             </h1>
             <p className="text-gray-600 mt-2 text-sm lg:text-base">
@@ -96,7 +96,7 @@ function InputField({
         id={id}
         placeholder={placeholder}
         required
-        className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary w-full"
+        className="p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary w-full bg-white"
       />
     </div>
   );
