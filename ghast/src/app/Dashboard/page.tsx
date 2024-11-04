@@ -1,26 +1,28 @@
-import Chart from "@/components/chart";
-import Sales from "@/components/sales";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { BadgeDollarSign, DollarSign, Percent, Users } from "lucide-react";
-import Pagina from "@/components/Pagina";
+import Pagina from "@/components/template/Pagina"
+import ListVips from "@/components/Clients/ListVips"
+import Chart from "@/components/graphic/GraphicClients"
+import ListClients from "@/components/Clients/ListClients"
+import HistoryClients from "@/components/Clients/HistoryClients"
+import { BarChart2, Building2, Crown, History } from "lucide-react"
 
 export default function Dashboard() {
   return (
     <Pagina>
-      <main className="sm:ml-14 sm:mr-14 p-4">
-        <section className="mt-4 flex flex-coll  md: flex-row gap-4">
-          <Chart />
-        </section>
-        <section className="mt-4 flex flex-coll  md: flex-row gap-4">
-          <Sales />
-        </section>
+      <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div className="p-6 grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
+          {/* Left Column */}
+          <div className="space-y-6">
+              <Chart />
+              <ListClients />
+          </div>
+
+          {/* Right Column */}
+          <div className="space-y-6">
+              <HistoryClients />
+              <ListVips />
+          </div>
+        </div>
       </main>
     </Pagina>
-  );
+  )
 }

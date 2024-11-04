@@ -3,18 +3,19 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import { Roboto,Audiowide } from 'next/font/google'
- 
+import { Roboto, Audiowide } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+
 const roboto = Roboto({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-logo',
-})
- 
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-logo",
+});
+
 const audiowide = Audiowide({
-  weight: '400',
-  subsets: ['latin'],
-})
+  weight: "400",
+  subsets: ["latin"],
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -42,7 +43,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

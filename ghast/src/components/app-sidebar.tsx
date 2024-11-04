@@ -14,12 +14,27 @@ import {
 } from "@/components/ui/sidebar";
 import { items } from "@/lib/iconsSidebar";
 import { Switch } from "@/components/ui/switch";
-import { LogOutIcon, Moon, ChevronDown } from "lucide-react";
+import { LogOutIcon, Moon, Sun, ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 
 export function AppSidebar() {
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const toggleDarkMode = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <Sidebar>
@@ -76,17 +91,21 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="p-4 border-t border-gray-200">
+      <SidebarFooter className="p-4 border-t border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
-            <Moon className="text-gray-600" />
-            <span>Dark Mode</span>
+            {theme === "dark" ? (
+              <Sun className="text-yellow-500" />
+            ) : (
+              <Moon className="text-gray-600" />
+            )}
+            <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
           </div>
-          <Switch checked={false} /> {/* Adjust the state as needed */}
+          <Switch checked={theme === "dark"} onCheckedChange={toggleDarkMode} />
         </div>
         <SidebarMenu>
-          <SidebarMenuButton className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 rounded">
-            <LogOutIcon className="mr-2 text-gray-700" />
+          <SidebarMenuButton className="w-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2 rounded">
+            <LogOutIcon className="mr-2" />
             Logout
           </SidebarMenuButton>
         </SidebarMenu>
