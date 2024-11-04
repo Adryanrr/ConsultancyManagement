@@ -8,7 +8,7 @@ export default function Header() {
       </div>
       <div className="text-xl font-bold font-audiowide">GHAST CONSULTORIA</div>
       <div>
-        <div className="flex justify-center items-center rounded-2xl bg-gray-300 p-3 text-black">
+        <div>
           {/* <div className="flex justify-center items-center gap-8">
             <MessageCircle />
             <Settings />

@@ -15,7 +15,11 @@ import {
 import { items } from "@/lib/iconsSidebar";
 import { Switch } from "@/components/ui/switch";
 import { LogOutIcon, Moon, Sun, ChevronDown } from "lucide-react";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 
@@ -65,15 +69,19 @@ export function AppSidebar() {
                       </CollapsibleTrigger>
                       <CollapsibleContent>
                         <SidebarMenuSub>
-                          {["Cliente", "Consultor", "Contrato"].map((subItem) => (
-                            <SidebarMenuItem key={subItem}>
-                              <SidebarMenuButton asChild>
-                                <a href={`/cadastrar/${subItem.toLowerCase()}`}>
-                                  {subItem}
-                                </a>
-                              </SidebarMenuButton>
-                            </SidebarMenuItem>
-                          ))}
+                          {["Cliente", "Consultor", "Contrato"].map(
+                            (subItem) => (
+                              <SidebarMenuItem key={subItem}>
+                                <SidebarMenuButton asChild>
+                                  <a
+                                    href={`/cadastrar/${subItem.toLowerCase()}`}
+                                  >
+                                    {subItem}
+                                  </a>
+                                </SidebarMenuButton>
+                              </SidebarMenuItem>
+                            )
+                          )}
                         </SidebarMenuSub>
                       </CollapsibleContent>
                     </Collapsible>
@@ -95,11 +103,17 @@ export function AppSidebar() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
             {theme === "dark" ? (
-              <Sun className="text-yellow-500" />
+              <>
+                <Moon className="text-yellow-500" />
+                <span>Dark Mode</span>
+              </>
             ) : (
-              <Moon className="text-gray-600" />
+              <>
+                <Moon className="text-black" />{" "}
+                {/* Você pode usar um ícone diferente aqui para o modo claro, se quiser */}
+                <span>Light Mode</span>
+              </>
             )}
-            <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
           </div>
           <Switch checked={theme === "dark"} onCheckedChange={toggleDarkMode} />
         </div>

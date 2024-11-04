@@ -11,7 +11,7 @@ import {
 export const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/Dashboard",
     icon: Home,
   },
   {

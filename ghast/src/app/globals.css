@@ -24,6 +24,20 @@ body {
   }
 }
 
+body::-webkit-scrollbar {
+  width: 0.1rem;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 1px rgba(134, 134, 134, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  outline: 2px solid #fff;
+  /* Remova o 0 antes de #fff*/
+}
+
 /* Definindo variáveis de cor para modo claro */
 @layer base {
   :root {
