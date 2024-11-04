@@ -19,6 +19,7 @@ export default function LoginPage() {
 
         {/* Lado direito */}
         <div className="flex flex-col items-center justify-center p-8 lg:px-12 rounded-xl w-full lg:w-[50%] space-y-6">
+
           <div className="flex flex-col items-center gap-4 select-none pointer-events-none">
             <Image
               src="/assets/GHAST.svg"
@@ -26,10 +27,7 @@ export default function LoginPage() {
               width={150}
               height={150}
             />
-            <p className="hidden lg:block text-black">
-              _______________________________________
-            </p>
-
+            
             {/* Gengar para dispositivos móveis */}
             <div className="flex mt-4 mb-8 lg:hidden">
               <Image
@@ -40,6 +38,8 @@ export default function LoginPage() {
               />
             </div>
           </div>
+
+          <div className="border w-full h-[2px] border-black"></div>
 
           {/* Mensagem de boas-vindas */}
           <div className="text-center">
