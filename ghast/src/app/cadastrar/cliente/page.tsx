@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import Pagina from '@/components/template/Pagina'
 import Image from 'next/image'
 
-export default function Component() {
+export default function CadastrarCliente() {
   const [step, setStep] = useState(1)
   const [formData, setFormData] = useState({
     companyName: '',
@@ -148,7 +148,7 @@ export default function Component() {
 
   return (
     <Pagina>
-      <Card className="w-full max-w-4xl mx-5 border-blue-500 border-2">
+      <Card className="w-full max-w-4xl mx-5 border-blue-500 border-2 min-h-100%">
         <CardHeader className="border-b flex">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
@@ -210,20 +210,22 @@ export default function Component() {
                     <SelectValue placeholder="Selecione o setor de atuação" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="admin">Administração</SelectItem>
-                    <SelectItem value="finance">Finanças</SelectItem>
-                    <SelectItem value="law">Direito</SelectItem>
-                    <SelectItem value="health">Saúde</SelectItem>
-                    <SelectItem value="psychology">Psicologia</SelectItem>
-                    <SelectItem value="other">Outro</SelectItem>
+                    <SelectItem value="Administração">Administração</SelectItem>
+                    <SelectItem value="Finanças">Finanças</SelectItem>
+                    <SelectItem value="Direito">Direito</SelectItem>
+                    <SelectItem value="Saúde">Saúde</SelectItem>
+                    <SelectItem value="Psicologia">Psicologia</SelectItem>
+                    <SelectItem value="Outro">Outro</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
+
             {/* barra central */}
             <div className="hidden md:block">
               <div className="border-l border-gray-300 h-full"></div>
             </div>
+
             {/* lado direito */}
             <div className="space-y-6 flex-1">
               <div className="space-y-2">

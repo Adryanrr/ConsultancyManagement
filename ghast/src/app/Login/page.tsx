@@ -39,6 +39,7 @@ export default function LoginPage() {
             </div>
           </div>
 
+            {/* Linha reta entre imagem e seja bem vindo */}
           <div className="border w-full h-[2px] border-black"></div>
 
           {/* Mensagem de boas-vindas */}
