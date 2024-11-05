@@ -154,4 +154,8 @@ body::-webkit-scrollbar-thumb {
     --sidebar-border: 0 0% 17.5%;
     --sidebar-ring: 0 0% 83.9%;
   }
+  /* label responsiva formularios */
+  .responsive-label {
+    @apply hidden md:flex;
+}
 }
