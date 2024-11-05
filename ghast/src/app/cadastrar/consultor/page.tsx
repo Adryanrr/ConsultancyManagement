@@ -70,6 +70,8 @@ export default function CadastrarConsultor() {
   if (step === 2) {
     return (
       <Pagina>
+        <div className='flex flex-1 items-center justify-center'>
+
         <Card className="w-full max-w-4xl mx-10 border-blue-500 border-2">
           <CardHeader className='border-b'>
             <div className="flex justify-between items-center">
@@ -153,6 +155,7 @@ export default function CadastrarConsultor() {
             </Button>
           </CardFooter>
         </Card>
+        </div>
       </Pagina>
     )
 
@@ -160,6 +163,8 @@ export default function CadastrarConsultor() {
 
   return (
     <Pagina>
+      <div className='flex flex-1 items-center justify-center'>
+
       <Card className="w-full max-w-4xl mx-2 border-blue-500 border-2">
         <CardHeader className="border-b flex">
           <div className="flex justify-between items-center">
@@ -331,6 +336,7 @@ export default function CadastrarConsultor() {
           </Button>
         </CardFooter>
       </Card>
+      </div>
     </Pagina>
   );
 }

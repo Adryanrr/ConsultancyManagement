@@ -5,6 +5,7 @@ import { Roboto, Audiowide } from "next/font/google";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
+import Header from "@/components/template/Header";
 
 const roboto = Roboto({
   weight: "400",
@@ -49,6 +50,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
           >
+          <Header />
           {children}
         </ThemeProvider>
       </body>

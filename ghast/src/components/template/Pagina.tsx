@@ -7,12 +7,12 @@ import Head from "next/head";
 
 export default function Pagina(props: any) {
   return (
-    <>
+    <>      
       <SidebarProvider>
         
         <AppSidebar />
-        <Header />
-        <main className="w-full h-screen flex items-center justify-center">
+        
+        <main className="w-full flex ">          
           <SidebarTrigger className="md:hidden" />
           {props.children}
         </main>

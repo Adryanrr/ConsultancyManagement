@@ -28,7 +28,7 @@ export default function Chart() {
   } satisfies ChartConfig;
 
   return (
-    <Card className="w-full md:w-1/2">
+    <Card className="flex flex-1 flex-col max-h-[400px]">
       <CardHeader>
         <div className="flex items-center justify-center">
           <CardTitle className="text-lg sm:text-xl text-gray-800 dark:text-gray-300">
@@ -39,7 +39,7 @@ export default function Chart() {
       </CardHeader>
 
       <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+        <ChartContainer config={chartConfig} className="max-h-[300px] w-full">
           <BarChart data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis

@@ -66,6 +66,8 @@ export default function CadastrarCliente() {
   if (step === 2) {
     return (
       <Pagina>
+        <div className='flex flex-1 items-center justify-center'>
+
         <Card className="w-full max-w-4xl mx-10 border-blue-500 border-2">
           <CardHeader className="border-b">
             <div className="flex justify-between items-center">
@@ -141,6 +143,7 @@ export default function CadastrarCliente() {
             </Button>
           </CardFooter>
         </Card>
+        </div>
       </Pagina>
 
     )
@@ -148,6 +151,8 @@ export default function CadastrarCliente() {
 
   return (
     <Pagina>
+      <div className='flex items-center justify-center flex-1'>
+
       <Card className="w-full max-w-4xl mx-5 border-blue-500 border-2 min-h-100%">
         <CardHeader className="border-b flex">
           <div className="flex justify-between items-center">
@@ -287,6 +292,7 @@ export default function CadastrarCliente() {
           </Button>
         </CardFooter>
       </Card>
+      </div>
     </Pagina>
   )
 }

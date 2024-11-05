@@ -8,12 +8,15 @@ import { BarChart2, Building2, Crown, History } from "lucide-react"
 export default function Dashboard() {
   return (
     <Pagina>
-      <main className="min-h-screen bg-gray-100 dark:bg-gray-900 w-full p-16">
+      <main className="min-h-screen bg-gray-100 dark:bg-gray-900 w-full xl:p-4">
         <div className="p-6 grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
           {/* Left Column */}
           <div className="space-y-6">
               <Chart />
-              <ListClients />
+              <div className="flex justify-between gap-4">
+                <ListClients />
+                <ListClients />
+              </div>
           </div>
 
           {/* Right Column */}
