@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState, ChangeEvent } from 'react'
 import { ChevronLeft } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,6 +11,14 @@ import Pagina from '@/components/template/Pagina'
 import Image from 'next/image'
 
 export default function CadastrarConsultor() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedImage(URL.createObjectURL(file));
+    }
+  }
   const [step, setStep] = useState(1)
   const [formData, setFormData] = useState({
     Name: '',
@@ -61,7 +69,6 @@ export default function CadastrarConsultor() {
 
   if (step === 2) {
     return (
-
       <Pagina>
         <Card className="w-full max-w-4xl mx-10 border-blue-500 border-2">
           <CardHeader className='border-b'>
@@ -116,7 +123,7 @@ export default function CadastrarConsultor() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Tamanha do Negócio</Label>
+                  <Label>Tamanho do Negócio</Label>
                   <Input
                     value={formData.size}
                     className="border-gray-300 bg-gray-50"
@@ -172,10 +179,36 @@ export default function CadastrarConsultor() {
         </CardHeader>
         <CardContent className="p-2 md:p-6 h-full">
           <form className="flex flex-col md:flex-row justify-center gap-10" onSubmit={handleSubmit}>
+
             {/* lado esquerdo */}
             <div className="space-y-6 flex-1">
+
+              {/* Imagem Consultor */}
               <div className="space-y-2 flex items-center justify-center">
-                <Image src="/assets/confirmacaoCadastro.svg" alt='' width={100} height={100} className='hidden md:flex rounded-full' />
+                {/* Campo de upload de imagem escondido */}
+                {!selectedImage && (
+                  <label htmlFor="fileInput" className="text-center cursor-pointer inline-block">
+                    <img src="/assets/SeletorPerfilPOO.png" alt="Adicionar uma foto" className='object-cover rounded-full'/>
+                  </label>
+                )}
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  style={{ display: 'none' }} // Esconde o input
+                />
+
+                {/* Exibição da imagem selecionada */}
+                {selectedImage && (
+                  <div>
+                    <img
+                      src={selectedImage}
+                      alt="Imagem de Perfil"
+                      style={{ width: '110px', height: '110px', borderRadius: '50%' }}
+                    />
+                  </div>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="type"  >Tipo de Consultoria</Label>
@@ -236,7 +269,7 @@ export default function CadastrarConsultor() {
             <div className="hidden md:block">
               <div className="border-l border-gray-300 h-full"></div>
             </div>
-            
+
             {/* lado direito */}
             <div className="space-y-6 flex-1">
               <div className="space-y-2">
