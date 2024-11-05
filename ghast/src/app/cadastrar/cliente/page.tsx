@@ -149,7 +149,7 @@ export default function Component() {
   return (
     <Pagina>
       <Card className="w-full max-w-4xl mx-5 border-blue-500 border-2">
-        <CardHeader className="border-b hidden md:flex">
+        <CardHeader className="border-b flex">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-full bg-purple-500 text-white flex items-center justify-center text-sm">
@@ -165,7 +165,7 @@ export default function Component() {
             </div>
           </div>
         </CardHeader>
-        <CardContent className="p-6 h-full">
+        <CardContent className="p-2 md:p-6 h-full">
           <form className="flex flex-col md:flex-row justify-center gap-10" onSubmit={handleSubmit}>
             {/* lado esquerdo */}
             <div className="space-y-6 flex-1">
