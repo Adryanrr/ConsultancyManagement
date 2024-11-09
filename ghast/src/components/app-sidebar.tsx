@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   Sidebar,
   SidebarContent,
@@ -14,17 +15,12 @@ import {
 } from "@/components/ui/sidebar";
 import { items } from "@/lib/iconsSidebar";
 import { Switch } from "@/components/ui/switch";
-import { LogOutIcon, Moon, Sun, ChevronDown } from "lucide-react";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { LogOutIcon, Moon, Sun } from "lucide-react";
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 
 export function AppSidebar() {
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -50,34 +46,24 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   {item.title.toLowerCase() === "cadastrar" ? (
-                    <Collapsible
-                      open={isRegistrationOpen}
-                      onOpenChange={setIsRegistrationOpen}
-                    >
-                      <CollapsibleTrigger asChild>
-                        <SidebarMenuButton className="w-full justify-between">
-                          <div className="flex items-center">
-                            <item.icon className="mr-2" />
-                            <span>{item.title}</span>
-                          </div>
-                          <ChevronDown
-                            className={`transition-transform duration-200 ${
-                              isRegistrationOpen ? "rotate-180" : ""
-                            }`}
-                          />
-                        </SidebarMenuButton>
-                      </CollapsibleTrigger>
+                    <Collapsible open={true}>
+                      <SidebarMenuButton className="w-full justify-between">
+                        <div className="flex items-center">
+                          <item.icon className="mr-2" />
+                          <span>{item.title}</span>
+                        </div>
+                      </SidebarMenuButton>
                       <CollapsibleContent>
                         <SidebarMenuSub>
                           {["Cliente", "Consultor", "Contrato"].map(
                             (subItem) => (
                               <SidebarMenuItem key={subItem}>
                                 <SidebarMenuButton asChild>
-                                  <a
+                                  <Link
                                     href={`/cadastrar/${subItem.toLowerCase()}`}
                                   >
                                     {subItem}
-                                  </a>
+                                  </Link>
                                 </SidebarMenuButton>
                               </SidebarMenuItem>
                             )
@@ -87,10 +73,12 @@ export function AppSidebar() {
                     </Collapsible>
                   ) : (
                     <SidebarMenuButton asChild>
-                      <a href={item.url}>
-                        <item.icon className="mr-2" />
-                        <span>{item.title}</span>
-                      </a>
+                      <Link href={item.url}>
+                        <div className="flex items-center">
+                          <item.icon className="mr-2" />
+                          <span>{item.title}</span>
+                        </div>
+                      </Link>
                     </SidebarMenuButton>
                   )}
                 </SidebarMenuItem>
@@ -104,14 +92,13 @@ export function AppSidebar() {
           <div className="flex items-center space-x-2">
             {theme === "dark" ? (
               <>
-                <Moon className="text-yellow-500" />
+                <Moon className="text-violet-500" />
                 <span>Dark Mode</span>
               </>
             ) : (
               <>
-                <Moon className="text-black" />{" "}
-                {/* Você pode usar um ícone diferente aqui para o modo claro, se quiser */}
-                <span>Light Mode</span>
+                <Moon className="text-black" />
+                <span>Dark Mode</span>
               </>
             )}
           </div>
