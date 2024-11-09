@@ -1,11 +1,9 @@
-import type { Metadata } from "next";
 import "./globals.css";
+import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Roboto, Audiowide } from "next/font/google";
-import { AppSidebar } from "@/components/app-sidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/template/Header";
+import { Roboto, Audiowide } from "next/font/google";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 
 const roboto = Roboto({
   weight: "400",
@@ -49,7 +47,7 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-          >
+        >
           <Header />
           {children}
         </ThemeProvider>
