@@ -1,14 +1,25 @@
-'use client'
+"use client";
 
-import React, { useState, ChangeEvent } from 'react'
-import { ChevronLeft } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import Pagina from '@/components/template/Pagina'
-import Image from 'next/image'
+import React, { useState, ChangeEvent } from "react";
+import { ChevronLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import Image from "next/image";
 
 export default function CadastrarConsultor() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -18,25 +29,25 @@ export default function CadastrarConsultor() {
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
     }
-  }
-  const [step, setStep] = useState(1)
+  };
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    Name: '',
-    cpf: '',
-    email: '',
-    phone: '',
-    type: '',
-    size: ''
-  })
+    Name: "",
+    cpf: "",
+    email: "",
+    phone: "",
+    type: "",
+    size: "",
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target
-    setFormData(prev => ({ ...prev, [id]: value }))
-  }
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
 
   const handleSelectChange = (value: string) => {
-    setFormData(prev => ({ ...prev, type: value }))
-  }
+    setFormData((prev) => ({ ...prev, type: value }));
+  };
 
   const isStepOneComplete = () => {
     return (
@@ -46,34 +57,32 @@ export default function CadastrarConsultor() {
       formData.phone &&
       formData.type &&
       formData.size
-    )
-  }
+    );
+  };
 
   const handleNext = () => {
     if (isStepOneComplete()) {
-      setStep(2)
+      setStep(2);
     }
-  }
+  };
 
   const handleBack = () => {
-    setStep(1)
-  }
+    setStep(1);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (isStepOneComplete()) {
-      console.log('Form submitted:', formData)
+      console.log("Form submitted:", formData);
       // Here you would typically send the data to your backend
     }
-  }
+  };
 
   if (step === 2) {
     return (
-      <Pagina>
-        <div className='flex flex-1 items-center justify-center'>
-
+      <div className="flex flex-1 items-center justify-center">
         <Card className="w-full max-w-4xl mx-10 border-blue-500 border-2">
-          <CardHeader className='border-b'>
+          <CardHeader className="border-b">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 rounded-full bg-purple-500 text-white flex items-center justify-center text-sm">
@@ -134,16 +143,18 @@ export default function CadastrarConsultor() {
                 </div>
               </div>
               <div className="w-full md:w-1/2 flex justify-center">
-                <Image src="/assets/confirmacaoCadastro.svg" alt='' width={338} height={338} className='hidden md:flex' />
+                <Image
+                  src="/assets/confirmacaoCadastro.svg"
+                  alt=""
+                  width={338}
+                  height={338}
+                  className="hidden md:flex"
+                />
               </div>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleBack}
-            >
+            <Button type="button" variant="outline" onClick={handleBack}>
               <ChevronLeft className="w-4 h-4 mr-2" />
               Voltar
             </Button>
@@ -155,16 +166,12 @@ export default function CadastrarConsultor() {
             </Button>
           </CardFooter>
         </Card>
-        </div>
-      </Pagina>
-    )
-
+      </div>
+    );
   }
 
   return (
-    <Pagina>
-      <div className='flex flex-1 items-center justify-center'>
-
+    <div className="flex flex-1 items-center justify-center">
       <Card className="w-full max-w-4xl mx-2 border-blue-500 border-2">
         <CardHeader className="border-b flex">
           <div className="flex justify-between items-center">
@@ -183,17 +190,25 @@ export default function CadastrarConsultor() {
           </div>
         </CardHeader>
         <CardContent className="p-2 md:p-6 h-full">
-          <form className="flex flex-col md:flex-row justify-center gap-10" onSubmit={handleSubmit}>
-
+          <form
+            className="flex flex-col md:flex-row justify-center gap-10"
+            onSubmit={handleSubmit}
+          >
             {/* lado esquerdo */}
             <div className="space-y-6 flex-1">
-
               {/* Imagem Consultor */}
               <div className="space-y-2 flex items-center justify-center">
                 {/* Campo de upload de imagem escondido */}
                 {!selectedImage && (
-                  <label htmlFor="fileInput" className="text-center cursor-pointer inline-block">
-                    <img src="/assets/SeletorPerfilPOO.png" alt="Adicionar uma foto" className='object-cover rounded-full'/>
+                  <label
+                    htmlFor="fileInput"
+                    className="text-center cursor-pointer inline-block"
+                  >
+                    <img
+                      src="/assets/SeletorPerfilPOO.png"
+                      alt="Adicionar uma foto"
+                      className="object-cover rounded-full"
+                    />
                   </label>
                 )}
                 <input
@@ -201,7 +216,7 @@ export default function CadastrarConsultor() {
                   type="file"
                   accept="image/*"
                   onChange={handleImageChange}
-                  style={{ display: 'none' }} // Esconde o input
+                  style={{ display: "none" }} // Esconde o input
                 />
 
                 {/* Exibição da imagem selecionada */}
@@ -210,22 +225,32 @@ export default function CadastrarConsultor() {
                     <img
                       src={selectedImage}
                       alt="Imagem de Perfil"
-                      style={{ width: '110px', height: '110px', borderRadius: '50%' }}
+                      style={{
+                        width: "110px",
+                        height: "110px",
+                        borderRadius: "50%",
+                      }}
                     />
                   </div>
                 )}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="type"  >Tipo de Consultoria</Label>
+                <Label htmlFor="type">Tipo de Consultoria</Label>
                 <div className="border w-full h-[2px] border-black"></div>
 
-                <Select value={formData.type} onValueChange={handleSelectChange} required>
+                <Select
+                  value={formData.type}
+                  onValueChange={handleSelectChange}
+                  required
+                >
                   <SelectTrigger id="type">
                     <SelectValue placeholder="Selecione o tipo de consultoria" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="TI">TI</SelectItem>
-                    <SelectItem value="Gestão de Projeto">Gestão de Projetos</SelectItem>
+                    <SelectItem value="Gestão de Projeto">
+                      Gestão de Projetos
+                    </SelectItem>
                     <SelectItem value="Financeira">Financeira</SelectItem>
                   </SelectContent>
                 </Select>
@@ -266,7 +291,6 @@ export default function CadastrarConsultor() {
                     <label htmlFor="Grande">Grande</label>
                   </div>
                 </div>
-
               </div>
             </div>
 
@@ -278,7 +302,12 @@ export default function CadastrarConsultor() {
             {/* lado direito */}
             <div className="space-y-6 flex-1">
               <div className="space-y-2">
-                <Label htmlFor="representativeName" className='responsive-label'>Nome do Consultor</Label>
+                <Label
+                  htmlFor="representativeName"
+                  className="responsive-label"
+                >
+                  Nome do Consultor
+                </Label>
                 <Input
                   id="Name"
                   placeholder="Nome completo do consultor"
@@ -289,7 +318,9 @@ export default function CadastrarConsultor() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="cpf" className='responsive-label'>CPF</Label>
+                <Label htmlFor="cpf" className="responsive-label">
+                  CPF
+                </Label>
                 <Input
                   id="cpf"
                   placeholder="Digite o CPF"
@@ -300,7 +331,9 @@ export default function CadastrarConsultor() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email" className='responsive-label'>E-mail</Label>
+                <Label htmlFor="email" className="responsive-label">
+                  E-mail
+                </Label>
                 <Input
                   id="email"
                   type="email"
@@ -312,7 +345,9 @@ export default function CadastrarConsultor() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="phone" className='responsive-label'>Telefone</Label>
+                <Label htmlFor="phone" className="responsive-label">
+                  Telefone
+                </Label>
                 <Input
                   id="phone"
                   placeholder="Digite o telefone"
@@ -336,7 +371,6 @@ export default function CadastrarConsultor() {
           </Button>
         </CardFooter>
       </Card>
-      </div>
-    </Pagina>
+    </div>
   );
 }

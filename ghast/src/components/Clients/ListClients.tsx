@@ -46,7 +46,7 @@ export default function ListClients() {
           <CardTitle className="text-lg sm:text-xl text-gray-800 dark:text-gray-300">
           Empresas
           </CardTitle>
-          <Building2 className="ml-auto w-4 h-4" />
+          <Building2 className="ml-auto w-4 h-4 text-violet-500" />
         </div>
         <CardDescription>Lista de empresas</CardDescription>
       </CardHeader>

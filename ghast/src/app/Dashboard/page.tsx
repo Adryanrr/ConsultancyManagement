@@ -6,25 +6,23 @@ import HistoryClients from "@/components/Clients/HistoryClients";
 
 export default function Dashboard() {
   return (
-    <Pagina>
-      <main className="min-h-screen bg-gray-100 dark:bg-gray-900 w-full xl:p-4">
-        <div className="p-6 grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
-          {/* Left Column */}
+    <main className="min-h-screen bg-gray-100 dark:bg-zinc-950 w-full p-4 sm:p-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
+        {/* Left Column */}
+        <div className="space-y-6">
+          <Chart />
+          {/* Caso queira colocar dois componentes nessa div: grid grid-cols-1 md:grid-cols-2 gap-6" */}
           <div className="space-y-6">
-            <Chart />
-            <div className="flex justify-between gap-4">
-              <ListClients />
-              <ListClients />
-            </div>
-          </div>
-
-          {/* Right Column */}
-          <div className="space-y-6">
-            <HistoryClients />
-            <ListVips />
+            <ListClients />
           </div>
         </div>
-      </main>
-    </Pagina>
+
+        {/* Right Column */}
+        <div className="space-y-6">
+          <HistoryClients />
+          <ListVips />
+        </div>
+      </div>
+    </main>
   );
 }

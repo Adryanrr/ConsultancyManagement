@@ -4,7 +4,7 @@ import { SocialLoginButtonProps, InputFieldProps } from "@/lib/props";
 export default function LoginPage() {
   return (
     // Container principal
-    <div className="flex flex-col items-center justify-center min-h-screen p-6 lg:p-10 bg-[url('/assets/BgBrancoMassa.svg')] bg-cover bg-center">
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 lg:p-10 bg-[url('/assets/BgBrancoMassa.svg')] dark:bg-[url('/assets/BgRoxo.svg')] bg-cover bg-center">
       {/* Conteúdo principal */}
       <div className="flex flex-col lg:flex-row items-center bg-white rounded-xl shadow-lg max-w-screen-lg w-full">
         {/* Gengar para telas maiores */}
@@ -19,7 +19,6 @@ export default function LoginPage() {
 
         {/* Lado direito */}
         <div className="flex flex-col items-center justify-center p-8 lg:px-12 rounded-xl w-full lg:w-[50%] space-y-6">
-
           <div className="flex flex-col items-center gap-4 select-none pointer-events-none">
             <Image
               src="/assets/GHAST.svg"
@@ -27,7 +26,7 @@ export default function LoginPage() {
               width={150}
               height={150}
             />
-            
+
             {/* Gengar para dispositivos móveis */}
             <div className="flex mt-4 mb-8 lg:hidden">
               <Image
@@ -39,7 +38,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-            {/* Linha reta entre imagem e seja bem vindo */}
+          {/* Linha reta entre imagem e seja bem vindo */}
           <div className="border w-full h-[2px] border-black"></div>
 
           {/* Mensagem de boas-vindas */}

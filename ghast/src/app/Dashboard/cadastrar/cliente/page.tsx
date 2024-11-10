@@ -1,36 +1,48 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { ChevronLeft } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import Pagina from '@/components/template/Pagina'
-import Image from 'next/image'
+import { useState } from "react";
+import { ChevronLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import Pagina from "@/components/template/Pagina";
+import Image from "next/image";
 
 export default function CadastrarCliente() {
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    companyName: '',
-    cnpj: '',
-    corporateEmail: '',
-    sector: '',
-    representativeName: '',
-    cpf: '',
-    email: '',
-    phone: ''
-  })
+    companyName: "",
+    cnpj: "",
+    corporateEmail: "",
+    sector: "",
+    representativeName: "",
+    cpf: "",
+    email: "",
+    phone: "",
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target
-    setFormData(prev => ({ ...prev, [id]: value }))
-  }
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
 
   const handleSelectChange = (value: string) => {
-    setFormData(prev => ({ ...prev, sector: value }))
-  }
+    setFormData((prev) => ({ ...prev, sector: value }));
+  };
 
   const isStepOneComplete = () => {
     return (
@@ -42,32 +54,30 @@ export default function CadastrarCliente() {
       formData.cpf &&
       formData.email &&
       formData.phone
-    )
-  }
+    );
+  };
 
   const handleNext = () => {
     if (isStepOneComplete()) {
-      setStep(2)
+      setStep(2);
     }
-  }
+  };
 
   const handleBack = () => {
-    setStep(1)
-  }
+    setStep(1);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (isStepOneComplete()) {
-      console.log('Form submitted:', formData)
+      console.log("Form submitted:", formData);
       // Here you would typically send the data to your backend
     }
-  }
+  };
 
   if (step === 2) {
     return (
-      <Pagina>
-        <div className='flex flex-1 items-center justify-center'>
-
+      <div className="flex flex-1 items-center justify-center">
         <Card className="w-full max-w-4xl mx-10 border-blue-500 border-2">
           <CardHeader className="border-b">
             <div className="flex justify-between items-center">
@@ -122,16 +132,18 @@ export default function CadastrarCliente() {
                 </div>
               </div>
               <div className="w-full md:w-1/2 flex justify-center">
-                <Image src="/assets/confirmacaoCadastro.svg" alt='' width={338} height={338} className='hidden md:flex' />
+                <Image
+                  src="/assets/confirmacaoCadastro.svg"
+                  alt=""
+                  width={338}
+                  height={338}
+                  className="hidden md:flex"
+                />
               </div>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleBack}
-            >
+            <Button type="button" variant="outline" onClick={handleBack}>
               <ChevronLeft className="w-4 h-4 mr-2" />
               Voltar
             </Button>
@@ -143,16 +155,12 @@ export default function CadastrarCliente() {
             </Button>
           </CardFooter>
         </Card>
-        </div>
-      </Pagina>
-
-    )
+      </div>
+    );
   }
 
   return (
-    <Pagina>
-      <div className='flex items-center justify-center flex-1'>
-
+    <div className="flex items-center justify-center flex-1">
       <Card className="w-full max-w-4xl mx-5 border-blue-500 border-2 min-h-100%">
         <CardHeader className="border-b flex">
           <div className="flex justify-between items-center">
@@ -171,11 +179,16 @@ export default function CadastrarCliente() {
           </div>
         </CardHeader>
         <CardContent className="p-2 md:p-6 h-full">
-          <form className="flex flex-col md:flex-row justify-center gap-10" onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col md:flex-row justify-center gap-10"
+            onSubmit={handleSubmit}
+          >
             {/* lado esquerdo */}
             <div className="space-y-6 flex-1">
               <div className="space-y-2">
-                <Label htmlFor="companyName" className='responsive-label' >Nome da Empresa</Label>
+                <Label htmlFor="companyName" className="responsive-label">
+                  Nome da Empresa
+                </Label>
                 <Input
                   id="companyName"
                   placeholder="Nome completo da empresa"
@@ -186,7 +199,9 @@ export default function CadastrarCliente() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="cnpj" className='responsive-label'>CNPJ</Label>
+                <Label htmlFor="cnpj" className="responsive-label">
+                  CNPJ
+                </Label>
                 <Input
                   id="cnpj"
                   placeholder="Digite o CNPJ"
@@ -197,7 +212,9 @@ export default function CadastrarCliente() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="corporateEmail" className='responsive-label'>E-mail Corporativo</Label>
+                <Label htmlFor="corporateEmail" className="responsive-label">
+                  E-mail Corporativo
+                </Label>
                 <Input
                   id="corporateEmail"
                   type="email"
@@ -209,8 +226,14 @@ export default function CadastrarCliente() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="sector" className='responsive-label'>Setor de Atuação</Label>
-                <Select value={formData.sector} onValueChange={handleSelectChange} required>
+                <Label htmlFor="sector" className="responsive-label">
+                  Setor de Atuação
+                </Label>
+                <Select
+                  value={formData.sector}
+                  onValueChange={handleSelectChange}
+                  required
+                >
                   <SelectTrigger id="sector">
                     <SelectValue placeholder="Selecione o setor de atuação" />
                   </SelectTrigger>
@@ -234,7 +257,12 @@ export default function CadastrarCliente() {
             {/* lado direito */}
             <div className="space-y-6 flex-1">
               <div className="space-y-2">
-                <Label htmlFor="representativeName" className='responsive-label'>Nome do Representante</Label>
+                <Label
+                  htmlFor="representativeName"
+                  className="responsive-label"
+                >
+                  Nome do Representante
+                </Label>
                 <Input
                   id="representativeName"
                   placeholder="Nome completo do representante"
@@ -245,7 +273,9 @@ export default function CadastrarCliente() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="cpf" className='responsive-label'>CPF</Label>
+                <Label htmlFor="cpf" className="responsive-label">
+                  CPF
+                </Label>
                 <Input
                   id="cpf"
                   placeholder="Digite o CPF"
@@ -256,7 +286,9 @@ export default function CadastrarCliente() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email" className='responsive-label'>E-mail</Label>
+                <Label htmlFor="email" className="responsive-label">
+                  E-mail
+                </Label>
                 <Input
                   id="email"
                   type="email"
@@ -268,7 +300,9 @@ export default function CadastrarCliente() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="phone" className='responsive-label'>Telefone</Label>
+                <Label htmlFor="phone" className="responsive-label">
+                  Telefone
+                </Label>
                 <Input
                   id="phone"
                   placeholder="Digite o telefone"
@@ -292,7 +326,6 @@ export default function CadastrarCliente() {
           </Button>
         </CardFooter>
       </Card>
-      </div>
-    </Pagina>
-  )
+    </div>
+  );
 }

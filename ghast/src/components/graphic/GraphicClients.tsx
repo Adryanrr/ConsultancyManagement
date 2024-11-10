@@ -19,11 +19,11 @@ export default function Chart() {
   const chartConfig = {
     desktop: {
       label: "Desktop",
-      color: "#2563eb",
+      color: "#8b5cf6",
     },
     mobile: {
       label: "Mobile",
-      color: "#60a5fa",
+      color: "#a78bfa",
     },
   } satisfies ChartConfig;
 
@@ -34,7 +34,7 @@ export default function Chart() {
           <CardTitle className="text-lg sm:text-xl text-gray-800 dark:text-gray-300">
             Gráfico
           </CardTitle>
-          <BarChart2 className="ml-auto w-4 h-4" />
+          <BarChart2 className="ml-auto w-4 h-4 text-violet-500" />
         </div>
       </CardHeader>
 

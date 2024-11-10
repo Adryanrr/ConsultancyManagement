@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/sidebar";
 import { items } from "@/lib/iconsSidebar";
 import { Switch } from "@/components/ui/switch";
-import { LogOutIcon, Moon, Sun } from "lucide-react";
+import { LogOutIcon, Moon } from "lucide-react";
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
@@ -55,12 +55,12 @@ export function AppSidebar() {
                       </SidebarMenuButton>
                       <CollapsibleContent>
                         <SidebarMenuSub>
-                          {["Cliente", "Consultor", "Contrato"].map(
+                          {["cliente", "consultor", "contrato"].map(
                             (subItem) => (
                               <SidebarMenuItem key={subItem}>
                                 <SidebarMenuButton asChild>
                                   <Link
-                                    href={`/cadastrar/${subItem.toLowerCase()}`}
+                                    href={`/dashboard/cadastrar/${subItem.toLowerCase()}`}
                                   >
                                     {subItem}
                                   </Link>
