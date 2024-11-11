@@ -121,6 +121,14 @@ body::-webkit-scrollbar-thumb {
     background-color: #EFF2F4;
   }
 
+  .bg-dark-main{
+    background-color: #081028;
+  }
+
+  .bg-dark-secondary{
+    background-color: #0B1739;
+  }
+
   .dc-main {
     background-color: hsl(var(--sidebar-background));
     color: hsl(var(--sidebar-foreground));

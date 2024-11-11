@@ -21,7 +21,7 @@ export default function SideBar() {
   };
 
   return (
-    <aside className="w-[311px] bg-[#081028] min-h-screen justify-between flex-col flex p-4">
+    <aside className="w-[311px] bg-white dark:bg-dark-main min-h-screen justify-between flex-col flex p-4">
       <nav className="flex flex-col p-2 gap-1">
         <ItemSideBar href="/dashboard" icone={FaHome} texto="Dashboard" />
         <div onClick={toggleExpand} className="cursor-pointer">

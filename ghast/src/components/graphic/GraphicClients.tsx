@@ -1,59 +1,87 @@
-"use client";
+"use client"
 
-import { BarChart2 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { ChartConfig, ChartContainer } from "../ui/chart";
-import { BarChart, Bar, CartesianGrid, XAxis } from "recharts";
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { ChartContainer } from "@/components/ui/chart"
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts"
+import { ArrowUp } from "lucide-react"
 
 export default function Chart() {
   const chartData = [
-    { month: "January", desktop: 186, mobile: 80 },
-    { month: "February", desktop: 305, mobile: 200 },
-    { month: "March", desktop: 237, mobile: 120 },
-    { month: "April", desktop: 73, mobile: 190 },
-    { month: "May", desktop: 209, mobile: 130 },
-    { month: "June", desktop: 214, mobile: 140 },
-    { month: "July", desktop: 314, mobile: 240 },
-  ];
+    { date: "Jan 1", contracts: 0 },
+    { date: "Jan 8", contracts: 80 },
+    { date: "Jan 16", contracts: 60 },
+    { date: "Jan 24", contracts: 140 },
+    { date: "Jan 31", contracts: 150 },
+    { date: "Feb 1", contracts: 180 },
+    { date: "Feb 8", contracts: 120 },
+    { date: "Feb 16", contracts: 160 },
+    { date: "Feb 24", contracts: 140 },
+  ]
 
   const chartConfig = {
-    desktop: {
-      label: "Desktop",
-      color: "#8b5cf6",
-    },
-    mobile: {
-      label: "Mobile",
-      color: "#a78bfa",
-    },
-  } satisfies ChartConfig;
+    contracts: {
+      label: "Contratos",
+      color: "hsl(199, 89%, 48%)"
+    }
+  }
+
+  const totalContracts = 257
+  const growthPercentage = 16.85
 
   return (
-    <Card className="flex flex-1 flex-col max-h-[400px]">
-      <CardHeader>
-        <div className="flex items-center justify-center">
-          <CardTitle className="text-lg sm:text-xl text-gray-800 dark:text-gray-300">
-            Gráfico
-          </CardTitle>
-          <BarChart2 className="ml-auto w-4 h-4 text-violet-500" />
+    <Card className="flex flex-1 flex-col bg-[#0A0A29] border-slate-800">
+      <CardHeader className="space-y-1 px-6 py-4">
+        <h2 className="text-xl font-semibold text-slate-200">Gráfico</h2>
+        <div className="flex items-center gap-2 text-sm text-slate-400">
+          Completed tasks over time
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-3xl font-bold text-slate-200">{totalContracts}</span>
+          <span className="flex items-center text-sm font-medium text-emerald-500">
+            <ArrowUp className="h-4 w-4" />
+            {growthPercentage}%
+          </span>
         </div>
       </CardHeader>
 
-      <CardContent>
-        <ChartContainer config={chartConfig} className="max-h-[300px] w-full">
-          <BarChart data={chartData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
-          </BarChart>
+      <CardContent className="pl-2">
+        <ChartContainer config={chartConfig} className="h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={chartData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+              <CartesianGrid 
+                strokeDasharray="3 3" 
+                vertical={false} 
+                stroke="rgba(255,255,255,0.1)" 
+              />
+              <XAxis 
+                dataKey="date" 
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: '#94a3b8', fontSize: 12 }}
+              />
+              <YAxis 
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: '#94a3b8', fontSize: 12 }}
+                domain={[0, 500]}
+                ticks={[0, 100, 200, 300, 400, 500]}
+              />
+              <Tooltip
+                contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '4px' }}
+                labelStyle={{ color: '#94a3b8' }}
+                itemStyle={{ color: 'hsl(199, 89%, 48%)' }}
+              />
+              <Line
+                type="linear"
+                dataKey="contracts"
+                stroke="hsl(199, 89%, 48%)"
+                strokeWidth={2}
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </ChartContainer>
       </CardContent>
     </Card>
-  );
+  )
 }

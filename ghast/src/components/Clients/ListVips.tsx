@@ -40,7 +40,7 @@ const customers = [
 
 export default function ListVips() {
   return (
-    <Card className="flex-1 flex flex-col">
+    <Card className="flex-1 flex flex-col overflow-hidden dark:bg-dark-secondary border-none">
       <CardHeader className="flex-none">
         <div className="flex items-center justify-center">
           <CardTitle className="text-lg sm:text-xl text-gray-800 dark:text-gray-300">

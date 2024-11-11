@@ -6,7 +6,7 @@ import HistoryClients from "@/components/Clients/HistoryClients";
 
 export default function Dashboard() {
   return (
-    <main className="min-h-screen bg-gray-100 dark:bg-zinc-950 w-full p-4 sm:p-6">
+    <main className="min-h-screen bg-gray-100 dark:bg-dark-main w-full p-4 sm:p-6">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
         {/* Left Column */}
         <div className="space-y-6">
