@@ -1,13 +1,49 @@
+"use client"
+
 import Image from "next/image";
 import { SocialLoginButtonProps, InputFieldProps } from "@/lib/props";
+import { useState } from 'react'
+import { signIn } from 'next-auth/react'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function LoginPage() {
+
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(searchParams.get('error') || '')
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setIsLoading(true)
+    setError('')
+
+    const formData = new FormData(e.currentTarget)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+
+    try {
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        setError('Invalid email or password')
+      } else {
+        router.push('/dashboard')
+      }
+    } catch (error) {
+      setError('An error occurred. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
-    // Container principal
     <div className="flex flex-col items-center justify-center min-h-screen p-6 lg:p-10 bg-[url('/assets/BgBrancoMassa.svg')] dark:bg-[url('/assets/BgRoxo.svg')] bg-cover bg-center">
-      {/* Conteúdo principal */}
       <div className="flex flex-col lg:flex-row items-center bg-white rounded-xl shadow-lg max-w-screen-lg w-full">
-        {/* Gengar para telas maiores */}
         <div className="hidden lg:flex rounded-tl-xl rounded-bl-xl overflow-hidden">
           <Image
             src="/assets/gengarNormal.svg"
@@ -17,7 +53,6 @@ export default function LoginPage() {
           />
         </div>
 
-        {/* Lado direito */}
         <div className="flex flex-col items-center justify-center p-8 lg:px-12 rounded-xl w-full lg:w-[50%] space-y-6">
           <div className="flex flex-col items-center gap-4 select-none pointer-events-none">
             <Image
@@ -27,7 +62,6 @@ export default function LoginPage() {
               height={150}
             />
 
-            {/* Gengar para dispositivos móveis */}
             <div className="flex mt-4 mb-8 lg:hidden">
               <Image
                 src="/assets/gengarMobile.svg"
@@ -38,10 +72,8 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Linha reta entre imagem e seja bem vindo */}
           <div className="border w-full h-[2px] border-black"></div>
 
-          {/* Mensagem de boas-vindas */}
           <div className="text-center">
             <h1 className="text-2xl lg:text-3xl font-bold text-black">
               Bem-vindo de volta!
@@ -51,12 +83,11 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* Formulário */}
-          <form className="w-full space-y-4">
+          <form className="w-full space-y-4" onSubmit={handleSubmit}>
             <InputField
-              id="usuario"
-              label="Usuário"
-              placeholder="Digite seu nome de usuário"
+              id="email"
+              label="Email"
+              placeholder="Digite seu email"
             />
             <InputField
               id="password"
@@ -68,9 +99,10 @@ export default function LoginPage() {
             <br />
             <button
               type="submit"
-              className="w-full py-3 bg-primary text-white rounded-lg hover:bg-slate-800 transition duration-300"
+              disabled={isLoading}
+              className="w-full py-3 bg-dark-secondary text-white rounded-lg hover:bg-slate-800 transition duration-300"
             >
-              Entrar
+              {isLoading ? 'Logging in...' : 'Login'}
             </button>
           </form>
         </div>
@@ -94,9 +126,10 @@ function InputField({
       <input
         type={type}
         id={id}
+        name={id}  // Adiciona o atributo name
         placeholder={placeholder}
         required
-        className="p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary w-full bg-white"
+        className="p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary w-full bg-white text-black"
       />
     </div>
   );

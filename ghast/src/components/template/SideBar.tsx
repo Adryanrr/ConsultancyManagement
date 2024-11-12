@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 
 import ItemSideBar from "./ItemSideBar";
+import { signOut } from "next-auth/react";
 export default function SideBar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const pathname = usePathname();
@@ -59,10 +60,10 @@ export default function SideBar() {
         <ItemSideBar href="" icone={FaUsers} texto="Clientes" />
       </nav>
       <Link href={""}>
-        <div className="bg-gradient-to-t rounded-sm from-[#CB3CFF] to-[#7F25FB] items-center flex h-[43px] w-[253px] gap-4 p-4">
+        <button className="bg-gradient-to-t rounded-sm from-[#CB3CFF] to-[#7F25FB] items-center flex h-[43px] w-[253px] gap-4 p-4" onClick={() => signOut()}>
           <FaSignOutAlt size={24} />
           <p>Logout</p>
-        </div>
+        </button>
       </Link>
     </aside>
   );
