@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Moon, MessageCircle, Menu, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import Image from "next/image";
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
@@ -24,24 +25,22 @@ export default function Header() {
     setTheme(theme === "dark" ? "light" : "dark");
   }
 
-
   return (
-    <header className="w-full  bg-white dark:bg-dark-main px-4 py-3">
+    <header className="w-full bg-white dark:bg-dark-main px-4 py-3">
       <div className="flex flex-1 mx-4 items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div></div>
+        <div className="justify-center items-center hidden sm:block">
+          <div className="flex-row flex gap-2">
+            <Image src="/assets/Logo.svg" width={24} height={24} alt="logo" />
 
+            <span className="text-xl font-bold text-black dark:text-white">
+              GHAST CONSULTORIA
+            </span>
+          </div>
         </div>
 
-        <div className="absolute left-1/2 -translate-x-1/2 hidden sm:block">
-          <span className="text-xl font-bold text-black dark:text-white">
-            GHAST CONSULTORIA
-          </span>
-        </div>
-
         <div className="flex items-center gap-2">
-          <button
-            className="text-slate-300"
-          >
+          <button className="text-slate-300">
             <MessageCircle className="h-5 w-5 text-violet-500" />
           </button>
           <button
@@ -57,7 +56,6 @@ export default function Header() {
               <Moon className="h-5 w-5 text-violet-500" />
             )}
           </button>
-          
         </div>
       </div>
     </header>
