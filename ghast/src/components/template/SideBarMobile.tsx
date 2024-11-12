@@ -30,9 +30,9 @@ export default function SideBarMobile() {
         <CiMenuFries className="text-[32px] text-violet-500 rotate-180" />
       </button>
       {isOpen && (
-        <div className="fixed left-0 top-0 flex flex-col w-2/3 h-full overflow-y-auto z-50 bg-black/80 dark:bg-dark-main ">
+        <div className="fixed left-0 top-0 flex flex-col w-2/3 h-full overflow-y-auto z-50 bg-white/95 dark:bg-dark-main ">
           <button onClick={toggleMenu} className="fixed top-4 left-4">
-            <IoMdClose className="text-[32px] text-violet-500" />
+            <IoMdClose className="text-[32px] text-white" />
           </button>
 
           <nav className="flex flex-col justify-center items-center text-left gap-5 h-full">

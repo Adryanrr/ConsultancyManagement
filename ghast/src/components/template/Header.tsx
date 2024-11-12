@@ -31,9 +31,9 @@ export default function Header() {
         <div></div>
         <div className="justify-center items-center hidden sm:block">
           <div className="flex-row flex gap-2">
-            <Image src="/assets/Logo.svg" width={24} height={24} alt="logo" />
+            <Image src="/assets/Logo.svg" width={35} height={35} alt="logo" />
 
-            <span className="text-xl font-bold text-black dark:text-white">
+            <span className="text-3xl font-bold text-black dark:text-white font-audiowide">
               GHAST CONSULTORIA
             </span>
           </div>

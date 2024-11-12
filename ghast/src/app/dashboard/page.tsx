@@ -6,7 +6,7 @@ import ListClients from "@/components/Clients/ListClients";
 import HistoryClients from "@/components/Clients/HistoryClients";
 
 import { redirect } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();

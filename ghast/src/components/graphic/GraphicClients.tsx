@@ -1,6 +1,6 @@
 "use client"
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card"
 import { ChartContainer } from "@/components/ui/chart"
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts"
 import { ArrowUp } from "lucide-react"
@@ -29,23 +29,26 @@ export default function Chart() {
   const growthPercentage = 16.85
 
   return (
-    <Card className="flex flex-1 flex-col bg-[#0A0A29] border-slate-800">
+    <Card className="flex flex-1 flex-col bg-white dark:bg-dark-secondary border-none">
       <CardHeader className="space-y-1 px-6 py-4">
-        <h2 className="text-xl font-semibold text-slate-200">Gráfico</h2>
-        <div className="flex items-center gap-2 text-sm text-slate-400">
-          Completed tasks over time
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-3xl font-bold text-slate-200">{totalContracts}</span>
-          <span className="flex items-center text-sm font-medium text-emerald-500">
+        <h2 className="text-xl font-semibold text-black dark:text-white flex gap-2">Gráfico
+        <span className="flex items-center text-sm font-medium text-emerald-500">
             <ArrowUp className="h-4 w-4" />
             {growthPercentage}%
           </span>
+        </h2>
+        <CardDescription>
+      <div className="flex items-center gap-2 text-sm text-slate-400">
+          Número de contratos realizados durante o ano: 
+          <span className="font-bold text-black dark:text-white">
+            {totalContracts}
+            </span> 
         </div>
+        </CardDescription>
       </CardHeader>
 
       <CardContent className="pl-2">
-        <ChartContainer config={chartConfig} className="h-[300px]">
+        <ChartContainer config={chartConfig} className="h-auto">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
               <CartesianGrid 

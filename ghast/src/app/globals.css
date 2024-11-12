@@ -3,18 +3,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Importação das fontes Roboto e Audiowide */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+
+:root {
+  --font-audiowide-sans: 'Audiowide', sans-serif;
+}
+
+.font-audiowide {
+  font-family: var(--font-audiowide-sans);
+}
 
 /* Configuração global para rolagem suave */
 html {
   scroll-behavior: smooth;
-}
-
-/* Definindo a fonte padrão como Roboto */
-body {
-  font-family: 'Roboto', sans-serif;
 }
 
 /* Utilitário para ajuste de quebra de linha em texto */
@@ -109,11 +110,6 @@ body::-webkit-scrollbar-thumb {
   /* Estilos para título principal */
   h1 {
     @apply text-3xl font-bold;
-  }
-
-  /* Aplicação da fonte Audiowide */
-  .font-audiowide {
-    font-family: 'Audiowide', sans-serif;
   }
 
   /* Cor principal de fundo */
