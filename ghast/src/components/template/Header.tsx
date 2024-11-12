@@ -33,7 +33,7 @@ export default function Header() {
           <div className="flex-row flex gap-2">
             <Image src="/assets/Logo.svg" width={35} height={35} alt="logo" className="hidden sm:flex" />
 
-            <span className="sm:text-3xl text-xl font-bold text-black dark:text-white font-audiowide">
+            <span className="sm:text-3xl text-base font-bold text-black dark:text-white font-audiowide">
               GHAST CONSULTORIA
             </span>
           </div>

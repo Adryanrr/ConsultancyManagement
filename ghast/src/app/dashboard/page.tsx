@@ -18,18 +18,21 @@ export default function Dashboard() {
   if (!session) {
     redirect("/login");
   }
-
   return (
-    <main className="min-h-screen bg-gray-100 dark:bg-dark-main w-full p-4 sm:p-6">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <main className="min-h-screen bg-gray-100 dark:bg-dark-main w-full p-4 sm:p-6 ">
+      <div className="flex flex-col lg:flex-row flex-1 gap-6">
         {/* Left Column */}
-        <div className="lg:col-span-2 space-y-6">
-          <Chart />
-          <ListClients />
+        <div className=" flex flex-col flex-[2] space-y-6">
+          <div className="space-y-6">
+            <Chart />
+          </div>
+          <div className="space-y-6">
+            <ListClients />
+          </div>
         </div>
 
         {/* Right Column */}
-        <div className="space-y-6 flex flex-col">
+        <div className=" flex flex-row gap-6 justify-between items-center lg:justify-evenly lg:items-stretch flex-wrap lg:flex-col flex-1 ">
           <HistoryClients />
           <ListVips />
         </div>
