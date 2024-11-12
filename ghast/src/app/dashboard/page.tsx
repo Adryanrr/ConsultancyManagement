@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import ListVips from "@/components/Clients/ListVips";
 import Chart from "@/components/graphic/GraphicClients";
@@ -19,19 +19,20 @@ export default function Dashboard() {
     redirect("/login");
   }
   return (
-    <main className="min-h-screen bg-gray-100 dark:bg-dark-main w-full p-4 sm:p-6">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
+    <main className="min-h-screen bg-gray-100 dark:bg-dark-main w-full p-4 sm:p-6 ">
+      <div className="flex flex-col sm:flex-row flex-1 gap-6">
         {/* Left Column */}
-        <div className="space-y-6">
-          <Chart />
-          {/* Caso queira colocar dois componentes nessa div: grid grid-cols-1 md:grid-cols-2 gap-6" */}
+        <div className=" flex flex-col flex-[2] space-y-6">
+          <div className="space-y-6">
+            <Chart />
+          </div>
           <div className="space-y-6">
             <ListClients />
           </div>
         </div>
 
         {/* Right Column */}
-        <div className="space-y-6">
+        <div className=" flex flex-col flex-1 space-y-6 max-w-[500px]">
           <HistoryClients />
           <ListVips />
         </div>
