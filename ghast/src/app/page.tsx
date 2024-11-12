@@ -1,9 +1,12 @@
-import Dashboard from "./dashboard/page";
+"use client"
+
+import LoginForm from "./login/page";
 
 export default function Home() {
+
   return (
     <>
-      <Dashboard />
+      <LoginForm/>
     </>
   );
 }

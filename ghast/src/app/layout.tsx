@@ -1,31 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import Header from "@/components/template/Header";
-import { Roboto, Audiowide } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-logo",
-});
-
-const audiowide = Audiowide({
-  weight: "400",
-  subsets: ["latin"],
-});
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { SessionProvider } from "next-auth/react"
 
 export const metadata: Metadata = {
   title: "Projeto Ghast",
@@ -40,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={""}
       >
         <ThemeProvider
           attribute="class"
@@ -48,7 +24,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SessionProvider>
           {children}
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>
