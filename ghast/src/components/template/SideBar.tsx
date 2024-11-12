@@ -21,7 +21,7 @@ export default function SideBar() {
   };
 
   return (
-    <aside className="w-[311px] bg-white dark:bg-dark-main min-h-screen justify-between flex-col flex p-4">
+    <aside className="hidden flex-col xl:flex w-[311px] bg-white dark:bg-dark-main min-h-screen justify-between p-4">
       <nav className="flex flex-col p-2 gap-1">
         <ItemSideBar href="/dashboard" icone={FaHome} texto="Dashboard" />
         <div onClick={toggleExpand} className="cursor-pointer">
@@ -58,12 +58,12 @@ export default function SideBar() {
         <ItemSideBar href="" icone={FaBriefcase} texto="Fidelidade" />
         <ItemSideBar href="" icone={FaUsers} texto="Clientes" />
       </nav>
-      <Link href={""}>
+      <button onClick={()=>("")}>
         <div className="bg-gradient-to-t rounded-sm from-[#CB3CFF] to-[#7F25FB] items-center flex h-[43px] w-[253px] gap-4 p-4">
           <FaSignOutAlt size={24} />
           <p>Logout</p>
         </div>
-      </Link>
+      </button>
     </aside>
   );
 }
