@@ -52,7 +52,7 @@ export default function ListClients() {
       </CardHeader>
 
       <CardContent className="flex-1 p-0">
-        <ScrollArea className="max-h-[400px] px-6">
+        <ScrollArea className="h-[400px] px-6">
           {customers.map((customer, index) => (
             <article
               key={index}
