@@ -17,10 +17,8 @@ export default function Pagina({
       <Header />
       <div className="flex-1 flex">
         <SideBar />
-        <div className="xl:hidden absolute left-3 top-3">
-          <SideBarMobile />
-        </div>
-        <main className="w-full flex relative">{children}</main>
+        <SideBarMobile />
+        <main className="w-full">{children}</main>
       </div>
     </>
   );

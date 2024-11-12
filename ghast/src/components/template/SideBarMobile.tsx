@@ -25,18 +25,18 @@ export default function SideBarMobile() {
   };
 
   return (
-    <div>
+    <div className="xl:hidden absolute left-3 top-3">
       <button onClick={toggleMenu}>
         <CiMenuFries className="text-[32px] text-violet-500 rotate-180" />
       </button>
       {isOpen && (
         <div className="fixed left-0 top-0 flex flex-col w-2/3 h-full overflow-y-auto z-50 bg-white/95 dark:bg-dark-main ">
           <button onClick={toggleMenu} className="fixed top-4 left-4">
-            <IoMdClose className="text-[32px] text-white" />
+            <IoMdClose className="text-[32px] text-violet-500 dark:text-white" />
           </button>
 
           <nav className="flex flex-col justify-center items-center text-left gap-5 h-full">
-            <Image src="/assets/logo.svg" width={52} height={54} alt="logo" />
+            <Image src="/assets/Logo.svg" width={52} height={54} alt="logo" />
             {links.map((link, index) => (
               <Link
                 href={link.path}
@@ -46,7 +46,7 @@ export default function SideBarMobile() {
                   link.path === pathname
                     ? "dark:text-violet-500 text-white border-b-2 dark:border-violet-500"
                     : ""
-                } text-xl capitalize dark:text-white text-violet-500 dark:hover:text-violet-500 hover:text-white transition-all`}
+                } text-xl capitalize dark:text-white text-violet-500 dark:hover:text-violet-500 hover:text-violet-900 transition-all`}
               >
                 {link.name}
               </Link>

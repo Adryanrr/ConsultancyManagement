@@ -29,11 +29,11 @@ export default function Header() {
     <header className="w-full bg-white dark:bg-dark-main px-4 py-3">
       <div className="flex flex-1 mx-4 items-center justify-between">
         <div></div>
-        <div className="justify-center items-center hidden sm:block">
+        <div className="justify-center items-center sm:block">
           <div className="flex-row flex gap-2">
-            <Image src="/assets/Logo.svg" width={35} height={35} alt="logo" />
+            <Image src="/assets/Logo.svg" width={35} height={35} alt="logo" className="hidden sm:flex" />
 
-            <span className="text-3xl font-bold text-black dark:text-white font-audiowide">
+            <span className="sm:text-3xl text-xl font-bold text-black dark:text-white font-audiowide">
               GHAST CONSULTORIA
             </span>
           </div>
