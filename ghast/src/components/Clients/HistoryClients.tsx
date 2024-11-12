@@ -40,7 +40,7 @@ const customers = [
 
 export default function HistoryClients() {
   return (
-    <Card className="flex-1 flex flex-col overflow-hidden dark:bg-dark-secondary border-none">
+    <Card className="flex-1 flex flex-col overflow-hidden dark:bg-dark-secondary border-none max-h-[490px]">
       <CardHeader className="flex-none">
         <div className="flex items-center justify-center">
           <CardTitle className="text-lg sm:text-xl text-gray-800 dark:text-gray-300">
@@ -52,7 +52,7 @@ export default function HistoryClients() {
       </CardHeader>
 
       <CardContent className="flex-1 p-0">
-        <ScrollArea className="h-[300px] px-6">
+        <ScrollArea className="max-h-[390px] px-6">
           {customers.map((customer, index) => (
             <article
               key={index}
