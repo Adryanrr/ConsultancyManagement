@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Moon, MessageCircle, Menu, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import LogoGhast from "../ui/Logo";
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
@@ -30,9 +31,8 @@ export default function Header() {
       <div className="flex flex-1 mx-4 items-center justify-between">
         <div></div>
         <div className="justify-center items-center sm:block">
-          <div className="flex-row flex gap-2">
-            <Image src="/assets/Logo.svg" width={35} height={35} alt="logo" className="hidden sm:flex" />
-
+          <div className="flex-row flex gap-1">
+              <LogoGhast className=":w-6 h-6 sm:w-[35px] sm:h-[35px] dark:fill-none"/>
             <span className="sm:text-3xl text-base font-bold text-black dark:text-white font-audiowide">
               GHAST CONSULTORIA
             </span>
