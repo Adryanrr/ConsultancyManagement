@@ -53,8 +53,8 @@ export function DataInfoStep({ onNext, onBack, isLastStep, currentStep, formData
     <FormStep onNext={onNext} onBack={onBack} isLastStep={isLastStep} currentStep={currentStep}>
       <main className="flex flex-col md:flex-row justify-center gap-10">
         {/* lado esquerdo */}
-        <div className="space-y-6 flex-1">
-          <div className="space-y-2">
+        <div className="space-y-10 flex-1">
+          <div className="space-y-4">
             <Label htmlFor="representativeName">Representante</Label>
             <Input
               id="representativeName"
@@ -65,7 +65,7 @@ export function DataInfoStep({ onNext, onBack, isLastStep, currentStep, formData
             />
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="companyName">Empresa</Label>
             <Input
               id="companyName"
@@ -76,7 +76,7 @@ export function DataInfoStep({ onNext, onBack, isLastStep, currentStep, formData
             />
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="companyType">Tipo da Empresa</Label>
             <Select
               value={formData.companyType}
@@ -92,7 +92,7 @@ export function DataInfoStep({ onNext, onBack, isLastStep, currentStep, formData
             </Select>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="consultationType">Tipo de Consultoria</Label>
             <Select
               value={formData.consultationType}
@@ -112,12 +112,12 @@ export function DataInfoStep({ onNext, onBack, isLastStep, currentStep, formData
 
         {/* barra central */}
         <div className="hidden md:block">
-          <div className="border-l border-gray-300 h-full"></div>
+          <div className="border-l border-gray-300 h-[620px]"></div>
         </div>
 
         {/* lado direito */}
-        <div className="space-y-6 flex-1">
-          <div className="space-y-2">
+        <div className="space-y-10 flex-1">
+          <div className="space-y-4">
             <Label htmlFor="consultant">Consultor</Label>
             <Select
               value={formData.consultant}
@@ -136,7 +136,7 @@ export function DataInfoStep({ onNext, onBack, isLastStep, currentStep, formData
               </SelectContent>
             </Select>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="startDate">Início do Contrato</Label>
             <Input
               type="date"
@@ -146,7 +146,7 @@ export function DataInfoStep({ onNext, onBack, isLastStep, currentStep, formData
               required
             />
           </div>
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="endDate">Término do Contrato</Label>
             <Input
               type="date"
@@ -156,7 +156,7 @@ export function DataInfoStep({ onNext, onBack, isLastStep, currentStep, formData
               required
             />
           </div>
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="isVip">Tipo de Cliente</Label>
             <Select
               value={formData.isVip}
