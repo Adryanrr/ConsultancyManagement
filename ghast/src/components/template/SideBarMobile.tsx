@@ -13,7 +13,7 @@ const links = [
   { name: "Consultor", path: "/dashboard/cadastrar/consultor" },
   { name: "Histórico", path: "" },
   { name: "Fidelidade", path: "" },
-  { name: "Clientes", path: "" },
+  { name: "Clientes", path: "/dashboard/clientes" },
 ];
 
 export default function SideBarMobile() {

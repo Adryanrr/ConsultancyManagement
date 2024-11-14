@@ -57,7 +57,7 @@ export default function SideBar() {
         )}
         <ItemSideBar href="" icone={FaHistory} texto="Histórico" />
         <ItemSideBar href="" icone={FaBriefcase} texto="Fidelidade" />
-        <ItemSideBar href="" icone={FaUsers} texto="Clientes" />
+        <ItemSideBar href="/dashboard/clientes" icone={FaUsers} texto="Clientes" />
       </nav>
         <button
           className="bg-gradient-to-t rounded-sm from-[#CB3CFF] to-[#7F25FB] items-center flex h-[43px] w-[253px] gap-4 p-4"
