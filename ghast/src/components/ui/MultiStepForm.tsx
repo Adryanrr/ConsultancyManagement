@@ -50,7 +50,7 @@ export function MultiStepForm({ steps, onComplete, className }: MultiStepFormPro
   return (
     <div className="flex items-start justify-center w-full p-6">
       <Card className={cn(
-        "w-full bg-white dark:bg-darkSecond min-h-[calc(100vh-8rem)]",
+        "w-full bg-white dark:bg-darkSecond min-h-[calc(100vh-8rem)] ",
         "shadow-lg border-none max-w-full mx-auto",
         className
       )}>
@@ -93,7 +93,7 @@ export function MultiStepForm({ steps, onComplete, className }: MultiStepFormPro
             </div>
           </div>
         </CardHeader>
-        <CardContent className="p-6 h-full">
+        <CardContent className="p-6">
           <CurrentStepComponent
             // Renderiza o componente da etapa atual com as props onNext, onBack, isLastStep e currentStep.
             onNext={handleNext}
@@ -128,7 +128,7 @@ export function FormStep({
       {/* Renderiza o conteúdo dos filhos diretamente, permitindo alta customização */}
       {children}
 
-      <CardFooter className={`flex justify-between px-0 pb-0 pt-6 ${footerClassName}`}>
+      <CardFooter className={`flex justify-between px-0 pb-0 pt-0 ${footerClassName}`}>
         <Button
           variant="outline"
           onClick={onBack}
