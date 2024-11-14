@@ -1,44 +1,50 @@
-"use client"
+"use client" // Indica que este componente é um cliente React no Next.js, executado no lado do cliente.
 
 import * as React from "react"
-import { Check, ChevronRight } from 'lucide-react'
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
+import { Check, ChevronRight } from 'lucide-react' // Importa ícones do pacote 'lucide-react'.
+import { cn } from "@/lib/utils" // Função auxiliar para combinar classes CSS.
+import { Button } from "@/components/ui/button" // Importa o componente Button.
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card" // Importa componentes de Card.
 
 interface Step {
-  title: string
-  component: React.ComponentType<{
-    onNext: () => void
-    onBack: () => void
-    isLastStep: boolean
-    currentStep: number
+  // Define o tipo Step, representando cada etapa do formulário multi-etapas.
+  title: string // Título da etapa.
+  component: React.ComponentType<{ // Componente que será renderizado para esta etapa.
+    onNext: () => void // Função para ir para a próxima etapa.
+    onBack: () => void // Função para voltar para a etapa anterior.
+    isLastStep: boolean // Indica se é a última etapa.
+    currentStep: number // Número da etapa atual.
   }>
 }
 
 interface MultiStepFormProps {
-  steps: Step[]
-  onComplete: (data: any) => void
-  className?: string
+  // Define as propriedades do formulário multi-etapas.
+  steps: Step[] // Array das etapas do formulário.
+  onComplete: (data: any) => void // Função chamada ao finalizar o formulário.
+  className?: string // Classe CSS opcional para estilizar o formulário.
 }
 
 export function MultiStepForm({ steps, onComplete, className }: MultiStepFormProps) {
-  const [currentStep, setCurrentStep] = React.useState(0)
-  const [formData, setFormData] = React.useState({})
+  // Componente principal do formulário multi-etapas.
+  
+  const [currentStep, setCurrentStep] = React.useState(0) // Estado para armazenar o índice da etapa atual.
+  const [formData, setFormData] = React.useState({}) // Estado para armazenar os dados do formulário.
 
-  const CurrentStepComponent = steps[currentStep].component
-  const isLastStep = currentStep === steps.length - 1
+  const CurrentStepComponent = steps[currentStep].component // Componente da etapa atual.
+  const isLastStep = currentStep === steps.length - 1 // Checa se a etapa atual é a última.
 
   const handleNext = () => {
+    // Função para avançar para a próxima etapa.
     if (isLastStep) {
-      onComplete(formData)
+      onComplete(formData) // Chama onComplete com os dados do formulário se for a última etapa.
     } else {
-      setCurrentStep((prev) => prev + 1)
+      setCurrentStep((prev) => prev + 1) // Incrementa para a próxima etapa.
     }
   }
 
   const handleBack = () => {
-    setCurrentStep((prev) => Math.max(0, prev - 1))
+    // Função para voltar para a etapa anterior.
+    setCurrentStep((prev) => Math.max(0, prev - 1)) // Decrementa a etapa atual, mas não permite valores negativos.
   }
 
   return (
@@ -57,16 +63,16 @@ export function MultiStepForm({ steps, onComplete, className }: MultiStepFormPro
                     className={cn(
                       "flex items-center justify-center w-8 h-8 rounded-full border-2 transition-colors",
                       index === currentStep
-                        ? "border-purple-600 bg-purple-600 text-white"
+                        ? "border-purple-600 bg-purple-600 text-white" // Etapa atual estilizada em roxo.
                         : index < currentStep
-                          ? "border-purple-600 bg-purple-600 text-white"
-                          : "border-gray-300 dark:border-gray-600 text-gray-300 dark:text-gray-600"
+                          ? "border-purple-600 bg-purple-600 text-white" // Etapas concluídas em roxo.
+                          : "border-gray-300 dark:border-gray-600 text-gray-300 dark:text-gray-600" // Etapas futuras em cinza.
                     )}
                   >
                     {index < currentStep ? (
-                      <Check className="w-4 h-4" />
+                      <Check className="w-4 h-4" /> // Ícone de verificação para etapas concluídas.
                     ) : (
-                      <span>{index + 1}</span>
+                      <span>{index + 1}</span> // Número da etapa para etapas não concluídas.
                     )}
                   </div>
                   {index < steps.length - 1 && (
@@ -83,12 +89,13 @@ export function MultiStepForm({ steps, onComplete, className }: MultiStepFormPro
               ))}
             </div>
             <div className="text-sm text-gray-500 dark:text-gray-400">
-              Passo {currentStep + 1} de {steps.length}
+               Passo {currentStep + 1} de {steps.length} {/*// Exibe o passo atual e o total. */}
             </div>
           </div>
         </CardHeader>
-        <CardContent className="p-6">
+        <CardContent className="p-6 h-full">
           <CurrentStepComponent
+            // Renderiza o componente da etapa atual com as props onNext, onBack, isLastStep e currentStep.
             onNext={handleNext}
             onBack={handleBack}
             isLastStep={isLastStep}
@@ -99,44 +106,29 @@ export function MultiStepForm({ steps, onComplete, className }: MultiStepFormPro
     </div>
   )
 }
-
 export function FormStep({
   children,
   onNext,
   onBack,
   isLastStep,
   currentStep,
+  className = "", // Classe opcional para customização adicional
+  footerClassName = "", // Classe opcional para customizar o rodapé
 }: {
   children: React.ReactNode
   onNext: () => void
   onBack: () => void
   isLastStep: boolean
   currentStep: number
+  className?: string // Prop opcional para personalização de estilos
+  footerClassName?: string // Prop opcional para personalização do rodapé
 }) {
-  const childrenArray = React.Children.toArray(children)
-
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row flex-wrap gap-6 relative">
-        <div className="flex flex-col space-y-4 flex-1">
-          {React.Children.map(childrenArray[0], (child) => (
-            <div className="flex-1 flex flex-col justify-end">
-              {child}
-            </div>
-          ))}
-        </div>
-        <div className="flex flex-col space-y-4 md:pt-0 pt-4 border-t md:border-t-0 dark:border-gray-800 flex-1">
-          {React.Children.map(childrenArray[1], (child) => (
-            <div className="flex-1 flex flex-col justify-end">
-              {child}
-            </div>
-          ))}
-        </div>
-        <div className="absolute top-0 bottom-0 left-1/2 -ml-px hidden md:block">
-          <div className="border-l border-gray-200 dark:border-gray-800 h-full"></div>
-        </div>
-      </div>
-      <CardFooter className="flex justify-between px-0 pb-0 pt-6">
+    <div className={`space-y-6 justify-between flex flex-col ${className}`}>
+      {/* Renderiza o conteúdo dos filhos diretamente, permitindo alta customização */}
+      {children}
+
+      <CardFooter className={`flex justify-between px-0 pb-0 pt-6 ${footerClassName}`}>
         <Button
           variant="outline"
           onClick={onBack}
@@ -155,6 +147,6 @@ export function FormStep({
           {isLastStep ? "Finalizar" : "Continuar"}
         </Button>
       </CardFooter>
-    </div>
-  )
+    </div>
+  );
 }

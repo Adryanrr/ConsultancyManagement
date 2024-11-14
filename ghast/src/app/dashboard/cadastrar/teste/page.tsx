@@ -1,10 +1,8 @@
 "use client";
-import Image from "next/image";
-import { use, useState } from "react";
+
+import { useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -12,6 +10,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -19,25 +19,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-
-// integração com o back
-import { Clientes } from "@/lib/clientsProps";
+import Pagina from "@/components/template/Pagina";
+import Image from "next/image";
 
 export default function CadastrarCliente() {
-
-  const [clientes, setClientes] = useState<Clientes[]>([])
-  const [newCliente, setNewCliente] = useState({nome: '', cpf: '',telefone:'',email:''})
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null >(null)
-
-  //definindo endpoints
-  const API_BASE_URL = 'https://d984-2804-29b8-51af-1a4e-5c30-f695-2eff-47e7.ngrok-free.app/clientes'
-
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     companyName: "",
-    cnpj: "", 
+    cnpj: "",
     corporateEmail: "",
     sector: "",
     representativeName: "",
@@ -81,16 +70,15 @@ export default function CadastrarCliente() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isStepOneComplete()) {
-      // console.log("Form submitted:", formData);
+      console.log("Form submitted:", formData);
       // Here you would typically send the data to your backend
     }
   };
 
   if (step === 2) {
     return (
-      <div className="flex items-start justify-center w-full p-6 bg-darkMain">
-      <Card className="w-full bg-white dark:bg-darkSecond min-h-[calc(100vh-8rem)]
-        shadow-lg border-none max-w-full mx-auto">
+      <div className="flex flex-1 items-center justify-center">
+        <Card className="w-full max-w-4xl mx-10 border-blue-500 border-2">
           <CardHeader className="border-b">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
@@ -172,9 +160,8 @@ export default function CadastrarCliente() {
   }
 
   return (
-    <div className="flex items-start justify-center w-full p-6 bg-darkMain">
-      <Card className="w-full bg-white dark:bg-darkSecond min-h-[calc(100vh-8rem)]
-        shadow-lg border-none max-w-full mx-auto">
+    <div className="flex items-center justify-center flex-1">
+      <Card className="w-full max-w-4xl mx-5 border-blue-500 border-2 min-h-100%">
         <CardHeader className="border-b flex">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Consultores } from "@/lib/consultantsProps";
 
 // Sample data - in a real app this would likely come from props or an API
 const customers = [
@@ -38,7 +39,7 @@ const customers = [
   })),
 ];
 
-export default function HistoryClients() {
+export default function ListConsultants() {
   return (
     <Card className="flex-1 flex flex-col overflow-hidden dark:bg-dark-secondary border-none min-w-[270px] sm:h-[490px]">
       <CardHeader className="flex-none">

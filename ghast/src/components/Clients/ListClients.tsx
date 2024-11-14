@@ -1,4 +1,5 @@
-import { Building2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Building2 } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -6,39 +7,91 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
-// Sample data - in a real app this would likely come from props or an API
-const customers = [
-  {
-    name: "Adryan Ryan",
-    email: "adryanryan.s.g@icloud.com",
-    avatar: "http://github.com/adryanrr.png",
-    initials: "AR",
-  },
-  {
-    name: "Felipe Duan",
-    email: "felipe.duan@example.com",
-    avatar: "http://github.com/FelipeDuan.png",
-    initials: "FD",
-  },
-  {
-    name: "Matheus JuK",
-    email: "matheus.juk@example.com",
-    avatar: "http://github.com/MatheusJuK.png",
-    initials: "MJK",
-  },
-  // Added more customers to demonstrate scroll
-  ...Array.from({ length: 5 }, (_, i) => ({
-    name: `Customer ${i + 4}`,
-    email: `customer${i + 4}@example.com`,
-    avatar: "",
-    initials: `C${i + 4}`,
-  })),
-];
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Clientes } from "@/lib/clientsProps";
 
 export default function ListClients() {
+  const [clientes, setClientes] = useState<Clientes[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const customers = [
+    {
+      id: 1,
+      nome: "Adryan Ryan",
+      email: "adryanryan.s.g@icloud.com",
+      avatar: "http://github.com/adryanrr.png",
+      cpf: "123.456.789-00",
+      telefone: "(12) 3456-7890",  // Alterado para 'telefone'
+    },
+    {
+      id: 2,
+      nome: "Felipe Duan",
+      email: "felipe.duan@example.com",
+      avatar: "http://github.com/FelipeDuan.png",
+      cpf: "234.567.890-01",
+      telefone: "(11) 2345-6789",  // Alterado para 'telefone'
+    },
+    {
+      id: 3,
+      nome: "Matheus JuK",
+      email: "matheus.juk@example.com",
+      avatar: "http://github.com/MatheusJuK.png",
+      cpf: "345.678.901-02",
+      telefone: "(21) 3456-7890",  // Alterado para 'telefone'
+    },
+    ...Array.from({ length: 5 }, (_, i) => ({
+      id: i + 4,
+      nome: `Customer ${i + 4}`,
+      email: `customer${i + 4}@example.com`,
+      avatar: "",
+      cpf: `456.789.012-${i + 3}`,
+      telefone: `(31) 4567-890${i + 3}`,  // Alterado para 'telefone'
+    })),
+  ];
+  useEffect(() => {
+    const fetchCustomers = async () => {
+      setLoading(true);
+      setError(null);
+
+      const API_BASE_URL = "http://localhost:8080/clientes";
+
+      try {
+        const response = await fetch(API_BASE_URL);
+        const responseText = await response.text();
+        console.log("Resposta do servidor:", responseText);
+
+        const contentType = response.headers.get("Content-Type");
+        if (contentType && contentType.includes("application/json")) {
+          const data = JSON.parse(responseText);
+          setClientes(data);
+        } else {
+          console.error("A resposta não é JSON:", responseText);
+          throw new Error("A resposta não é um JSON válido.");
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Erro desconhecido");
+        setClientes(customers); // Define a lista de clientes pré-definidos em caso de erro
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCustomers();
+  }, []);
+
+  const getInitials = (name: string) => {
+    const words = name.split(' ');
+    if (words.length >= 2) {
+      return (words[0][0] + words[1][0]).toUpperCase();
+    } else if (words.length === 1 && words[0].length >= 2) {
+      return words[0].substring(0, 2).toUpperCase();
+    } else {
+      return name.substring(0, 2).toUpperCase();
+    }
+  };
+
   return (
     <Card className="flex flex-col flex-1 overflow-hidden dark:bg-dark-secondary border-none sm:h-[490px]">
       <CardHeader className="flex-none">
@@ -52,27 +105,34 @@ export default function ListClients() {
       </CardHeader>
 
       <CardContent className="flex-1 p-0">
-        <ScrollArea className="h-[390px] px-6">
-          {customers.map((customer, index) => (
-            <article
-              key={index}
-              className="flex items-center gap-2 border-b py-2 last:border-b-0"
-            >
-              <Avatar className="w-8 h-8">
-                <AvatarImage src={customer.avatar} />
-                <AvatarFallback>{customer.initials}</AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="text-sm sm:text-base font-semibold">
-                  {customer.name}
-                </p>
-                <span className="text-[12px] sm:text-sm text-gray-400">
-                  {customer.email}
-                </span>
-              </div>
-            </article>
-          ))}
-        </ScrollArea>
+        {loading ? (
+          <p className="text-center py-4">Carregando...</p>
+        ) : error ? (
+          <p className="text-red-500 text-center py-4">{error}</p>
+        ) : clientes.length > 0 ? (
+          <ScrollArea className="h-[390px] px-6">
+            {clientes.map((cliente) => (
+              <article
+                key={cliente.id}
+                className="flex items-center gap-3 border-b py-2 last:border-b-0"
+              >
+                <Avatar className="h-10 w-10 bg-black dark:text-white">
+                  <AvatarFallback>{getInitials(cliente.nome)}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="text-sm sm:text-base font-semibold">
+                    {cliente.nome}
+                  </p>
+                  <span className="text-[12px] sm:text-sm text-gray-400">
+                    {cliente.email}
+                  </span>
+                </div>
+              </article>
+            ))}
+          </ScrollArea>
+        ) : (
+          <p className="text-gray-500 text-center py-4">Nenhum cliente encontrado.</p>
+        )}
       </CardContent>
     </Card>
   );
