@@ -50,7 +50,7 @@ export function MultiStepForm({ steps, onComplete, className }: MultiStepFormPro
   return (
     <div className="flex items-start justify-center w-full p-6">
       <Card className={cn(
-        "w-full bg-white dark:bg-darkSecond max-h-[calc(100vh-8rem)] ",
+        "w-full bg-white dark:bg-darkSecond",
         "shadow-lg max-w-full mx-auto border-2 border-[#7C3AED]",
         className
       )}>
