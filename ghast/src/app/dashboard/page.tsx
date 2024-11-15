@@ -3,7 +3,7 @@
 import ListVips from "@/components/Clients/ListVips";
 import Chart from "@/components/graphic/GraphicClients";
 import ListClients from "@/components/Clients/ListClients";
-import HistoryClients from "@/components/Clients/HistoryClients";
+import ListConsultants from "@/components/Clients/ListConsultants";
 
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -33,7 +33,7 @@ export default function Dashboard() {
 
         {/* Right Column */}
         <div className=" flex flex-row gap-6 justify-between items-center lg:justify-evenly lg:items-stretch flex-wrap lg:flex-col flex-1 ">
-          <HistoryClients />
+          <ListConsultants />
           <ListVips />
         </div>
       </div>

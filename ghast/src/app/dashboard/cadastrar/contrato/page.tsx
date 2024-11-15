@@ -9,11 +9,12 @@ import { PaymentStep } from "@/components/forms/contract/PaymentStep"
 export interface FormData {
   representativeName: string
   companyName: string
+  companyType: string
   consultationType: string
   consultant: string
   startDate: string
   endDate: string
-  isVip: boolean
+  isVip: string
   paymentMethod: string
   cardNumber?: string
   cardHolder?: string
@@ -25,11 +26,12 @@ export default function CompanyRegistrationForm() {
   const [formData, setFormData] = useState<FormData>({
     representativeName: '',
     companyName: '',
+    companyType: '',
     consultationType: '',
     consultant: '',
     startDate: '',
     endDate: '',
-    isVip: false,
+    isVip: '',
     paymentMethod: '',
   })
 

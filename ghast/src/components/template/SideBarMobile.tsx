@@ -44,7 +44,7 @@ export default function SideBarMobile() {
                 onClick={toggleMenu}
                 className={`${
                   link.path === pathname
-                    ? "dark:text-violet-500 text-white border-b-2 dark:border-violet-500"
+                    ? "dark:text-violet-500 text-black border-b-2 dark:border-violet-500"
                     : ""
                 } text-xl capitalize dark:text-white text-violet-500 dark:hover:text-violet-500 hover:text-violet-900 transition-all`}
               >

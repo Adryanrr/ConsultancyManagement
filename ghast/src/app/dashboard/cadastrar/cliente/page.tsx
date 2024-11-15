@@ -1,29 +1,16 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { ChevronLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import Pagina from "@/components/template/Pagina";
-import Image from "next/image";
+import { useState } from "react"
+import { ChevronLeft } from 'lucide-react'
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export default function CadastrarCliente() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(1)
   const [formData, setFormData] = useState({
     companyName: "",
     cnpj: "",
@@ -33,76 +20,67 @@ export default function CadastrarCliente() {
     cpf: "",
     email: "",
     phone: "",
-  });
+  })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
-  };
+    const { id, value } = e.target
+    setFormData((prev) => ({ ...prev, [id]: value }))
+  }
 
   const handleSelectChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, sector: value }));
-  };
+    setFormData((prev) => ({ ...prev, sector: value }))
+  }
 
   const isStepOneComplete = () => {
-    return (
-      formData.companyName &&
-      formData.cnpj &&
-      formData.corporateEmail &&
-      formData.sector &&
-      formData.representativeName &&
-      formData.cpf &&
-      formData.email &&
-      formData.phone
-    );
-  };
+    return Object.values(formData).every((value) => value !== "")
+  }
 
   const handleNext = () => {
     if (isStepOneComplete()) {
-      setStep(2);
+      setStep(2)
     }
-  };
+  }
 
   const handleBack = () => {
-    setStep(1);
-  };
+    setStep(1)
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     if (isStepOneComplete()) {
-      console.log("Form submitted:", formData);
+      console.log("Form submitted:", formData)
       // Here you would typically send the data to your backend
     }
-  };
+  }
 
   if (step === 2) {
     return (
-      <div className="flex flex-1 items-center justify-center">
-        <Card className="w-full max-w-4xl mx-10 border-blue-500 border-2">
-          <CardHeader className="border-b">
-            <div className="flex justify-between items-center">
+      <div className="min-h-screen w-full p-4 flex items-center justify-center bg-gray-50 dark:bg-darkMain">
+        <Card className="w-full max-w-7xl bg-white dark:bg-darkSecond shadow-lg border-[#7C3AED] border-2">
+          <CardHeader className="space-y-1 p-6">
+            <div className="flex items-center justify-between mx-3">
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-full bg-purple-500 text-white flex items-center justify-center text-sm">
+                <div className="w-6 h-6 rounded-full bg-[#7C3AED] text-white flex items-center justify-center text-sm font-medium">
                   1
                 </div>
-                <CardTitle className="text-gray-600">Empresa</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">Empresa</CardTitle>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-full bg-purple-500 text-white flex items-center justify-center text-sm">
+                <div className="w-6 h-6 rounded-full bg-[#7C3AED] text-white flex items-center justify-center text-sm font-medium">
                   2
                 </div>
-                <span className="text-gray-600">Finalizar</span>
+                <span className="text-sm font-medium text-gray-600">Finalizar</span>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="p-6">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-              <div className="w-full md:w-1/2 space-y-6">
+          <CardContent className="p-10">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-12">
+              <div className="w-full md:w-1/2 space-y-8">
                 <div className="space-y-2">
                   <Label>Nome da Empresa</Label>
                   <Input
                     value={formData.companyName}
-                    className="border-gray-300 bg-gray-50"
+                    className="border-gray-200 bg-gray-50"
                     readOnly
                   />
                 </div>
@@ -110,7 +88,7 @@ export default function CadastrarCliente() {
                   <Label>CNPJ</Label>
                   <Input
                     value={formData.cnpj}
-                    className="border-gray-300 bg-gray-50"
+                    className="border-gray-200 bg-gray-50"
                     readOnly
                   />
                 </div>
@@ -118,7 +96,7 @@ export default function CadastrarCliente() {
                   <Label>Telefone</Label>
                   <Input
                     value={formData.phone}
-                    className="border-gray-300 bg-gray-50"
+                    className="border-gray-200 bg-gray-50"
                     readOnly
                   />
                 </div>
@@ -126,7 +104,7 @@ export default function CadastrarCliente() {
                   <Label>Setor de Atuação</Label>
                   <Input
                     value={formData.sector}
-                    className="border-gray-300 bg-gray-50"
+                    className="border-gray-200 bg-gray-50"
                     readOnly
                   />
                 </div>
@@ -134,106 +112,84 @@ export default function CadastrarCliente() {
               <div className="w-full md:w-1/2 flex justify-center">
                 <Image
                   src="/assets/confirmacaoCadastro.svg"
-                  alt=""
+                  alt="Confirmação de Cadastro"
                   width={338}
                   height={338}
-                  className="hidden md:flex"
+                  className="hidden md:block"
                 />
               </div>
             </div>
           </CardContent>
-          <CardFooter className="flex justify-between">
-            <Button type="button" variant="outline" onClick={handleBack}>
+          <CardFooter className="flex justify-between p-10 pt-4">
+            <Button variant="outline" onClick={handleBack} className="text-[#7C3AED] border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white dark:bg-darkSecond">
               <ChevronLeft className="w-4 h-4 mr-2" />
               Voltar
             </Button>
-            <Button
-              onClick={handleSubmit}
-              className="bg-purple-500 hover:bg-purple-600"
-            >
+            <Button onClick={handleSubmit} className="bg-[#7C3AED] hover:bg-[#6D28D9] dark:text-white">
               Finalizar
             </Button>
           </CardFooter>
         </Card>
       </div>
-    );
+    )
   }
 
   return (
-    <div className="flex items-center justify-center flex-1">
-      <Card className="w-full max-w-4xl mx-5 border-blue-500 border-2 min-h-100%">
-        <CardHeader className="border-b flex">
-          <div className="flex justify-between items-center">
+    <div className="min-h-screen w-full p-4 flex items-center justify-center bg-gray-50 dark:bg-darkMain">
+      <Card className="w-full max-w-7xl bg-white dark:bg-darkSecond shadow-lg border-[#7C3AED] border-2">
+        <CardHeader className="space-y-1 p-6">
+          <div className="flex items-center justify-between mx-3">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-purple-500 text-white flex items-center justify-center text-sm">
+              <div className="w-6 h-6 rounded-full bg-[#7C3AED] text-white flex items-center justify-center text-sm font-medium">
                 1
               </div>
-              <CardTitle className="text-gray-600">Empresa</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-600">Empresa</CardTitle>
             </div>
-            <div className="flex items-center gap-2 text-gray-400">
-              <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-gray-200 text-gray-400 flex items-center justify-center text-sm">
                 2
               </div>
-              <span>Finalizar</span>
+              <span className="text-sm text-gray-400">Finalizar</span>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="p-2 md:p-6 h-full">
-          <form
-            className="flex flex-col md:flex-row justify-center gap-10"
-            onSubmit={handleSubmit}
-          >
-            {/* lado esquerdo */}
-            <div className="space-y-6 flex-1">
+        <CardContent className="p-10">
+          <form className="grid grid-cols-1 md:grid-cols-[1fr,1px,1fr] gap-12" onSubmit={(e) => e.preventDefault()}>
+            <div className="space-y-8">
               <div className="space-y-2">
-                <Label htmlFor="companyName" className="responsive-label">
-                  Nome da Empresa
-                </Label>
+                <Label htmlFor="companyName">Nome da Empresa</Label>
                 <Input
                   id="companyName"
                   placeholder="Nome completo da empresa"
-                  className="border-gray-300"
                   value={formData.companyName}
                   onChange={handleInputChange}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="cnpj" className="responsive-label">
-                  CNPJ
-                </Label>
+                <Label htmlFor="cnpj">CNPJ</Label>
                 <Input
                   id="cnpj"
                   placeholder="Digite o CNPJ"
-                  className="border-gray-300"
                   value={formData.cnpj}
                   onChange={handleInputChange}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="corporateEmail" className="responsive-label">
-                  E-mail Corporativo
-                </Label>
+                <Label htmlFor="corporateEmail">E-mail Corporativo</Label>
                 <Input
                   id="corporateEmail"
                   type="email"
                   placeholder="Digite o e-mail corporativo"
-                  className="border-gray-300"
                   value={formData.corporateEmail}
                   onChange={handleInputChange}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="sector" className="responsive-label">
-                  Setor de Atuação
-                </Label>
-                <Select
-                  value={formData.sector}
-                  onValueChange={handleSelectChange}
-                  required
-                >
+                <Label htmlFor="sector">Setor de Atuação</Label>
+                <Select value={formData.sector} onValueChange={handleSelectChange} required>
                   <SelectTrigger id="sector">
                     <SelectValue placeholder="Selecione o setor de atuação" />
                   </SelectTrigger>
@@ -248,65 +204,44 @@ export default function CadastrarCliente() {
                 </Select>
               </div>
             </div>
-
-            {/* barra central */}
-            <div className="hidden md:block">
-              <div className="border-l border-gray-300 h-full"></div>
-            </div>
-
-            {/* lado direito */}
-            <div className="space-y-6 flex-1">
+            <div className="hidden md:block w-px bg-gray-200 h-full"></div>
+            <div className="space-y-8">
               <div className="space-y-2">
-                <Label
-                  htmlFor="representativeName"
-                  className="responsive-label"
-                >
-                  Nome do Representante
-                </Label>
+                <Label htmlFor="representativeName">Nome do Representante</Label>
                 <Input
                   id="representativeName"
                   placeholder="Nome completo do representante"
-                  className="border-gray-300"
                   value={formData.representativeName}
                   onChange={handleInputChange}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="cpf" className="responsive-label">
-                  CPF
-                </Label>
+                <Label htmlFor="cpf">CPF</Label>
                 <Input
                   id="cpf"
                   placeholder="Digite o CPF"
-                  className="border-gray-300"
                   value={formData.cpf}
                   onChange={handleInputChange}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email" className="responsive-label">
-                  E-mail
-                </Label>
+                <Label htmlFor="email">E-mail</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="Digite o e-mail"
-                  className="border-gray-300"
                   value={formData.email}
                   onChange={handleInputChange}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="phone" className="responsive-label">
-                  Telefone
-                </Label>
+                <Label htmlFor="phone">Telefone</Label>
                 <Input
                   id="phone"
                   placeholder="Digite o telefone"
-                  className="border-gray-300"
                   value={formData.phone}
                   onChange={handleInputChange}
                   required
@@ -315,17 +250,16 @@ export default function CadastrarCliente() {
             </div>
           </form>
         </CardContent>
-        <CardFooter className="flex justify-end">
+        <CardFooter className="flex justify-end p-10 pt-4">
           <Button
-            type="button"
             onClick={handleNext}
             disabled={!isStepOneComplete()}
-            className="bg-purple-500 hover:bg-purple-600 disabled:bg-gray-300"
+            className="bg-[#7C3AED] hover:bg-[#6D28D9] disabled:bg-gray-300 dark:text-white"
           >
             Continuar
           </Button>
         </CardFooter>
       </Card>
     </div>
-  );
+  )
 }

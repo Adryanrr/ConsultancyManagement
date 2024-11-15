@@ -155,5 +155,21 @@ body::-webkit-scrollbar-thumb {
   /* label responsiva formularios */
   .responsive-label {
     @apply hidden md:flex;
-}
+  }
+  
+  .profile-image-uploader {
+    text-align: center;
+  }
+  
+  .custom-file-upload {
+    cursor: pointer;
+    display: inline-block;
+  }
+  
+  .custom-file-upload img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
 }
