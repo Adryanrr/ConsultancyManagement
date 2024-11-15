@@ -70,7 +70,7 @@ E, por estarem, assim, justos e contratados, assinam o presente instrumento em d
     >
       
         <div className="space-y-4">
-          <ScrollArea className="h-[360px] w-full rounded-md border p-6 bg-white dark:bg-darkMain dark:text-white">
+          <ScrollArea className="h-[360px] w-full rounded-md border p-6 bg-white dark:bg-darkMain dark:text-white dark:border-none">
             <pre className="whitespace-pre-wrap font-sans text-sm">
               {contractText}
             </pre>
@@ -79,7 +79,7 @@ E, por estarem, assim, justos e contratados, assinam o presente instrumento em d
 
         {/* Segunda parte */}
 
-        <div className="space-y-4">
+        <div className="space-y-4 border rounded-sm dark:border-none">
           <div className="p-4 rounded-md border-gray-300 dark:bg-darkMain ">
             <h2 className="text-lg font-bold mb-2">Detalhes do Contrato</h2>
             <h3 className="font-semibold">

@@ -29,12 +29,12 @@ export function PaymentStep({ onNext, onBack, isLastStep, currentStep, formData,
 
     return (
         <FormStep onNext={onNext} onBack={onBack} isLastStep={isLastStep} currentStep={currentStep}>
-            <div className="space-y-4">
+            <div className="">
                 {/* Accordion for Payment Methods */}
-                <div className="space-y-6">
-                    <Accordion type="single" value={formData.paymentMethod} onValueChange={handlePaymentMethodChange} className="w-full">
+                <div className="">
+                    <Accordion type="single" value={formData.paymentMethod} onValueChange={handlePaymentMethodChange} className="w-full space-y-2">
                         {/* Credit Card Option */}
-                        <AccordionItem value="credit_card" className="border rounded-lg bg-white dark:bg-darkSecond">
+                        <AccordionItem value="credit_card" className="  rounded-lg bg-white dark:bg-darkMain">
                             <AccordionTrigger className="px-4 hover:no-underline">
                                 <div className="flex items-center gap-2">
                                     <CreditCard className="h-5 w-5" />
@@ -88,7 +88,7 @@ export function PaymentStep({ onNext, onBack, isLastStep, currentStep, formData,
                         </AccordionItem>
 
                         {/* Bank Transfer Option */}
-                        <AccordionItem value="bank_transfer" className="border rounded-lg bg-white dark:bg-darkSecond">
+                        <AccordionItem value="bank_transfer" className=" rounded-lg bg-white dark:bg-darkMain">
                             <AccordionTrigger className="px-4 hover:no-underline">
                                 <div className="flex items-center gap-2">
                                     <Banknote className="h-5 w-5" />
@@ -101,7 +101,7 @@ export function PaymentStep({ onNext, onBack, isLastStep, currentStep, formData,
                         </AccordionItem>
 
                         {/* PIX Option */}
-                        <AccordionItem value="pix" className="border rounded-lg bg-white dark:bg-darkSecond">
+                        <AccordionItem value="pix" className=" rounded-lg bg-white dark:bg-darkMain">
                             <AccordionTrigger className="px-4 hover:no-underline">
                                 <div className="flex items-center gap-2">
                                     <QrCode className="h-5 w-5" />
@@ -122,7 +122,7 @@ export function PaymentStep({ onNext, onBack, isLastStep, currentStep, formData,
             </div>
             <div className="space-y-4">
                 <Card>
-                    <CardContent className="p-6 dark:bg-darkSecond">
+                    <CardContent className="p-6 dark:bg-darkMain rounded-lg">
                         <div className="space-y-4">
                             <h3 className="font-semibold text-lg">Resumo do Pagamento</h3>
                             <div className="space-y-2">
