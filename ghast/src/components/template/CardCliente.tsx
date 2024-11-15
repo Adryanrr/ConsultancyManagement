@@ -77,19 +77,19 @@ export default function CardCliente({ cliente, onClose }: CardClienteProps) {
               <p><strong>Email:</strong>  {cliente.email}</p>
               <p><strong>Telefone:</strong>  {cliente.telefone}</p>
               <p><strong>Tipo:</strong>  {cliente.tipo}</p>
-              <p><strong>Fidelidade: R$</strong>  {cliente.fidelidade}</p>
+              <p><strong>Fidelidade: GP</strong>  {cliente.fidelidade}</p>
             </div>
           </div>
           {/* linhas separando */}
-          <div className="flex border border-r-slate-300/20"></div>
+          <div className="flex border border-r-white"></div>
           {/* contratos realizados */}
           <div className="flex flex-col gap-5 items-center w-full lg:w-1/2">
             <h2 className="text-xl font-semibold">Contratos realizados</h2>
-            <div className="flex flex-col border h-full w-full rounded-md min-w-[250px] max-h-[200px] overflow-y-auto">
+            <div className="flex flex-col border dark:border-white/30 border-black h-full w-full rounded-md min-w-[250px] max-h-[200px] overflow-y-auto scrollbar-thin">
               {contratos.map((contrato, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-3 border-b p-2 justify-between"
+                  className="flex items-center gap-3 border-b dark:border-white/30 border-black p-2 justify-between"
                 >
                   <div className="flex gap-2 items-center">
                     <Image

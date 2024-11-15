@@ -10,9 +10,10 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Clientes } from "@/lib/clientsProps";
+import { RESPONSE_LIMIT_DEFAULT } from "next/dist/server/api-utils";
 
 export default function ListClients() {
-  const [clientes, setClientes] = useState<Clientes[]>([]);
+  const [Clientes, setClientes] = useState<Clientes[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -59,19 +60,21 @@ export default function ListClients() {
 
       try {
         const response = await fetch(API_BASE_URL);
-        const responseText = await response.text();
-        console.log("Resposta do servidor:", responseText);
+        
+        if (!response.ok) {
+          throw new Error(`Erro ${response.status}: ${response.statusText}`);
+        }
 
         const contentType = response.headers.get("Content-Type");
-        if (contentType && contentType.includes("application/json")) {
-          const data = JSON.parse(responseText);
-          setClientes(data);
-        } else {
-          console.error("A resposta não é JSON:", responseText);
+        if (!contentType || !contentType.includes("application/json")) {
+          console.error("A resposta não é JSON.");
           throw new Error("A resposta não é um JSON válido.");
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Erro desconhecido");
+        } 
+
+        const data = await response.json();
+        setClientes(data);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : "Erro desconhecido");
         setClientes(customers); // Define a lista de clientes pré-definidos em caso de erro
       } finally {
         setLoading(false);
@@ -105,34 +108,26 @@ export default function ListClients() {
       </CardHeader>
 
       <CardContent className="flex-1 p-0">
-        {loading ? (
-          <p className="text-center py-4">Carregando...</p>
-        ) : error ? (
-          <p className="text-red-500 text-center py-4">{error}</p>
-        ) : clientes.length > 0 ? (
-          <ScrollArea className="h-[390px] px-6">
-            {clientes.map((cliente) => (
-              <article
-                key={cliente.id}
-                className="flex items-center gap-3 border-b py-2 last:border-b-0"
-              >
+      <ScrollArea className="h-[390px] px-6">
+          {Clientes.map((cliente) => (
+            <article
+              key={cliente.id}
+              className="flex items-center gap-2 border-b py-2 last:border-b-0"
+            >
                 <Avatar className="h-10 w-10 bg-black dark:text-white">
                   <AvatarFallback>{getInitials(cliente.nome)}</AvatarFallback>
                 </Avatar>
-                <div>
-                  <p className="text-sm sm:text-base font-semibold">
-                    {cliente.nome}
-                  </p>
-                  <span className="text-[12px] sm:text-sm text-gray-400">
-                    {cliente.email}
-                  </span>
-                </div>
-              </article>
-            ))}
-          </ScrollArea>
-        ) : (
-          <p className="text-gray-500 text-center py-4">Nenhum cliente encontrado.</p>
-        )}
+              <div>
+                <p className="text-sm sm:text-base font-semibold">
+                  {cliente.nome}
+                </p>
+                <span className="text-[12px] sm:text-sm text-gray-400">
+                  {cliente.email}
+                </span>
+              </div>
+            </article>
+          ))}
+        </ScrollArea>
       </CardContent>
     </Card>
   );

@@ -4,5 +4,5 @@ export interface Clientes {
   email: string;
   avatar: string;
   cpf: string;
-  telefone: string; // Deve ser 'telefone', e não 'telefonets'
+  telefone: string;
 }

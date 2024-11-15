@@ -74,6 +74,90 @@ const clientes = [
     tipo: "Padrão",
     fidelidade: "100",
   },
+  {
+    nome: "João",
+    telefone: "999999999",
+    email: "joão@mail.com",
+    tipo: "VIP",
+    fidelidade: "1000",
+  },
+  {
+    nome: "João",
+    telefone: "999999999",
+    email: "joão@mail.com",
+    tipo: "VIP",
+    fidelidade: "1000",
+  },
+  {
+    nome: "Tester",
+    telefone: "869999999",
+    email: "Tester@mail.com",
+    tipo: "Padrão",
+    fidelidade: "100",
+  },
+  {
+    nome: "João",
+    telefone: "999999999",
+    email: "joão@mail.com",
+    tipo: "VIP",
+    fidelidade: "1000",
+  },
+  {
+    nome: "João",
+    telefone: "999999999",
+    email: "joão@mail.com",
+    tipo: "VIP",
+    fidelidade: "1000",
+  },
+  {
+    nome: "Tester",
+    telefone: "869999999",
+    email: "Tester@mail.com",
+    tipo: "Padrão",
+    fidelidade: "100",
+  },
+  {
+    nome: "João",
+    telefone: "999999999",
+    email: "joão@mail.com",
+    tipo: "VIP",
+    fidelidade: "1000",
+  },
+  {
+    nome: "João",
+    telefone: "999999999",
+    email: "joão@mail.com",
+    tipo: "VIP",
+    fidelidade: "1000",
+  },
+  {
+    nome: "Tester",
+    telefone: "869999999",
+    email: "Tester@mail.com",
+    tipo: "Padrão",
+    fidelidade: "100",
+  },
+  {
+    nome: "João",
+    telefone: "999999999",
+    email: "joão@mail.com",
+    tipo: "VIP",
+    fidelidade: "1000",
+  },
+  {
+    nome: "João",
+    telefone: "999999999",
+    email: "joão@mail.com",
+    tipo: "VIP",
+    fidelidade: "1000",
+  },
+  {
+    nome: "Tester",
+    telefone: "869999999",
+    email: "Tester@mail.com",
+    tipo: "Padrão",
+    fidelidade: "100",
+  },
 ];
 
 const Order = ({
@@ -137,7 +221,7 @@ export default function Clientes() {
   };
 
   return (
-    <div className="bg-[#EFF2F4] dark:bg-dark-main flex flex-col h-full w-full p-8 gap-7">
+    <div className="bg-slate-50 dark:bg-dark-main flex flex-col h-full w-full p-8 gap-8">
       {/* Modal para exibir o cliente */}
       {selectedCliente && (
         <CardCliente
@@ -150,7 +234,7 @@ export default function Clientes() {
         {filtros.map((filtro, index) => (
           <button
             key={index}
-            className="flex-1 flex items-center justify-between border dark:bg-darkSecond p-4 rounded-md h-[80px] w-full"
+            className="flex-1 flex items-center justify-between border dark:bg-darkSecond p-4 rounded-md h-[80px] w-full bg-white dark:border-none"
           >
             <div className="flex flex-row items-center gap-2">
               <div className={`${filtro.cor} rounded-full p-3`}>
@@ -169,7 +253,7 @@ export default function Clientes() {
         <div className="relative flex flex-1 items-center min-w-[278px]">
           <FaSearch className="absolute left-3 text-gray-400" />
           <input
-            className="p-2 pl-10 dark:bg-darkSecond border rounded-sm w-full"
+            className="p-2 pl-10 dark:bg-darkSecond border dark:border-none rounded-sm w-full"
             placeholder="Procurar"
             value={searchTerm} // Valor do estado
             onChange={(e) => setSearchTerm(e.target.value)} // Atualiza o valor do estado
@@ -178,8 +262,8 @@ export default function Clientes() {
       </div>
 
       {/* Tabela de clientes */}
-      <div className="flex flex-1 flex-col border rounded-md">
-        <div className="flex justify-between p-6 border-b-2">
+      <div className="flex flex-1 flex-col border rounded-md bg-white dark:bg-darkSecond dark:border-none">
+        <div className="flex justify-between p-6 border-b border-black dark:border-white">
           <h1 className="font-semibold text-2xl text-black dark:text-white">
             Clientes
           </h1>
@@ -188,21 +272,21 @@ export default function Clientes() {
               "Nenhum cliente encontrado/cadastrado"
             ) : (
               <>
-                <span className="text-[#CB3CFF]">
+                <span className="text-violet-500">
                   {`${(currentPage - 1) * itemsPerPage + 1}-${
                     currentPage * itemsPerPage > filteredClientes.length
                       ? filteredClientes.length
                       : currentPage * itemsPerPage
                   }`}
                 </span>{" "}
-                of {filteredClientes.length}
+                clientes de {filteredClientes.length}
               </>
             )}
           </p>
         </div>
         {/* Header e clientes no mesmo grid */}
         <div className="overflow-x-auto ">
-          <div className="grid grid-cols-6 items-center p-4 border-b font-semibold text-sm text-black dark:text-white min-w-[800px]">
+          <div className="grid grid-cols-6 items-center p-4 font-semibold text-sm text-black dark:text-white min-w-[800px]">
             <div className="flex gap-2 items-center">
               <FaUser />
               Nome
@@ -236,7 +320,7 @@ export default function Clientes() {
             {paginatedClientes.map((cliente, index) => (
               <div
                 key={index}
-                className="grid grid-cols-6 items-center p-4 border-t text-sm text-black dark:text-white"
+                className="grid grid-cols-6 items-center p-4 border-t border-black dark:border-white text-sm text-black dark:text-white"
               >
                 <button
                   className="flex gap-2 items-center"
@@ -254,7 +338,7 @@ export default function Clientes() {
                 <div>{cliente.telefone}</div>
                 <div>{cliente.email}</div>
                 <div>{cliente.tipo}</div>
-                <div>R$ {cliente.fidelidade}</div>
+                <div>GP {cliente.fidelidade}</div>
                 <div className="flex gap-2 justify-center">
                   <button className="text-gray-500 hover:text-gray-800">
                     <FaEdit size={15} />
@@ -276,14 +360,14 @@ export default function Clientes() {
             ""
           ) : (
             <>
-              <span className="text-[#CB3CFF]">
+              <span className="text-violet-500">
                 {`${(currentPage - 1) * itemsPerPage + 1}-${
                   currentPage * itemsPerPage > filteredClientes.length
                     ? filteredClientes.length
                     : currentPage * itemsPerPage
                 }`}
               </span>{" "}
-              of {filteredClientes.length}
+              clientes de {filteredClientes.length}
             </>
           )}
         </p>
