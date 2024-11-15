@@ -34,7 +34,7 @@ export function PaymentStep({ onNext, onBack, isLastStep, currentStep, formData,
                 <div className="">
                     <Accordion type="single" value={formData.paymentMethod} onValueChange={handlePaymentMethodChange} className="w-full space-y-2">
                         {/* Credit Card Option */}
-                        <AccordionItem value="credit_card" className="  rounded-lg bg-white dark:bg-darkMain">
+                        <AccordionItem value="credit_card" className="border dark:border-none rounded-lg bg-white dark:bg-darkMain">
                             <AccordionTrigger className="px-4 hover:no-underline">
                                 <div className="flex items-center gap-2">
                                     <CreditCard className="h-5 w-5" />
@@ -88,7 +88,7 @@ export function PaymentStep({ onNext, onBack, isLastStep, currentStep, formData,
                         </AccordionItem>
 
                         {/* Bank Transfer Option */}
-                        <AccordionItem value="bank_transfer" className=" rounded-lg bg-white dark:bg-darkMain">
+                        <AccordionItem value="bank_transfer" className="border dark:border-none rounded-lg bg-white dark:bg-darkMain">
                             <AccordionTrigger className="px-4 hover:no-underline">
                                 <div className="flex items-center gap-2">
                                     <Banknote className="h-5 w-5" />
@@ -101,7 +101,7 @@ export function PaymentStep({ onNext, onBack, isLastStep, currentStep, formData,
                         </AccordionItem>
 
                         {/* PIX Option */}
-                        <AccordionItem value="pix" className=" rounded-lg bg-white dark:bg-darkMain">
+                        <AccordionItem value="pix" className="border dark:border-none rounded-lg bg-white dark:bg-darkMain">
                             <AccordionTrigger className="px-4 hover:no-underline">
                                 <div className="flex items-center gap-2">
                                     <QrCode className="h-5 w-5" />
@@ -122,7 +122,7 @@ export function PaymentStep({ onNext, onBack, isLastStep, currentStep, formData,
             </div>
             <div className="space-y-4">
                 <Card>
-                    <CardContent className="p-6 dark:bg-darkMain rounded-lg">
+                    <CardContent className="p-6 dark:bg-darkMain rounded-lg border dark:border-none">
                         <div className="space-y-4">
                             <h3 className="font-semibold text-lg">Resumo do Pagamento</h3>
                             <div className="space-y-2">
