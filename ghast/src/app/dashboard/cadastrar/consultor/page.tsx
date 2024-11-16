@@ -81,7 +81,7 @@ export default function CadastrarConsultor() {
                   1
                 </div>
                 <CardTitle className="text-sm font-medium text-gray-600">
-                  Empresa
+                  Dados
                 </CardTitle>
               </div>
               <div className="flex items-center gap-2">
@@ -142,7 +142,7 @@ export default function CadastrarConsultor() {
             </div>
           </CardContent>
           <CardFooter className="flex justify-between p-10 pt-4">
-            <Button variant="outline" onClick={handleBack} className="text-[#7C3AED] border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white dark:bg-darkSecond">
+            <Button variant="outline" onClick={handleBack} className="text-[#7C3AED] border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white dark:bg-darkSecond dark:hover:bg-[#7C3AED]">
               <ChevronLeft className="w-4 h-4 mr-2" />
               Voltar
             </Button>
