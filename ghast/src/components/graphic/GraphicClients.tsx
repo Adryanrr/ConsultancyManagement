@@ -41,7 +41,7 @@ export default function Chart() {
           </span>
         </h2>
         <CardDescription>
-      <div className="sm:flex items-center gap-2 text-sm text-slate-400">
+      <div className="sm:flex items-center gap-2 text-sm dark:text-slate-400">
           Número de contratos realizados durante o ano: 
           <span className="font-bold text-black dark:text-white">
             {totalContracts}
@@ -57,7 +57,8 @@ export default function Chart() {
               <CartesianGrid 
                 strokeDasharray="3 3" 
                 vertical={false} 
-                stroke="rgba(255,255,255,0.1)" 
+                stroke= "hsl(1, 100%, 1%)"
+                className="stroke-gray-600/30 dark:stroke-slate-100/15"
               />
               <XAxis 
                 dataKey="date" 
@@ -74,7 +75,7 @@ export default function Chart() {
               />
               <Tooltip
                 contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '4px' }}
-                labelStyle={{ color: '#94a3b8' }}
+                labelStyle={{ color: '#ffff' }}
                 itemStyle={{ color: 'hsl(199, 89%, 48%)' }}
               />
               <Line

@@ -112,7 +112,7 @@ export default function ListClients() {
           {Clientes.map((cliente) => (
             <article
               key={cliente.id}
-              className="flex items-center gap-2 border-b py-2 last:border-b-0"
+              className="flex items-center gap-2 border-b dark:border-slate-100/15 py-2 last:border-b-0"
             >
                 <Avatar className="h-10 w-10 bg-black dark:text-white">
                   <AvatarFallback>{getInitials(cliente.nome)}</AvatarFallback>
