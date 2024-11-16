@@ -48,12 +48,17 @@ export default function CardCliente({ cliente, onClose }: CardClienteProps) {
     "Em Curso": "bg-yellow-500 text-white",
     "Em Espera": "bg-gray-500 text-white",
   };
+  const pointColor = {
+    Finalizado: "border-[#4ADE80]",
+    "Em Curso": "border-[#EAB308]",
+    "Em Espera": "border-[#D1D5DB]",
+  };
 
   return (
     // fundo preto
-    <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center backdrop-blur-sm z-50">
       {/*  card separando fecha e conteudo */}
-      <div className="bg-white dark:bg-dark-main w-[800px] p-6 rounded-md shadow-lg flex flex-col gap-4">
+      <div className="bg-white dark:bg-dark-main w-[800px] h-[450px] p-6 rounded-md shadow-lg flex flex-col gap-4">
         {/* botão fechar */}
         <div className="flex justify-end">
           <button
@@ -100,8 +105,8 @@ export default function CardCliente({ cliente, onClose }: CardClienteProps) {
                     />
                     <p className="font-semibold">{contrato.nome}</p>
                   </div>
-                  <div className={`w-24 items-center text-center justify-center text-sm text-gray-500 border font-light rounded-md p-2 ${statusColors[contrato.status]}`}>
-                    {contrato.status}
+                  <div className={`w-24 items-center flex flex-row gap-1 text-center justify-center text-sm font-semibold text-gray-500 border rounded-md p-2 ${statusColors[contrato.status]}`}>
+                  <div className={`border-[3px] rounded-full items-center ${pointColor[contrato.status]}`}></div> {contrato.status}
                   </div>
                 </div>
               ))}

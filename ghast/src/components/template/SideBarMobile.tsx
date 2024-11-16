@@ -11,8 +11,8 @@ const links = [
   { name: "cliente", path: "/dashboard/cadastrar/cliente" },
   { name: "Contrato", path: "/dashboard/cadastrar/contrato" },
   { name: "Consultor", path: "/dashboard/cadastrar/consultor" },
-  { name: "Histórico", path: "" },
-  { name: "Fidelidade", path: "" },
+  // { name: "Histórico", path: "" },
+  { name: "Projetos", path: "/dashboard/projetos" },
   { name: "Clientes", path: "/dashboard/clientes" },
 ];
 

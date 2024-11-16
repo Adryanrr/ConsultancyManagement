@@ -9,6 +9,7 @@ import {
   FaUserPlus,
   FaSignOutAlt,
   FaUsers,
+  FaPuzzlePiece,
 } from "react-icons/fa";
 
 import ItemSideBar from "./ItemSideBar";
@@ -55,8 +56,8 @@ export default function SideBar() {
             />
           </div>
         )}
-        <ItemSideBar href="" icone={FaHistory} texto="Histórico" />
-        <ItemSideBar href="" icone={FaBriefcase} texto="Fidelidade" />
+        {/* <ItemSideBar href="" icone={FaHistory} texto="Histórico" /> */}
+        <ItemSideBar href="/dashboard/projetos" icone={FaPuzzlePiece} texto="Projetos" />
         <ItemSideBar href="/dashboard/clientes" icone={FaUsers} texto="Clientes" />
       </nav>
         <button
