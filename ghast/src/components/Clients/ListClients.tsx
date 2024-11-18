@@ -25,6 +25,8 @@ export default function ListClients() {
       avatar: "http://github.com/adryanrr.png",
       cpf: "123.456.789-00",
       telefone: "(12) 3456-7890",  // Alterado para 'telefone'
+      tipo: "Vip",
+      fidelidade: "10",
     },
     {
       id: 2,
@@ -33,6 +35,8 @@ export default function ListClients() {
       avatar: "http://github.com/FelipeDuan.png",
       cpf: "234.567.890-01",
       telefone: "(11) 2345-6789",  // Alterado para 'telefone'
+      tipo: "Vip",
+      fidelidade: "20",
     },
     {
       id: 3,
@@ -41,6 +45,8 @@ export default function ListClients() {
       avatar: "http://github.com/MatheusJuK.png",
       cpf: "345.678.901-02",
       telefone: "(21) 3456-7890",  // Alterado para 'telefone'
+      tipo: "Vip",
+      fidelidade: "30",
     },
     ...Array.from({ length: 5 }, (_, i) => ({
       id: i + 4,
@@ -49,6 +55,8 @@ export default function ListClients() {
       avatar: "",
       cpf: `456.789.012-${i + 3}`,
       telefone: `(31) 4567-890${i + 3}`,  // Alterado para 'telefone'
+      tipo: "Padrão",
+      fidelidade: `${40 + i * 10}`,
     })),
   ];
   useEffect(() => {
@@ -100,11 +108,11 @@ export default function ListClients() {
       <CardHeader className="flex-none">
         <div className="flex items-center justify-center">
           <CardTitle className="text-lg sm:text-xl text-gray-800 dark:text-gray-300">
-            Empresas
+            Clientes
           </CardTitle>
           <Building2 className="ml-auto w-4 h-4 text-violet-500" />
         </div>
-        <CardDescription>Lista de empresas</CardDescription>
+        <CardDescription>Lista de clientes</CardDescription>
       </CardHeader>
 
       <CardContent className="flex-1 p-0">

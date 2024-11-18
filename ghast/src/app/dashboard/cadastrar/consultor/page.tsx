@@ -21,17 +21,33 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+// Tipos para os campos de formulário
+interface Consultor {
+  nome: string;
+  cpf: string;
+  email: string;
+  telefone: string;
+  tipo: string;
+  tamanho: string;
+}
+
 export default function CadastrarConsultor() {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-    name: "",
+  const [formData, setFormData] = useState<Consultor>({
+    nome: "",
     cpf: "",
     email: "",
-    phone: "",
-    type: "",
-    size: "",
+    telefone: "",
+    tipo: "",
+    tamanho: "",
   });
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [notification, setNotification] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
+
+  const API_BASE_URL = "http://localhost:8080/consultores";
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -42,11 +58,16 @@ export default function CadastrarConsultor() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
+    if (id in formData) {
+      setFormData((prev) => ({
+        ...prev,
+        [id]: value,
+      }));
+    }
   };
 
-  const handleSelectChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, type: value }));
+  const handleSelectChange = (value: string, field: keyof Consultor) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const isStepOneComplete = () => {
@@ -63,105 +84,62 @@ export default function CadastrarConsultor() {
     setStep(1);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isStepOneComplete()) {
-      console.log("Form submitted:", formData);
+    try {
+      const response = await fetch(API_BASE_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nome: formData.nome,
+          cpf: formData.cpf,
+          email: formData.email,
+          telefone: formData.telefone,
+          especializacao: formData.tipo,
+          tamanhoNegocio: formData.tamanho.toUpperCase(),
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erro ao cadastrar consultor");
+      }
+
+      showNotification("Consultor cadastrado com sucesso!", "success");
+      setFormData({
+        nome: "",
+        cpf: "",
+        email: "",
+        telefone: "",
+        tipo: "",
+        tamanho: "",
+      });
+      setStep(1);
+    } catch (err: any) {
+      showNotification(err.message || "Erro inesperado", "error");
     }
   };
 
-  if (step === 2) {
-    return (
-      <div className="min-h-screen w-full p-4 flex items-center justify-center bg-gray-50 dark:bg-darkMain">
-        <Card className="w-full max-w-7xl bg-white dark:bg-darkSecond shadow-lg border-[#7C3AED] border-2">
-          <CardHeader className="space-y-1 p-6">
-            <div className="flex items-center justify-between mx-3">
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-full bg-[#7C3AED] text-white flex items-center justify-center text-sm font-medium">
-                  1
-                </div>
-                <CardTitle className="text-sm font-medium text-gray-600">
-                  Empresa
-                </CardTitle>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-full bg-[#7C3AED] text-white flex items-center justify-center text-sm font-medium">
-                  2
-                </div>
-                <span className="text-sm font-medium text-gray-600">
-                  Finalizar
-                </span>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="p-10">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-12">
-              <div className="w-full md:w-1/2 space-y-8">
-                <div className="space-y-2">
-                  <Label>Nome do Consultor</Label>
-                  <Input
-                    value={formData.name}
-                    className="border-gray-200 bg-gray-50"
-                    readOnly
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>CPF</Label>
-                  <Input
-                    value={formData.cpf}
-                    className="border-gray-200 bg-gray-50"
-                    readOnly
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Telefone</Label>
-                  <Input
-                    value={formData.phone}
-                    className="border-gray-200 bg-gray-50"
-                    readOnly
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Tipo de Mentoria</Label>
-                  <Input
-                    value={formData.type}
-                    className="border-gray-200 bg-gray-50"
-                    readOnly
-                  />
-                </div>
-              </div>
-              <div className="w-full md:w-1/2 flex justify-center">
-                <Image
-                  src="/assets/confirmacaoCadastro.svg"
-                  alt="Confirmação de Cadastro"
-                  width={338}
-                  height={338}
-                  className="hidden md:block"
-                />
-              </div>
-            </div>
-          </CardContent>
-          <CardFooter className="flex justify-between p-10 pt-4">
-            <Button variant="outline" onClick={handleBack} className="text-[#7C3AED] border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white dark:bg-darkSecond">
-              <ChevronLeft className="w-4 h-4 mr-2" />
-              Voltar
-            </Button>
-            <Button onClick={handleSubmit} className="bg-[#7C3AED] hover:bg-[#6D28D9] dark:text-white">
-              Finalizar
-            </Button>
-          </CardFooter>
-        </Card>
-      </div>
-    );
-  }
+  const showNotification = (message: string, type: "success" | "error") => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 5000);
+  };
 
   return (
-    <div className="min-h-screen w-full p-4 flex items-center justify-center bg-gray-50 dark:bg-darkMain">
+    <div className="min-h-screen w-full p-4 flex items-center justify-center bg-gray-100 dark:bg-darkMain">
       <Card className="w-full max-w-7xl bg-white dark:bg-darkSecond shadow-lg border-[#7C3AED] border-2">
         <CardHeader className="space-y-1 p-6">
           <div className="flex items-center justify-between mx-3">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-[#7C3AED] text-white flex items-center justify-center text-sm font-medium">
+              <div
+                className={`w-6 h-6 rounded-full ${
+                  step === 1
+                    ? "bg-[#7C3AED] text-white"
+                    : "bg-gray-200 text-gray-400"
+                } flex items-center justify-center text-sm font-medium`}
+              >
                 1
               </div>
               <CardTitle className="text-sm font-medium text-gray-600">
@@ -169,156 +147,205 @@ export default function CadastrarConsultor() {
               </CardTitle>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-gray-200 text-gray-400 flex items-center justify-center text-sm">
+              <div
+                className={`w-6 h-6 rounded-full ${
+                  step === 2
+                    ? "bg-[#7C3AED] text-white"
+                    : "bg-gray-200 text-gray-400"
+                } flex items-center justify-center text-sm`}
+              >
                 2
               </div>
-              <span className="text-sm text-gray-400">Finalizar</span>
+              <span className="text-sm font-medium text-gray-600">
+                Finalizar
+              </span>
             </div>
           </div>
         </CardHeader>
         <CardContent className="p-10">
-          <div className="grid md:grid-cols-[1fr,1px,1fr] gap-12 grid-cols-[1fr]">
-            <div className="space-y-6">
-              <div className="profile-image-uploader">
-                {!selectedImage && (
-                  <label
-                    htmlFor="fileInput"
-                    className="custom-file-upload cursor-pointer"
-                  >
-                    <img
-                      src="/assets/ImgPerfil.svg"
-                      alt="Profile Image"
-                      className="w-32 h-32 rounded-full object-cover"
-                    />
-                  </label>
-                )}
-                <input
-                  id="fileInput"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  style={{ display: "none" }}
-                />
-                {selectedImage && (
-                  <div className="flex justify-center">
-                    <img
-                      src={selectedImage}
-                      alt="Imagem de Perfil"
-                      className="w-32 h-32 rounded-full object-cover"
-                    />
-                  </div>
-                )}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="type">Tipo de Consultoria</Label>
-                <div className="border w-full h-[2px] border-black dark:border-white"></div>
-
-                <Select
-                  value={formData.type}
-                  onValueChange={handleSelectChange}
-                >
-                  <SelectTrigger id="type">
-                    <SelectValue placeholder="Selecione o tipo de consultoria" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="TI">TI</SelectItem>
-                    <SelectItem value="Gestão">
-                      Gestão
-                    </SelectItem>
-                    <SelectItem value="Financeira">Financeira</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="size">Tamanho do negócio</Label>
-                <div className="border w-full h-[2px] border-black dark:border-white"></div>
-
-                <div className="flex gap-10">
-                  <div className="flex items-center gap-2 ">
-                    <input
-                      type="radio"
-                      id="size"
-                      name="size"
-                      value="Pequeno"
-                      onChange={handleInputChange}
-                    />
-                    <label htmlFor="Pequeno">Pequeno</label>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <input
-                      type="radio"
-                      id="size"
-                      name="size"
-                      value="Médio"
-                      onChange={handleInputChange}
-                    />
-                    <label htmlFor="Médio">Médio</label>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <input
-                      type="radio"
-                      id="size"
-                      name="size"
-                      value="Grande"
-                      onChange={handleInputChange}
-                    />
-                    <label htmlFor="Grande">Grande</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-gray-200 w-px h-full" />
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="name">Nome</Label>
-                <Input
-                  id="name"
-                  placeholder="Nome completo"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="cpf">CPF</Label>
-                <Input
-                  id="cpf"
-                  placeholder="Digite o CPF"
-                  value={formData.cpf}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">E-mail</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Digite o e-mail"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone">Telefone</Label>
-                <Input
-                  id="phone"
-                  placeholder="Digite o telefone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                />
-              </div>
-            </div>
-          </div>
+          {step === 1 ? (
+            <FirstStep
+              formData={formData}
+              selectedImage={selectedImage}
+              onInputChange={handleInputChange}
+              onSelectChange={handleSelectChange}
+              onImageChange={handleImageChange}
+            />
+          ) : (
+            <SecondStep formData={formData} />
+          )}
         </CardContent>
-        <CardFooter className="flex justify-end p-10 pt-4">
-          <Button
-            onClick={handleNext}
-            disabled={!isStepOneComplete()}
-            className="bg-[#7C3AED] hover:bg-[#6D28D9] disabled:bg-gray-300 dark:text-white"
-          >
-            Continuar
-          </Button>
+        <CardFooter
+          className={`p-10 pt-4 ${
+            step === 1 ? "flex justify-end" : "flex justify-between"
+          }`}
+        >
+          {step === 2 ? (
+            <>
+              <Button
+                variant="outline"
+                onClick={handleBack}
+                className="text-[#7C3AED] border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white dark:bg-darkSecond dark:hover:bg-[#7C3AED]"
+              >
+                <ChevronLeft className="w-4 h-4 mr-2" />
+                Voltar
+              </Button>
+              <Button
+                onClick={handleSubmit}
+                className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white"
+              >
+                Finalizar
+              </Button>
+            </>
+          ) : (
+            <Button
+              onClick={handleNext}
+              disabled={!isStepOneComplete()}
+              className="bg-[#7C3AED] hover:bg-[#6D28D9] disabled:bg-gray-300 dark:text-white"
+            >
+              Continuar
+            </Button>
+          )}
         </CardFooter>
       </Card>
+      {notification && (
+        <div
+          className={`fixed bottom-4 right-4 p-4 rounded shadow-lg ${
+            notification.type === "success" ? "bg-green-500" : "bg-red-500"
+          } text-white transition-opacity duration-300`}
+        >
+          {notification.message}
+        </div>
+      )}
     </div>
   );
 }
+
+const FirstStep = ({
+  formData,
+  selectedImage,
+  onInputChange,
+  onSelectChange,
+  onImageChange,
+}: {
+  formData: Consultor;
+  selectedImage: string | null;
+  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSelectChange: (value: string, field: keyof Consultor) => void;
+  onImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}) => (
+  <div className="grid md:grid-cols-[1fr,1px,1fr] gap-12">
+    <div className="space-y-6">
+      <div className="profile-image-uploader">
+        {!selectedImage && (
+          <label htmlFor="fileInput" className="custom-file-upload cursor-pointer">
+            <Image
+              src="/assets/ImgPerfil.svg"
+              alt="Imagem de Perfil"
+              className="w-32 h-32 rounded-full object-cover"
+              width={128}
+              height={128}
+            />
+          </label>
+        )}
+        <input
+          id="fileInput"
+          type="file"
+          accept="image/*"
+          onChange={onImageChange}
+          className="hidden"
+        />
+        {selectedImage && (
+          <div className="flex justify-center">
+            <img
+              src={selectedImage}
+              alt="Imagem de Perfil"
+              className="w-32 h-32 rounded-full object-cover"
+            />
+          </div>
+        )}
+      </div>
+      <FieldGroup label="Tipo de Consultoria">
+        <Select
+          value={formData.tipo}
+          onValueChange={(value) => onSelectChange(value, "tipo")}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Selecione o tipo de consultoria" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="TI">TI</SelectItem>
+            <SelectItem value="GESTAO">Gestão</SelectItem>
+            <SelectItem value="FINANCEIRO">Financeiro</SelectItem>
+          </SelectContent>
+        </Select>
+      </FieldGroup>
+      <FieldGroup label="Tamanho do Negócio">
+        <div className="flex gap-4">
+          {["Pequeno", "Medio", "Grande"].map((tamanho) => (
+            <label key={tamanho} className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="tamanho"
+                value={tamanho.toUpperCase()}
+                onChange={(e) => onSelectChange(e.target.value, "tamanho")}
+              />
+              {tamanho}
+            </label>
+          ))}
+        </div>
+      </FieldGroup>
+    </div>
+    <div className="bg-gray-200 w-px h-full dark:bg-darkBorder" />
+    <div className="space-y-6">
+      {(["nome", "cpf", "email", "telefone"] as const).map((field) => (
+        <FieldGroup key={field} label={capitalize(field)}>
+          <Input
+            id={field}
+            placeholder={`Digite o ${field}`}
+            value={formData[field]}
+            onChange={onInputChange}
+          />
+        </FieldGroup>
+      ))}
+    </div>
+  </div>
+);
+
+const SecondStep = ({ formData }: { formData: Consultor }) => (
+  <div className="flex flex-col md:flex-row justify-between items-center gap-12">
+    <div className="w-full md:w-1/2 space-y-8">
+      {(["nome", "cpf", "telefone", "tipo"] as const).map((field) => (
+        <FieldGroup key={field} label={capitalize(field)}>
+          <Input value={formData[field]} readOnly className="bg-gray-50" />
+        </FieldGroup>
+      ))}
+    </div>
+    <div className="w-full md:w-1/2 flex justify-center">
+      <Image
+        src="/assets/confirmacaoCadastro.svg"
+        alt="Confirmação de Cadastro"
+        width={338}
+        height={338}
+        className="hidden md:block"
+      />
+    </div>
+  </div>
+);
+
+const FieldGroup = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) => (
+  <div className="space-y-2">
+    <Label>{label}</Label>
+    
+    {children}
+  </div>
+);
+
+const capitalize = (text: string) =>
+  text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();

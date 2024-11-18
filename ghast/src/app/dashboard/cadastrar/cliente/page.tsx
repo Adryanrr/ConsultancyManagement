@@ -55,7 +55,7 @@ export default function CadastrarCliente() {
 
   if (step === 2) {
     return (
-      <div className="min-h-screen w-full p-4 flex items-center justify-center bg-gray-50 dark:bg-darkMain">
+      <div className="min-h-screen w-full p-4 flex items-center justify-center bg-gray-100 dark:bg-darkMain">
         <Card className="w-full max-w-7xl bg-white dark:bg-darkSecond shadow-lg border-[#7C3AED] border-2">
           <CardHeader className="space-y-1 p-6">
             <div className="flex items-center justify-between mx-3">
@@ -135,7 +135,7 @@ export default function CadastrarCliente() {
   }
 
   return (
-    <div className="min-h-screen w-full p-4 flex items-center justify-center bg-gray-50 dark:bg-darkMain">
+    <div className="min-h-screen w-full p-4 flex items-center justify-center bg-gray-100 dark:bg-darkMain">
       <Card className="w-full max-w-7xl bg-white dark:bg-darkSecond shadow-lg border-[#7C3AED] border-2">
         <CardHeader className="space-y-1 p-6">
           <div className="flex items-center justify-between mx-3">

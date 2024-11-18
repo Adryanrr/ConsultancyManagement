@@ -1,11 +1,8 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {
   FaHome,
-  FaHistory,
-  FaBriefcase,
   FaUserPlus,
   FaSignOutAlt,
   FaUsers,
@@ -13,13 +10,26 @@ import {
 } from "react-icons/fa";
 
 import ItemSideBar from "./ItemSideBar";
-// import { signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 export default function SideBar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
+  };
+
+  const handleLogout = async () => {
+    // Remover dados locais, se necessário
+    localStorage.removeItem("authToken");
+    sessionStorage.removeItem("authToken");
+
+    // Realizar o logout com NextAuth.js
+    await signOut({ callbackUrl: "/login" });
+
+    // Redirecionar para login como fallback, caso signOut não redirecione
+    router.push("/login");
   };
 
   return (
@@ -60,8 +70,8 @@ export default function SideBar() {
         <ItemSideBar href="/dashboard/clientes" icone={FaUsers} texto="Clientes" />
       </nav>
         <button
-          className="bg-gradient-to-t rounded-sm from-[#CB3CFF] to-[#7F25FB] items-center flex h-[43px] w-[230px] gap-4 p-4"
-          onClick={() => ""}
+          className="dark:bg-gradient-to-t rounded-sm dark:from-[#CB3CFF] dark:to-[#7F25FB] items-center flex h-[43px] w-[230px] gap-4 p-4 bg-black text-white"
+          onClick={handleLogout}
         >
           <FaSignOutAlt size={24} />
           <p>Logout</p>
