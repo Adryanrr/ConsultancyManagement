@@ -93,7 +93,7 @@ export function DataInfoStep({
         <div className="space-y-10 flex-1">
           <div className="space-y-6">
             <Label htmlFor="representativeName">Representante</Label>
-            <div className="border w-full h-[1px] border-black dark:border-white" />
+            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
             <Input
               id="representativeName"
               placeholder="Nome Completo"
@@ -105,7 +105,7 @@ export function DataInfoStep({
 
           <div className="space-y-6">
             <Label htmlFor="companyName">Empresa</Label>
-            <div className="border w-full h-[1px] border-black dark:border-white" />
+            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
             <Input
               id="companyName"
               placeholder="Nome da Empresa"
@@ -117,7 +117,7 @@ export function DataInfoStep({
 
           <div className="space-y-6">
             <Label htmlFor="companyType">Tipo da Empresa</Label>
-            <div className="border w-full h-[1px] border-black dark:border-white" />
+            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
             <Select
               value={formData.companyType}
               onValueChange={handleSelectChange("companyType")}
@@ -134,7 +134,7 @@ export function DataInfoStep({
 
           <div className="space-y-6">
             <Label htmlFor="consultationType">Tipo de Consultoria</Label>
-            <div className="border w-full h-[1px] border-black dark:border-white" />
+            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
             <Select
               value={formData.consultationType}
               onValueChange={handleSelectChange("consultationType")}
@@ -160,7 +160,7 @@ export function DataInfoStep({
         <div className="space-y-10 flex-1">
           <div className="space-y-6">
             <Label htmlFor="consultant">Consultor</Label>
-            <div className="border w-full h-[1px] border-black dark:border-white" />
+            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
             <Select
               value={formData.consultant}
               onValueChange={handleSelectChange("consultant")}
@@ -180,7 +180,7 @@ export function DataInfoStep({
           </div>
           <div className="space-y-6">
             <Label htmlFor="startDate">Início do Contrato</Label>
-            <div className="border w-full h-[1px] border-black dark:border-white" />
+            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
             <Input
               type="date"
               id="startDate"
@@ -191,7 +191,7 @@ export function DataInfoStep({
           </div>
           <div className="space-y-6">
             <Label htmlFor="endDate">Término do Contrato</Label>
-            <div className="border w-full h-[1px] border-black dark:border-white" />
+            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
             <Input
               type="date"
               id="endDate"
@@ -202,14 +202,14 @@ export function DataInfoStep({
           </div>
           <div className="space-y-6">
             <Label htmlFor="tipoCliente">Tipo de Cliente</Label>
-            <div className="border w-full h-[1px] border-black dark:border-white" />
+            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
             <div className="flex space-x-6">
               <button
                 onClick={() => handleClientTypeClick("regular")}
                 className={`px-6 py-2 rounded-sm ${
                   formData.isVip === "regular"
                     ? "bg-gray-500 dark:bg-purple-800 text-white"
-                    : "bg-white dark:bg-darkSecond border-2 dark:border-purple-800 border-black"
+                    : "bg-white dark:bg-darkSecond border-2 dark:border-purple-800 border-gray-200"
                 }`}
               >
                 Regular
@@ -219,7 +219,7 @@ export function DataInfoStep({
                 className={`px-6 py-2 rounded-sm ${
                   formData.isVip === "vip"
                     ? "bg-gray-500 dark:bg-purple-800 text-white"
-                    : "bg-white dark:bg-darkSecond border-2 dark:border-purple-800 border-black"
+                    : "bg-white dark:bg-darkSecond border-2 dark:border-purple-800 border-gray-200"
                 }`}
               >
                 VIP
