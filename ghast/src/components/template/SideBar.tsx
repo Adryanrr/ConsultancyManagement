@@ -56,7 +56,6 @@ export default function SideBar() {
             />
           </div>
         )}
-        {/* <ItemSideBar href="" icone={FaHistory} texto="Histórico" /> */}
         <ItemSideBar href="/dashboard/projetos" icone={FaPuzzlePiece} texto="Projetos" />
         <ItemSideBar href="/dashboard/clientes" icone={FaUsers} texto="Clientes" />
       </nav>
