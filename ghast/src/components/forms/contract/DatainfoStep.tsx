@@ -88,12 +88,12 @@ export function DataInfoStep({
       isLastStep={isLastStep}
       currentStep={currentStep}
     >
-      <main className="flex flex-col md:flex-row justify-center gap-10">
+      <main className="flex flex-col md:flex-row justify-center gap-10 p-8">
         {/* lado esquerdo */}
-        <div className="space-y-10 flex-1">
-          <div className="space-y-6">
+        <div className="space-y-8 flex-1">
+          <div className="space-y-2">
             <Label htmlFor="representativeName">Representante</Label>
-            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
+            
             <Input
               id="representativeName"
               placeholder="Nome Completo"
@@ -103,9 +103,9 @@ export function DataInfoStep({
             />
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-2">
             <Label htmlFor="companyName">Empresa</Label>
-            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
+            
             <Input
               id="companyName"
               placeholder="Nome da Empresa"
@@ -115,9 +115,9 @@ export function DataInfoStep({
             />
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-2">
             <Label htmlFor="companyType">Tipo da Empresa</Label>
-            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
+            
             <Select
               value={formData.companyType}
               onValueChange={handleSelectChange("companyType")}
@@ -132,9 +132,9 @@ export function DataInfoStep({
             </Select>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-2">
             <Label htmlFor="consultationType">Tipo de Consultoria</Label>
-            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
+            
             <Select
               value={formData.consultationType}
               onValueChange={handleSelectChange("consultationType")}
@@ -153,14 +153,14 @@ export function DataInfoStep({
 
         {/* barra central */}
         <div className="hidden md:block">
-          <div className="border-l border-gray-300 h-[620px]"></div>
+          <div className="border-l border-gray-300 h-full"></div>
         </div>
 
         {/* lado direito */}
-        <div className="space-y-10 flex-1">
-          <div className="space-y-6">
+        <div className="space-y-8 flex-1">
+          <div className="space-y-2">
             <Label htmlFor="consultant">Consultor</Label>
-            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
+            
             <Select
               value={formData.consultant}
               onValueChange={handleSelectChange("consultant")}
@@ -178,9 +178,9 @@ export function DataInfoStep({
               </SelectContent>
             </Select>
           </div>
-          <div className="space-y-6">
+          <div className="space-y-2">
             <Label htmlFor="startDate">Início do Contrato</Label>
-            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
+            
             <Input
               type="date"
               id="startDate"
@@ -189,9 +189,9 @@ export function DataInfoStep({
               required
             />
           </div>
-          <div className="space-y-6">
+          <div className="space-y-2">
             <Label htmlFor="endDate">Término do Contrato</Label>
-            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
+            
             <Input
               type="date"
               id="endDate"
@@ -200,13 +200,13 @@ export function DataInfoStep({
               required
             />
           </div>
-          <div className="space-y-6">
+          <div className="space-y-2">
             <Label htmlFor="tipoCliente">Tipo de Cliente</Label>
-            <div className="border w-full h-[1px] border-gray-200 dark:border-white" />
-            <div className="flex space-x-6">
+            
+            <div className="flex space-x-2">
               <button
                 onClick={() => handleClientTypeClick("regular")}
-                className={`px-6 py-2 rounded-sm ${
+                className={`p-6 py-3 rounded-sm ${
                   formData.isVip === "regular"
                     ? "bg-gray-500 dark:bg-purple-800 text-white"
                     : "bg-white dark:bg-darkSecond border-2 dark:border-purple-800 border-gray-200"
@@ -216,7 +216,7 @@ export function DataInfoStep({
               </button>
               <button
                 onClick={() => handleClientTypeClick("vip")}
-                className={`px-6 py-2 rounded-sm ${
+                className={`px-6 py-3 rounded-sm ${
                   formData.isVip === "vip"
                     ? "bg-gray-500 dark:bg-purple-800 text-white"
                     : "bg-white dark:bg-darkSecond border-2 dark:border-purple-800 border-gray-200"

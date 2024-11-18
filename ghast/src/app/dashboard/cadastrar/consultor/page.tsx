@@ -342,7 +342,7 @@ const FieldGroup = ({
 }) => (
   <div className="space-y-2">
     <Label>{label}</Label>
-    <div className="border w-full h-[2px] border-gray-200 dark:border-darkBorder" />
+    
     {children}
   </div>
 );

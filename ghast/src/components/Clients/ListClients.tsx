@@ -25,6 +25,8 @@ export default function ListClients() {
       avatar: "http://github.com/adryanrr.png",
       cpf: "123.456.789-00",
       telefone: "(12) 3456-7890",  // Alterado para 'telefone'
+      tipo: "Vip",
+      fidelidade: "10",
     },
     {
       id: 2,
@@ -33,6 +35,8 @@ export default function ListClients() {
       avatar: "http://github.com/FelipeDuan.png",
       cpf: "234.567.890-01",
       telefone: "(11) 2345-6789",  // Alterado para 'telefone'
+      tipo: "Vip",
+      fidelidade: "20",
     },
     {
       id: 3,
@@ -41,6 +45,8 @@ export default function ListClients() {
       avatar: "http://github.com/MatheusJuK.png",
       cpf: "345.678.901-02",
       telefone: "(21) 3456-7890",  // Alterado para 'telefone'
+      tipo: "Vip",
+      fidelidade: "30",
     },
     ...Array.from({ length: 5 }, (_, i) => ({
       id: i + 4,
@@ -49,6 +55,8 @@ export default function ListClients() {
       avatar: "",
       cpf: `456.789.012-${i + 3}`,
       telefone: `(31) 4567-890${i + 3}`,  // Alterado para 'telefone'
+      tipo: "Padrão",
+      fidelidade: `${40 + i * 10}`,
     })),
   ];
   useEffect(() => {
