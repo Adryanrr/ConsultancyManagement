@@ -282,7 +282,7 @@ const FirstStep = ({
       </FieldGroup>
       <FieldGroup label="Tamanho do Negócio">
         <div className="flex gap-4">
-          {["Pequeno", "Médio", "Grande"].map((tamanho) => (
+          {["Pequeno", "Medio", "Grande"].map((tamanho) => (
             <label key={tamanho} className="flex items-center gap-2">
               <input
                 type="radio"
