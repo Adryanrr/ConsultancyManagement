@@ -190,12 +190,8 @@ export default function ClientesPage() {
     setSelectedCliente(cliente);
   };
 
-  if (loading) {
-    return <div>Carregando...</div>;
-  }
-
   return (
-    <div className="bg-slate-50 dark:bg-dark-main flex flex-col h-full w-full p-8 gap-8">
+    <div className="bg-gray-100 dark:bg-dark-main flex flex-col h-full w-full p-8 gap-8">
       {selectedCliente && (
         <CardCliente
           cliente={selectedCliente}

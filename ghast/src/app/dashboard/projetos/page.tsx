@@ -132,7 +132,7 @@ export default function Projetos() {
   };
 
   return (
-    <div className="bg-slate-50 dark:bg-dark-main flex flex-col h-full w-full p-8 gap-8">
+    <div className="bg-gray-100 dark:bg-dark-main flex flex-col h-full w-full p-8 gap-8">
       {/* Modal para exibir o cliente */}
       {selectedCliente && (
         <CardProjetos
