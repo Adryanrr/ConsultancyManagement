@@ -23,23 +23,23 @@ import {
 
 // Tipos para os campos de formulário
 interface Consultor {
-  name: string;
+  nome: string;
   cpf: string;
   email: string;
-  phone: string;
-  type: string;
-  size: string;
+  telefone: string;
+  tipo: string;
+  tamanho: string;
 }
 
 export default function CadastrarConsultor() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<Consultor>({
-    name: "",
+    nome: "",
     cpf: "",
     email: "",
-    phone: "",
-    type: "",
-    size: "",
+    telefone: "",
+    tipo: "",
+    tamanho: "",
   });
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [notification, setNotification] = useState<{
@@ -93,12 +93,12 @@ export default function CadastrarConsultor() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          nome: formData.name,
+          nome: formData.nome,
           cpf: formData.cpf,
           email: formData.email,
-          telefone: formData.phone,
-          especializacao: formData.type,
-          tamanhoNegocio: formData.size.toUpperCase(),
+          telefone: formData.telefone,
+          especializacao: formData.tipo,
+          tamanhoNegocio: formData.tamanho.toUpperCase(),
         }),
       });
 
@@ -109,12 +109,12 @@ export default function CadastrarConsultor() {
 
       showNotification("Consultor cadastrado com sucesso!", "success");
       setFormData({
-        name: "",
+        nome: "",
         cpf: "",
         email: "",
-        phone: "",
-        type: "",
-        size: "",
+        telefone: "",
+        tipo: "",
+        tamanho: "",
       });
       setStep(1);
     } catch (err: any) {
@@ -134,10 +134,11 @@ export default function CadastrarConsultor() {
           <div className="flex items-center justify-between mx-3">
             <div className="flex items-center gap-2">
               <div
-                className={`w-6 h-6 rounded-full ${step === 1
+                className={`w-6 h-6 rounded-full ${
+                  step === 1
                     ? "bg-[#7C3AED] text-white"
                     : "bg-gray-200 text-gray-400"
-                  } flex items-center justify-center text-sm font-medium`}
+                } flex items-center justify-center text-sm font-medium`}
               >
                 1
               </div>
@@ -147,10 +148,11 @@ export default function CadastrarConsultor() {
             </div>
             <div className="flex items-center gap-2">
               <div
-                className={`w-6 h-6 rounded-full ${step === 2
+                className={`w-6 h-6 rounded-full ${
+                  step === 2
                     ? "bg-[#7C3AED] text-white"
                     : "bg-gray-200 text-gray-400"
-                  } flex items-center justify-center text-sm`}
+                } flex items-center justify-center text-sm`}
               >
                 2
               </div>
@@ -173,7 +175,11 @@ export default function CadastrarConsultor() {
             <SecondStep formData={formData} />
           )}
         </CardContent>
-        <CardFooter className={`p-10 pt-4 ${step === 1 ? 'flex justify-end' : 'flex justify-between'}`}>
+        <CardFooter
+          className={`p-10 pt-4 ${
+            step === 1 ? "flex justify-end" : "flex justify-between"
+          }`}
+        >
           {step === 2 ? (
             <>
               <Button
@@ -204,8 +210,9 @@ export default function CadastrarConsultor() {
       </Card>
       {notification && (
         <div
-          className={`fixed bottom-4 right-4 p-4 rounded shadow-lg ${notification.type === "success" ? "bg-green-500" : "bg-red-500"
-            } text-white transition-opacity duration-300`}
+          className={`fixed bottom-4 right-4 p-4 rounded shadow-lg ${
+            notification.type === "success" ? "bg-green-500" : "bg-red-500"
+          } text-white transition-opacity duration-300`}
         >
           {notification.message}
         </div>
@@ -234,7 +241,7 @@ const FirstStep = ({
           <label htmlFor="fileInput" className="custom-file-upload cursor-pointer">
             <Image
               src="/assets/ImgPerfil.svg"
-              alt="Profile Image"
+              alt="Imagem de Perfil"
               className="w-32 h-32 rounded-full object-cover"
               width={128}
               height={128}
@@ -260,8 +267,8 @@ const FirstStep = ({
       </div>
       <FieldGroup label="Tipo de Consultoria">
         <Select
-          value={formData.type}
-          onValueChange={(value) => onSelectChange(value, "type")}
+          value={formData.tipo}
+          onValueChange={(value) => onSelectChange(value, "tipo")}
         >
           <SelectTrigger>
             <SelectValue placeholder="Selecione o tipo de consultoria" />
@@ -275,15 +282,15 @@ const FirstStep = ({
       </FieldGroup>
       <FieldGroup label="Tamanho do Negócio">
         <div className="flex gap-4">
-          {["Pequeno", "Médio", "Grande"].map((size) => (
-            <label key={size} className="flex items-center gap-2">
+          {["Pequeno", "Médio", "Grande"].map((tamanho) => (
+            <label key={tamanho} className="flex items-center gap-2">
               <input
                 type="radio"
-                name="size"
-                value={size.toUpperCase()}
-                onChange={(e) => onSelectChange(e.target.value, "size")}
+                name="tamanho"
+                value={tamanho.toUpperCase()}
+                onChange={(e) => onSelectChange(e.target.value, "tamanho")}
               />
-              {size}
+              {tamanho}
             </label>
           ))}
         </div>
@@ -291,7 +298,7 @@ const FirstStep = ({
     </div>
     <div className="bg-gray-200 w-px h-full dark:bg-darkBorder" />
     <div className="space-y-6">
-      {(["name", "cpf", "email", "phone"] as const).map((field) => (
+      {(["nome", "cpf", "email", "telefone"] as const).map((field) => (
         <FieldGroup key={field} label={capitalize(field)}>
           <Input
             id={field}
@@ -308,7 +315,7 @@ const FirstStep = ({
 const SecondStep = ({ formData }: { formData: Consultor }) => (
   <div className="flex flex-col md:flex-row justify-between items-center gap-12">
     <div className="w-full md:w-1/2 space-y-8">
-      {(["name", "cpf", "phone", "type"] as const).map((field) => (
+      {(["nome", "cpf", "telefone", "tipo"] as const).map((field) => (
         <FieldGroup key={field} label={capitalize(field)}>
           <Input value={formData[field]} readOnly className="bg-gray-50" />
         </FieldGroup>
