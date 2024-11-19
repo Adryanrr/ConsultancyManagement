@@ -24,6 +24,8 @@ export default function ListVips() {
       avatar: "http://github.com/adryanrr.png",
       cpf: "123.456.789-00",
       telefone: "(12) 3456-7890",  // Alterado para 'telefone'
+      tipoCliente: "Vip",
+      fidelidade: "10",
     },
     {
       id: 2,
@@ -32,6 +34,8 @@ export default function ListVips() {
       avatar: "http://github.com/FelipeDuan.png",
       cpf: "234.567.890-01",
       telefone: "(11) 2345-6789",  // Alterado para 'telefone'
+      tipoCliente: "Vip",
+      fidelidade: "20",
     },
     {
       id: 3,
@@ -40,7 +44,19 @@ export default function ListVips() {
       avatar: "http://github.com/MatheusJuK.png",
       cpf: "345.678.901-02",
       telefone: "(21) 3456-7890",  // Alterado para 'telefone'
+      tipoCliente: "Vip",
+      fidelidade: "30",
     },
+    {
+      id: 4,
+      nome: "Whuanderson",
+      email: "Whuanderson@example.com",
+      avatar: "http://github.com/whuanderson.png",
+      cpf: "444.678.901-02",
+      telefone: "(21) 5556-7890",  // Alterado para 'telefone'
+      tipoCliente: "Vip",
+      fidelidade: "30",
+    }
   ];
 
   useEffect(() => {
@@ -106,7 +122,7 @@ export default function ListVips() {
               key={vips.id}
               className="flex items-center gap-2 border-b dark:border-slate-100/15 py-2 last:border-b-0"
             >
-                <Avatar className="h-10 w-10 bg-black dark:text-white">
+                <Avatar className="h-10 w-10 bg-black text-white">
                   <AvatarFallback>{getInitials(vips.nome)}</AvatarFallback>
                 </Avatar>
               <div>
