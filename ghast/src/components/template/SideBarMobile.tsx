@@ -16,7 +16,7 @@ const links = [
       { name: "Consultor", path: "/dashboard/cadastrar/consultor" },
     ],
   },
-  { name: "Projetos", path: "/dashboard/projetos" },
+  { name: "Contratos", path: "/dashboard/projetos" },
   { name: "Clientes", path: "/dashboard/clientes" },
 ];
 

@@ -224,7 +224,7 @@ export function DataInfoStep({
                 {clientes.map((cliente) => (
                   <SelectItem
                     key={cliente.id}
-                    value={cliente.id.toString()}
+                    value={cliente.nome.toString()}
                   >
                     {cliente.nome}
                   </SelectItem>

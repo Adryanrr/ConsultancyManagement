@@ -97,6 +97,8 @@ const customers = [
   })),
 ];
 
+
+
 const Order = ({
   columnKey,
   onSort,
@@ -167,6 +169,15 @@ export default function ClientesPage() {
 
     fetchClientes();
   }, []);
+
+// função de gpvip
+function GPVip(cliente: Clientes) {
+  if (cliente.tipoCliente === "VIP") {
+    return Math.floor(Math.random() * 1000) + 10000;
+  }else{
+    return Math.floor(Math.random() * 1000);
+  }
+}
 
   const sortedClientes = [...clientes].sort((a, b) => {
     if (sortConfig.key) {
@@ -366,7 +377,7 @@ export default function ClientesPage() {
                 <div>{cliente.telefone}</div>
                 <div>{cliente.email}</div>
                 <div>{cliente.tipoCliente}</div>
-                <div>GP {cliente.fidelidade}</div>
+                <div>GP {GPVip(cliente)}</div>
                 <div className="flex gap-2 justify-center">
                   <button
                     className="text-gray-500 hover:text-gray-800"

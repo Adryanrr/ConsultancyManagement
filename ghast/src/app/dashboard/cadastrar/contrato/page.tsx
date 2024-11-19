@@ -42,7 +42,7 @@ export default function CompanyRegistrationForm() {
     paymentOption: "",
     clienteId: 2,
     empresaId: 3,
-    valorContrato: 0,
+    valorContrato: 10800,
   });
 
   const updateFormData = (newData: Partial<FormData>) => {
