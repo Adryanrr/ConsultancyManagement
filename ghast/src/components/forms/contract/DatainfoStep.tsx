@@ -15,10 +15,10 @@ import { Consultores } from "@/lib/consultantsProps";
 // Mock da função para buscar o tipo de cliente no banco
 const fetchClientType = async (clientName: string) => {
   const clientData: { [key: string]: string } = {
-    "Gilson Araujo": "vip",
-    "Luciani Viera": "regular",
+    "Gilson Araujo": "VIP",
+    "Luciani Viera": "REGULAR",
   };
-  return clientData[clientName] || "regular"; // Retorna "regular" se não encontrar
+  return clientData[clientName] || "REGULAR"; // Retorna "regular" se não encontrar
 };
 
 interface DataInfoStepProps {
@@ -39,7 +39,9 @@ export function DataInfoStep({
   updateFormData,
 }: DataInfoStepProps) {
   const [consultores, setConsultores] = useState<Consultores[]>([]);
-  const [filteredConsultants, setFilteredConsultants] = useState<Consultores[]>([]);
+  const [filteredConsultants, setFilteredConsultants] = useState<Consultores[]>(
+    []
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -86,21 +88,43 @@ export function DataInfoStep({
     }
   }, [formData.consultationType, consultores]);
 
-  const handleInputBlur = (field: keyof FormData) => (e: React.FocusEvent<HTMLInputElement>) => {
-    updateFormData({ [field]: e.target.value });
+  const handleInputBlur =
+    (field: keyof FormData) =>
+    async (e: React.FocusEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      updateFormData({ [field]: value });
 
-    if (field === "representativeName") {
-      fetchClientType(e.target.value).then((clientType) => {
+      if (field === "representativeName") {
+        const clientType = await fetchClientType(value);
         updateFormData({ isVip: clientType });
-      });
-    }
-  };
+
+        // Supondo que exista um endpoint para buscar o ID do cliente
+        const response = await fetch(
+          `http://localhost:8080/clientes?name=${value}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.id) updateFormData({ clienteId: data.id });
+        }
+      }
+
+      if (field === "companyName") {
+        const response = await fetch(
+          `http://localhost:8080/empresas?name=${value}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.id) updateFormData({ empresaId: data.id });
+        }
+      }
+    };
 
   const handleSelectChange = (field: keyof FormData) => (value: string) => {
-    updateFormData({ [field]: value });
+    const parsedValue = field === "consultant" ? Number(value) : value;
+    updateFormData({ [field]: parsedValue });
 
     if (field === "consultationType") {
-      updateFormData({ consultant: "" }); // Reset consultant when changing consultation type
+      updateFormData({ consultant: 0 }); // Limpa o consultor ao mudar o tipo de consultoria
     }
   };
 
@@ -108,10 +132,8 @@ export function DataInfoStep({
     updateFormData({ isVip: value });
   };
 
-
-
   // POST
-  // o que precisamos: ID do consultor, ID do cliente, data de início, data de término, tipo de cliente, tipo de consultoria, 
+  // o que precisamos: ID do consultor, ID do cliente, data de início, data de término, tipo de cliente, tipo de consultoria,
 
   return (
     <FormStep
@@ -147,7 +169,10 @@ export function DataInfoStep({
 
           <div className="space-y-2">
             <Label htmlFor="companyType">Tipo da Empresa</Label>
-            <Select value={formData.companyType} onValueChange={handleSelectChange("companyType")}>
+            <Select
+              value={formData.companyType}
+              onValueChange={handleSelectChange("companyType")}
+            >
               <SelectTrigger id="companyType">
                 <SelectValue placeholder="Selecione o tipo de Empresa" />
               </SelectTrigger>
@@ -160,7 +185,10 @@ export function DataInfoStep({
 
           <div className="space-y-2">
             <Label htmlFor="consultationType">Tipo de Consultoria</Label>
-            <Select value={formData.consultationType} onValueChange={handleSelectChange("consultationType")}>
+            <Select
+              value={formData.consultationType}
+              onValueChange={handleSelectChange("consultationType")}
+            >
               <SelectTrigger id="consultationType">
                 <SelectValue placeholder="Selecione o tipo de consultoria" />
               </SelectTrigger>
@@ -183,7 +211,7 @@ export function DataInfoStep({
           <div className="space-y-2">
             <Label htmlFor="consultant">Consultor</Label>
             <Select
-              value={formData.consultant}
+              value={formData.consultant?.toString()} // Converta o número para string para o Select
               onValueChange={handleSelectChange("consultant")}
               disabled={!formData.consultationType}
             >
@@ -192,7 +220,10 @@ export function DataInfoStep({
               </SelectTrigger>
               <SelectContent>
                 {filteredConsultants.map((consultor) => (
-                  <SelectItem key={consultor.id} value={consultor.id}>
+                  <SelectItem
+                    key={consultor.id}
+                    value={consultor.id.toString()}
+                  >
                     {consultor.nome}
                   </SelectItem>
                 ))}
@@ -225,19 +256,19 @@ export function DataInfoStep({
             <Label htmlFor="tipoCliente">Tipo de Cliente</Label>
             <div className="flex space-x-2">
               <button
-                onClick={() => handleClientTypeClick("regular")}
+                onClick={() => handleClientTypeClick("PADRAO")}
                 className={`p-6 py-3 rounded-sm ${
-                  formData.isVip === "regular"
+                  formData.isVip === "PADRAO"
                     ? "bg-gray-500 dark:bg-purple-800 text-white"
                     : "bg-white dark:bg-darkSecond border-2 dark:border-purple-800 border-gray-200"
                 }`}
               >
-                Regular
+                PADRÃO
               </button>
               <button
-                onClick={() => handleClientTypeClick("vip")}
+                onClick={() => handleClientTypeClick("VIP")}
                 className={`px-6 py-3 rounded-sm ${
-                  formData.isVip === "vip"
+                  formData.isVip === "VIP"
                     ? "bg-gray-500 dark:bg-purple-800 text-white"
                     : "bg-white dark:bg-darkSecond border-2 dark:border-purple-800 border-gray-200"
                 }`}

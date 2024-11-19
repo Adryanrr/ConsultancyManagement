@@ -96,6 +96,7 @@ export default function CompanyRegistrationForm() {
   };
 
   const handleComplete = async (data: Contract) => {
+    console.log("Response:", data);
     try {
       const response = await fetch("http://localhost:8080/contratos", {
         method: "POST",
@@ -116,6 +117,7 @@ export default function CompanyRegistrationForm() {
           tipoCliente: data.tipoCliente,
         }),
       });
+      console.log("Response:", response);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
