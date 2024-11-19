@@ -20,6 +20,7 @@ import {
   FaArrowLeft,
   FaArrowRight,
 } from "react-icons/fa";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const filtros = [
   {
@@ -220,6 +221,17 @@ export default function Clientes() {
     setSelectedCliente(cliente);
   };
 
+  const getInitials = (name: string) => {
+    const words = name.split(" ");
+    if (words.length >= 2) {
+      return (words[0][0] + words[1][0]).toUpperCase();
+    } else if (words.length === 1 && words[0].length >= 2) {
+      return words[0].substring(0, 2).toUpperCase();
+    } else {
+      return name.substring(0, 2).toUpperCase();
+    }
+  };
+
   return (
     <div className="bg-slate-50 dark:bg-dark-main flex flex-col h-full w-full p-8 gap-8">
       {/* Modal para exibir o cliente */}
@@ -326,13 +338,9 @@ export default function Clientes() {
                   className="flex gap-2 items-center"
                   onClick={() => handleCardClient(cliente)}
                 >
-                  <Image
-                    src="/assets/Gengar4k.jpg"
-                    alt="Cliente"
-                    width={40}
-                    height={30}
-                    className="rounded-full"
-                  />
+                  <Avatar className="h-10 w-10 bg-black dark:text-white">
+                    <AvatarFallback>{getInitials(cliente.nome)}</AvatarFallback>
+                  </Avatar>
                   <h3>{cliente.nome}</h3>
                 </button>
                 <div>{cliente.telefone}</div>
