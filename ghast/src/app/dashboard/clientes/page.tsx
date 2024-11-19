@@ -22,6 +22,7 @@ import {
 } from "react-icons/fa";
 import { Clientes } from "@/lib/clientsProps";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import ConfirmationModal from "@/components/ui/modal";
 
 const filtros = [
   {
@@ -127,6 +128,12 @@ export default function ClientesPage() {
   }>({ key: null, direction: "asc" });
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCliente, setSelectedCliente] = useState<Clientes | null>(null);
+  const [showPromoteModal, setShowPromoteModal] = useState(false);
+  const [clienteToPromote, setClienteToPromote] = useState<Clientes | null>(
+    null
+  );
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [clienteToDelete, setClienteToDelete] = useState<Clientes | null>(null);
 
   useEffect(() => {
     const fetchClientes = async () => {
@@ -191,6 +198,54 @@ export default function ClientesPage() {
     setSelectedCliente(cliente);
   };
 
+  const handleDeleteClient = async (id: number) => {
+    const API_DELETE_URL = `http://localhost:8080/clientes/${id}`;
+    try {
+      const response = await fetch(API_DELETE_URL, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ${response.status}: ${response.statusText}`);
+      }
+
+      setClientes(clientes.filter((cliente) => cliente.id !== id));
+      alert("Cliente deletado com sucesso");
+    } catch (error) {
+      console.error(error);
+      setError(error instanceof Error ? error.message : "Erro ao deletar cliente");
+    } finally {
+      setShowDeleteModal(false);
+    }
+  };
+
+  const handlePromoteClient = async (id: number) => {
+    const API_PROMOTE_URL = `http://localhost:8080/clientes/${id}/promover`;
+    try {
+      const response = await fetch(API_PROMOTE_URL, {
+        method: "PUT",
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ${response.status}: ${response.statusText}`);
+      }
+
+      setClientes(
+        clientes.map((cliente) =>
+          cliente.id === id ? { ...cliente, tipo: "Vip" } : cliente
+        )
+      );
+      alert("Cliente promovido para VIP com sucesso");
+    } catch (error) {
+      console.error(error);
+      setError(
+        error instanceof Error ? error.message : "Erro ao promover cliente"
+      );
+    } finally {
+      setShowPromoteModal(false);
+    }
+  };
+
   const getInitials = (name: string) => {
     const words = name.split(" ");
     if (words.length >= 2) {
@@ -227,7 +282,7 @@ export default function ClientesPage() {
                 </div>
               </div>
             </div>
-            <span className="rotate-90 font-bold">...</span>
+            <span className="rotate-90 font-bold"></span>
           </button>
         ))}
         <div className="relative flex flex-1 items-center min-w-[278px]">
@@ -313,11 +368,23 @@ export default function ClientesPage() {
                 <div>{cliente.tipo}</div>
                 <div>GP {cliente.fidelidade}</div>
                 <div className="flex gap-2 justify-center">
-                  <button className="text-gray-500 hover:text-gray-800">
+                  <button
+                    className="text-gray-500 hover:text-gray-800"
+                    onClick={() => {
+                      setClienteToPromote(cliente);
+                      setShowPromoteModal(true);
+                    }}
+                  >
                     <FaEdit size={15} />
                   </button>
                   <button className="text-gray-500 hover:text-gray-800">
-                    <FaTrash size={15} />
+                    <FaTrash
+                      size={15}
+                      onClick={() => {
+                        setClienteToDelete(cliente);
+                        setShowDeleteModal(true);
+                      }}
+                    />
                   </button>
                 </div>
               </div>
@@ -325,6 +392,29 @@ export default function ClientesPage() {
           </div>
         </div>
       </div>
+
+      {showPromoteModal && clienteToPromote && (
+        <ConfirmationModal
+          title="Promover Cliente para VIP"
+          onClose={() => setShowPromoteModal(false)}
+          onConfirm={() => handlePromoteClient(clienteToPromote.id)}
+        >
+          <p>
+            Tem certeza que deseja promover {clienteToPromote.nome} para VIP?
+          </p>
+        </ConfirmationModal>
+      )}
+
+      {showDeleteModal && clienteToDelete && (
+        <ConfirmationModal
+          title="Deletar Cliente"
+          isDelete={true}
+          onClose={() => setShowDeleteModal(false)}
+          onConfirm={() => handleDeleteClient(clienteToDelete.id)}
+        >
+          <p>Tem certeza que deseja deletar {clienteToDelete.nome}?</p>
+        </ConfirmationModal>
+      )}
 
       <footer className="flex justify-between">
         <p>

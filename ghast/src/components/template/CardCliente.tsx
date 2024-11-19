@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FaTimes } from "react-icons/fa";
+import { Avatar, AvatarFallback } from "../ui/avatar";
 
 interface CardClienteProps {
   cliente: {
@@ -54,6 +55,17 @@ export default function CardCliente({ cliente, onClose }: CardClienteProps) {
     "Em Espera": "border-[#D1D5DB]",
   };
 
+  const getInitials = (name: string) => {
+    const words = name.split(" ");
+    if (words.length >= 2) {
+      return (words[0][0] + words[1][0]).toUpperCase();
+    } else if (words.length === 1 && words[0].length >= 2) {
+      return words[0].substring(0, 2).toUpperCase();
+    } else {
+      return name.substring(0, 2).toUpperCase();
+    }
+  };
+
   return (
     // fundo preto
     <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center backdrop-blur-sm z-50">
@@ -72,17 +84,23 @@ export default function CardCliente({ cliente, onClose }: CardClienteProps) {
         <div className="flex flex-col lg:flex-row justify-between gap-8">
           {/* imagem e informações do cliente */}
           <div className="flex flex-col gap-3 items-center w-full lg:w-1/2">
-            <img
-              src="/assets/Gengar4k.jpg"
-              alt={cliente.nome}
-              className="rounded-full w-24 h-24 border"
-            />
+            <Avatar className="h-24 w-24 bg-black dark:text-white text-4xl">
+              <AvatarFallback>{getInitials(cliente.nome)}</AvatarFallback>
+            </Avatar>
             <h2 className="text-xl font-semibold">{cliente.nome}</h2>
             <div className="gap-2 flex flex-col">
-              <p><strong>Email:</strong>  {cliente.email}</p>
-              <p><strong>Telefone:</strong>  {cliente.telefone}</p>
-              <p><strong>Tipo:</strong>  {cliente.tipo}</p>
-              <p><strong>Fidelidade: GP</strong>  {cliente.fidelidade}</p>
+              <p>
+                <strong>Email:</strong> {cliente.email}
+              </p>
+              <p>
+                <strong>Telefone:</strong> {cliente.telefone}
+              </p>
+              <p>
+                <strong>Tipo:</strong> {cliente.tipo}
+              </p>
+              <p>
+                <strong>Fidelidade: GP</strong> {cliente.fidelidade}
+              </p>
             </div>
           </div>
           {/* linhas separando */}
@@ -105,8 +123,17 @@ export default function CardCliente({ cliente, onClose }: CardClienteProps) {
                     />
                     <p className="font-semibold">{contrato.nome}</p>
                   </div>
-                  <div className={`w-24 items-center flex flex-row gap-1 text-center justify-center text-sm font-semibold text-gray-500 border rounded-md p-2 ${statusColors[contrato.status]}`}>
-                  <div className={`border-[3px] rounded-full items-center ${pointColor[contrato.status]}`}></div> {contrato.status}
+                  <div
+                    className={`w-24 items-center flex flex-row gap-1 text-center justify-center text-sm font-semibold text-gray-500 border rounded-md p-2 ${
+                      statusColors[contrato.status]
+                    }`}
+                  >
+                    <div
+                      className={`border-[3px] rounded-full items-center ${
+                        pointColor[contrato.status]
+                      }`}
+                    ></div>{" "}
+                    {contrato.status}
                   </div>
                 </div>
               ))}
