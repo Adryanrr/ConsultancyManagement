@@ -1,12 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Moon, MessageCircle, Menu, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import Image from "next/image";
 import LogoGhast from "../ui/Logo";
+import Link from "next/link";
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
@@ -32,7 +30,9 @@ export default function Header() {
         <div></div>
         <div className="justify-center items-center sm:block">
           <div className="flex-row flex gap-1">
+            <Link href={"/dashboard"}>
               <LogoGhast className=":w-6 h-6 sm:w-[35px] sm:h-[35px] dark:fill-none"/>
+            </Link>
             <span className="sm:text-3xl text-base font-bold text-black dark:text-white font-audiowide">
               GHAST CONSULTORIA
             </span>
@@ -40,9 +40,6 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-2">
-          <button className="text-slate-300">
-            <MessageCircle className="h-5 w-5 text-violet-500" />
-          </button>
           <button
             className="text-slate-400"
             onClick={toggleDarkMode}
