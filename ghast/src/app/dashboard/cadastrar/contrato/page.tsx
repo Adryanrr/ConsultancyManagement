@@ -5,6 +5,7 @@ import { MultiStepForm } from "@/components/ui/MultiStepForm"
 import { DataInfoStep } from "@/components/forms/contract/DatainfoStep"
 import { ContractPreviewStep } from "@/components/forms/contract/ContractStep"
 import { PaymentStep } from "@/components/forms/contract/PaymentStep"
+import { useRouter } from "next/navigation";
 
 export interface FormData {
   representativeName: string
@@ -16,6 +17,7 @@ export interface FormData {
   endDate: string
   isVip: string
   paymentMethod: string
+  paymentOption: string
   cardNumber?: string
   cardHolder?: string
   expiryDate?: string
@@ -23,6 +25,7 @@ export interface FormData {
 }
 
 export default function CompanyRegistrationForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     representativeName: '',
     companyName: '',
@@ -33,6 +36,7 @@ export default function CompanyRegistrationForm() {
     endDate: '',
     isVip: '',
     paymentMethod: '',
+    paymentOption: '',
   })
 
   const updateFormData = (newData: Partial<FormData>) => {
@@ -62,7 +66,7 @@ export default function CompanyRegistrationForm() {
 
   const handleComplete = async (data: FormData) => {
     console.log("Form completed:", formData)
-    // Here you would typically submit the data to your backend
+    router.push("/dashboard")
   }
 
   return (

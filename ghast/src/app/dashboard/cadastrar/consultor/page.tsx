@@ -20,6 +20,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useRouter } from "next/navigation";
+
 
 // Tipos para os campos de formulário
 interface Consultor {
@@ -32,6 +34,7 @@ interface Consultor {
 }
 
 export default function CadastrarConsultor() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<Consultor>({
     nome: "",
@@ -120,6 +123,8 @@ export default function CadastrarConsultor() {
     } catch (err: any) {
       showNotification(err.message || "Erro inesperado", "error");
     }
+
+    router.push("/dashboard")
   };
 
   const showNotification = (message: string, type: "success" | "error") => {
