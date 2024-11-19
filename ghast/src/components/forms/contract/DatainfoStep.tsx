@@ -11,6 +11,8 @@ import {
 import { FormData } from "@/app/dashboard/cadastrar/contrato/page";
 import { useEffect, useState } from "react";
 import { Consultores } from "@/lib/consultantsProps";
+import { Clientes } from "@/lib/clientsProps";
+import { Empresa } from "@/lib/companyProps";
 
 // Mock da função para buscar o tipo de cliente no banco
 const fetchClientType = async (clientName: string) => {
@@ -42,6 +44,8 @@ export function DataInfoStep({
   const [filteredConsultants, setFilteredConsultants] = useState<Consultores[]>(
     []
   );
+  const [clientes, setClientes] = useState<Clientes[]>([]);
+  const [empresas, setEmpresas] = useState<Empresa[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -74,6 +78,68 @@ export function DataInfoStep({
       }
     };
     fetchConsultants();
+  }, []);
+
+  // Carregar clientes da API
+  useEffect(() => {
+    const fetchClientes = async () => {
+      setLoading(true);
+      setError(null);
+      const API_BASE_URL = "http://localhost:8080/clientes";
+
+      try {
+        const response = await fetch(API_BASE_URL);
+
+        if (!response.ok) {
+          throw new Error(`Erro ${response.status}: ${response.statusText}`);
+        }
+
+        const contentType = response.headers.get("Content-Type");
+        if (!contentType || !contentType.includes("application/json")) {
+          console.error("A resposta não é JSON.");
+          throw new Error("A resposta não é um JSON válido.");
+        }
+
+        const data = await response.json();
+        setClientes(data);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : "Erro desconhecido");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchClientes();
+  }, []);
+
+  // Carregar emrpesas da API
+  useEffect(() => {
+    const fetchEmrpesas = async () => {
+      setLoading(true);
+      setError(null);
+      const API_BASE_URL = "http://localhost:8080/empresas";
+
+      try {
+        const response = await fetch(API_BASE_URL);
+
+        if (!response.ok) {
+          throw new Error(`Erro ${response.status}: ${response.statusText}`);
+        }
+
+        const contentType = response.headers.get("Content-Type");
+        if (!contentType || !contentType.includes("application/json")) {
+          console.error("A resposta não é JSON.");
+          throw new Error("A resposta não é um JSON válido.");
+        }
+
+        const data = await response.json();
+        setEmpresas(data);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : "Erro desconhecido");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEmrpesas();
   }, []);
 
   // Filtrar consultores com base no tipo de consultoria
@@ -147,13 +213,24 @@ export function DataInfoStep({
         <div className="space-y-8 flex-1">
           <div className="space-y-2">
             <Label htmlFor="representativeName">Representante</Label>
-            <Input
-              id="representativeName"
-              placeholder="Nome Completo"
-              defaultValue={formData.representativeName}
-              onBlur={handleInputBlur("representativeName")}
-              required
-            />
+            <Select
+              value={formData.representativeName.toString()} // Converta o número para string para o Select
+              onValueChange={handleSelectChange("representativeName")}
+            >
+              <SelectTrigger id="representativeName">
+                <SelectValue placeholder="Selecione o Representante" />
+              </SelectTrigger>
+              <SelectContent>
+                {clientes.map((cliente) => (
+                  <SelectItem
+                    key={cliente.id}
+                    value={cliente.id.toString()}
+                  >
+                    {cliente.nome}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
