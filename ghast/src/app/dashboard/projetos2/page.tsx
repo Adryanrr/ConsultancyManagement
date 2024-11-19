@@ -1,7 +1,8 @@
 "use client";
+import { Consultores } from "@/lib/consultantsProps";
 import { useState, useEffect } from "react";
 import CardProjetos from "@/components/template/CardProjetos";
-
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   FaSearch,
   FaChevronUp,
@@ -11,9 +12,31 @@ import {
   FaArrowLeft,
   FaArrowRight,
 } from "react-icons/fa";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
-type StatusType = "Finalizado" | "Em Curso" | "Em Espera";
+
+//   id: number;
+//   empresa: Empresa;
+//   cliente: Clientes;
+//   consultor: Consultores;
+//   tipoConsulta: string;
+//   dataInicio: string;
+//   dataFim: string;
+//   tipoCliente: string;
+//   paymentMethod: string;
+//   paymentOption: string;
+//   valor: number;
+//   status: string;
+
+interface Contrato {
+  id: number;
+  empresa: {
+    nome: string;
+  };
+  consultor: Consultores;
+  tipoConsulta: string;
+  status: "Finalizado" | "Em Curso" | "Em Espera";
+  dataFim: string;
+}
 
 const statusColors = {
   Finalizado: "bg-[#408E5D] text-white",
@@ -27,16 +50,33 @@ const pointColor = {
   "Em Espera": "border-[#D1D5DB]",
 };
 
+const Order = ({
+  columnKey,
+  onSort,
+}: {
+  columnKey: keyof Contrato;
+  onSort: (key: keyof Contrato, direction: "asc" | "desc") => void;
+}) => (
+  <div className="flex flex-col">
+    <button onClick={() => onSort(columnKey, "asc")}>
+      <FaChevronUp size={12} className="hover:text-slate-500" />
+    </button>
+    <button onClick={() => onSort(columnKey, "desc")}>
+      <FaChevronDown size={12} className="hover:text-slate-500" />
+    </button>
+  </div>
+);
+
 export default function Projetos() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [sortConfig, setSortConfig] = useState<{
-    key: string | null;
+    key: keyof Contrato | null;
     direction: "asc" | "desc";
   }>({ key: null, direction: "asc" });
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCliente, setSelectedCliente] = useState(null);
-  const [empresas, setEmpresas] = useState<any[]>([]);
+  const [selectedCliente, setSelectedCliente] = useState<Contrato | null>(null);
+  const [contratos, setContratos] = useState<Contrato[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -47,7 +87,7 @@ export default function Projetos() {
           throw new Error(`Erro ${response.status}: ${response.statusText}`);
         }
         const data = await response.json();
-        setEmpresas(data);
+        setContratos(data);
       } catch (error) {
         console.error("Erro ao buscar contratos:", error);
       } finally {
@@ -58,42 +98,41 @@ export default function Projetos() {
     fetchContratos();
   }, []);
 
-  const sortedEmpresas = [...empresas].sort((a, b) => {
+  const sortedContratos = [...contratos].sort((a, b) => {
     if (sortConfig.key) {
       const aValue = a[sortConfig.key];
       const bValue = b[sortConfig.key];
 
-      if (sortConfig.key === "valor") {
-        return sortConfig.direction === "asc"
-          ? Number(aValue) - Number(bValue)
-          : Number(bValue) - Number(aValue);
+      if (typeof aValue === "number" && typeof bValue === "number") {
+        return sortConfig.direction === "asc" ? aValue - bValue : bValue - aValue;
       }
 
-      const aString = aValue?.toString().toLowerCase() || "";
-      const bString = bValue?.toString().toLowerCase() || "";
-      if (aString < bString) return sortConfig.direction === "asc" ? -1 : 1;
-      if (aString > bString) return sortConfig.direction === "asc" ? 1 : -1;
+      if (typeof aValue === "string" && typeof bValue === "string") {
+        return sortConfig.direction === "asc"
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      }
     }
     return 0;
   });
 
-  const filteredEmpresas = sortedEmpresas.filter(
-    (empresa) =>
-      empresa.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      empresa.valor.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      empresa.status.includes(searchTerm)
+  const filteredContratos = sortedContratos.filter(
+    (contrato) =>
+      contrato.empresa.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contrato.consultor.nome.toString().includes(searchTerm) ||
+      contrato.status.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const paginatedContratos = filteredEmpresas.slice(
+  const paginatedContratos = filteredContratos.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  const handleSort = (key: any, direction: any) => {
+  const handleSort = (key: keyof Contrato, direction: "asc" | "desc") => {
     setSortConfig({ key, direction });
   };
 
-  const handleCardClient = (cliente: any) => {
+  const handleCardClient = (cliente: Contrato) => {
     setSelectedCliente(cliente);
   };
 
@@ -108,30 +147,17 @@ export default function Projetos() {
     }
   };
 
-  const Order = ({
-    columnKey,
-    onSort,
-  }: {
-    columnKey: string;
-    onSort: (key: string, direction: "asc" | "desc") => void;
-  }) => {
-    return (
-      <div className="flex flex-col">
-        <button onClick={() => onSort(columnKey, "asc")}>
-          <FaChevronUp size={12} className="hover:text-slate-500" />
-        </button>
-        <button onClick={() => onSort(columnKey, "desc")}>
-          <FaChevronDown size={12} className="hover:text-slate-500" />
-        </button>
-      </div>
-    );
-  };
-
   return (
     <div className="bg-gray-100 dark:bg-dark-main flex flex-col h-full w-full p-8 gap-8">
       {selectedCliente && (
         <CardProjetos
-          projeto={selectedCliente}
+          projeto={{
+            nome: selectedCliente?.empresa.nome || "",
+            status: selectedCliente.status,
+            consultor: "", // Add appropriate value
+            tipo: "", // Add appropriate value
+            fidelidade: "" // Add appropriate value
+          }}
           onClose={() => setSelectedCliente(null)}
         />
       )}
@@ -156,11 +182,11 @@ export default function Projetos() {
           <div className="grid grid-cols-5 items-center p-4 font-semibold text-sm text-black dark:text-white min-w-[800px]">
             <div className="flex gap-2 items-center">
               Empresas
-              <Order columnKey="nome" onSort={handleSort} />
+              <Order columnKey="empresa" onSort={handleSort} />
             </div>
             <div className="flex gap-2 items-center">
-              Valor
-              <Order columnKey="valor" onSort={handleSort} />
+              Consultor
+              <Order columnKey="consultor" onSort={handleSort} />
             </div>
             <div className="flex gap-2 items-center">Status</div>
             <div className="flex gap-2 items-center">Prazo</div>
@@ -168,13 +194,13 @@ export default function Projetos() {
           </div>
           <div className="flex-1 flex-col min-w-[800px]">
             {loading ? (
-              <p>Carregando contratos...</p>
+              <p></p>
             ) : paginatedContratos.length === 0 ? (
               <p>Nenhum contrato encontrado.</p>
             ) : (
-              paginatedContratos.map((contrato, index) => (
+              paginatedContratos.map((contrato) => (
                 <div
-                  key={index}
+                  key={contrato.id}
                   className="grid grid-cols-5 items-center p-4 border-t border-black dark:border-white text-sm text-black dark:text-white"
                 >
                   <button
@@ -186,20 +212,11 @@ export default function Projetos() {
                     </Avatar>
                     <h3>{contrato.empresa.nome}</h3>
                   </button>
-                  <div>R$ {contrato.valor}</div>
-                  <div
-                    className={`w-24 items-center flex flex-row gap-1 text-center justify-center text-sm font-semibold text-gray-500 border rounded-md p-2 ${
-                      statusColors[contrato.status as StatusType]
-                    }`}
-                  >
-                    <div
-                      className={`border-[3px] rounded-full items-center ${
-                        pointColor[contrato.status as StatusType]
-                      }`}
-                    ></div>
-                    {contrato.status}
+                  <div>{contrato.consultor.nome}</div>
+                  <div>
+                    {contrato.tipoConsulta}
                   </div>
-                  <div>{new Date(contrato.prazo).toLocaleDateString()}</div>
+                  <div>{new Date(contrato.dataFim).toLocaleDateString()}</div>
                   <div className="flex gap-2 justify-center">
                     <button className="text-gray-500 hover:text-gray-800">
                       <FaEdit size={15} />
@@ -216,18 +233,18 @@ export default function Projetos() {
       </div>
       <footer className="flex justify-between">
         <p>
-          {filteredEmpresas.length === 0 ? (
+          {filteredContratos.length === 0 ? (
             ""
           ) : (
             <>
               <span className="text-violet-500">
                 {`${(currentPage - 1) * itemsPerPage + 1}-${
-                  currentPage * itemsPerPage > filteredEmpresas.length
-                    ? filteredEmpresas.length
+                  currentPage * itemsPerPage > filteredContratos.length
+                    ? filteredContratos.length
                     : currentPage * itemsPerPage
                 }`}
               </span>{" "}
-              clientes de {filteredEmpresas.length}
+              contratos de {filteredContratos.length}
             </>
           )}
         </p>
@@ -242,10 +259,10 @@ export default function Projetos() {
             <FaArrowLeft />
           </button>
           <button
-            disabled={currentPage * itemsPerPage >= empresas.length}
+            disabled={currentPage * itemsPerPage >= contratos.length}
             onClick={() => setCurrentPage(currentPage + 1)}
             className={`px-3 py-1 border rounded-md ${
-              currentPage * itemsPerPage >= empresas.length
+              currentPage * itemsPerPage >= contratos.length
                 ? "opacity-20 cursor-not-allowed"
                 : ""
             }`}
