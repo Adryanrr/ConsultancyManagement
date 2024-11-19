@@ -274,7 +274,7 @@ const FirstStep = ({
             <SelectValue placeholder="Selecione o tipo de consultoria" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="TI">TI</SelectItem>
+            <SelectItem value="TECNOLOGIA">TI</SelectItem>
             <SelectItem value="GESTAO">Gestão</SelectItem>
             <SelectItem value="FINANCEIRO">Financeiro</SelectItem>
           </SelectContent>

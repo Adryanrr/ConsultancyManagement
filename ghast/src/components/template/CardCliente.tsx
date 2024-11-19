@@ -6,7 +6,7 @@ interface CardClienteProps {
     nome: string;
     telefone: string;
     email: string;
-    tipo: string;
+    tipoCliente: string;
     fidelidade: string;
   };
   onClose: () => void;
@@ -81,7 +81,7 @@ export default function CardCliente({ cliente, onClose }: CardClienteProps) {
             <div className="gap-2 flex flex-col">
               <p><strong>Email:</strong>  {cliente.email}</p>
               <p><strong>Telefone:</strong>  {cliente.telefone}</p>
-              <p><strong>Tipo:</strong>  {cliente.tipo}</p>
+              <p><strong>Tipo:</strong>  {cliente.tipoCliente}</p>
               <p><strong>Fidelidade: GP</strong>  {cliente.fidelidade}</p>
             </div>
           </div>

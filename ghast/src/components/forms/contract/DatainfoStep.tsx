@@ -10,13 +10,16 @@ import {
 } from "@/components/ui/select";
 import { FormData } from "@/app/dashboard/cadastrar/contrato/page";
 import { useEffect, useState } from "react";
+import { Consultores } from "@/lib/consultantsProps";
 
-// Mock data for consultants
-const consultants = [
-  { value: "consultant1", label: "Consultant 1", type: "tecnologia" },
-  { value: "consultant2", label: "Consultant 2", type: "financeira" },
-  { value: "consultant3", label: "Consultant 3", type: "gestao" },
-];
+// Mock da função para buscar o tipo de cliente no banco
+const fetchClientType = async (clientName: string) => {
+  const clientData: { [key: string]: string } = {
+    "Gilson Araujo": "vip",
+    "Luciani Viera": "regular",
+  };
+  return clientData[clientName] || "regular"; // Retorna "regular" se não encontrar
+};
 
 interface DataInfoStepProps {
   onNext: () => void;
@@ -27,16 +30,6 @@ interface DataInfoStepProps {
   updateFormData: (data: Partial<FormData>) => void;
 }
 
-// Mock da função para buscar o tipo de cliente no banco
-const fetchClientType = async (clientName: string) => {
-  // Simulação de consulta ao banco com base no nome
-  const clientData: { [key: string]: string } = {
-    "Gilson Araujo": "vip",
-    "Luciani Viera": "regular",
-  };
-  return clientData[clientName] || "regular"; // Retorna "regular" se não encontrar
-};
-
 export function DataInfoStep({
   onNext,
   onBack,
@@ -45,41 +38,80 @@ export function DataInfoStep({
   formData,
   updateFormData,
 }: DataInfoStepProps) {
-  const [filteredConsultants, setFilteredConsultants] = useState(consultants);
+  const [consultores, setConsultores] = useState<Consultores[]>([]);
+  const [filteredConsultants, setFilteredConsultants] = useState<Consultores[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
+  // Carregar consultores da API
   useEffect(() => {
-    if (formData.consultationType) {
-      const relevantConsultants = consultants.filter(
-        (consultant) => consultant.type === formData.consultationType
-      );
-      setFilteredConsultants(relevantConsultants);
-    } else {
-      setFilteredConsultants(consultants);
-    }
-  }, [formData.consultationType]);
+    const fetchConsultants = async () => {
+      setLoading(true);
+      setError(null);
+      const API_BASE_URL = "http://localhost:8080/consultores";
 
-  const handleInputBlur =
-    (field: keyof FormData) => (e: React.FocusEvent<HTMLInputElement>) => {
-      updateFormData({ [field]: e.target.value });
+      try {
+        const response = await fetch(API_BASE_URL);
 
-      if (field === "representativeName") {
-        fetchClientType(e.target.value).then((clientType) => {
-          updateFormData({ isVip: clientType });
-        });
+        if (!response.ok) {
+          throw new Error(`Erro ${response.status}: ${response.statusText}`);
+        }
+
+        const contentType = response.headers.get("Content-Type");
+        if (!contentType || !contentType.includes("application/json")) {
+          console.error("A resposta não é JSON.");
+          throw new Error("A resposta não é um JSON válido.");
+        }
+
+        const data = await response.json();
+        setConsultores(data);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : "Erro desconhecido");
+      } finally {
+        setLoading(false);
       }
     };
+    fetchConsultants();
+  }, []);
+
+  // Filtrar consultores com base no tipo de consultoria
+  useEffect(() => {
+    if (formData.consultationType) {
+      const filtered = consultores.filter(
+        (consultor) => consultor.especializacao === formData.consultationType
+      );
+      setFilteredConsultants(filtered);
+    } else {
+      setFilteredConsultants([]);
+    }
+  }, [formData.consultationType, consultores]);
+
+  const handleInputBlur = (field: keyof FormData) => (e: React.FocusEvent<HTMLInputElement>) => {
+    updateFormData({ [field]: e.target.value });
+
+    if (field === "representativeName") {
+      fetchClientType(e.target.value).then((clientType) => {
+        updateFormData({ isVip: clientType });
+      });
+    }
+  };
 
   const handleSelectChange = (field: keyof FormData) => (value: string) => {
     updateFormData({ [field]: value });
 
     if (field === "consultationType") {
-      updateFormData({ consultant: "" });
+      updateFormData({ consultant: "" }); // Reset consultant when changing consultation type
     }
   };
 
   const handleClientTypeClick = (value: string) => {
     updateFormData({ isVip: value });
   };
+
+
+
+  // POST
+  // o que precisamos: ID do consultor, ID do cliente, data de início, data de término, tipo de cliente, tipo de consultoria, 
 
   return (
     <FormStep
@@ -93,7 +125,6 @@ export function DataInfoStep({
         <div className="space-y-8 flex-1">
           <div className="space-y-2">
             <Label htmlFor="representativeName">Representante</Label>
-            
             <Input
               id="representativeName"
               placeholder="Nome Completo"
@@ -105,7 +136,6 @@ export function DataInfoStep({
 
           <div className="space-y-2">
             <Label htmlFor="companyName">Empresa</Label>
-            
             <Input
               id="companyName"
               placeholder="Nome da Empresa"
@@ -117,11 +147,7 @@ export function DataInfoStep({
 
           <div className="space-y-2">
             <Label htmlFor="companyType">Tipo da Empresa</Label>
-            
-            <Select
-              value={formData.companyType}
-              onValueChange={handleSelectChange("companyType")}
-            >
+            <Select value={formData.companyType} onValueChange={handleSelectChange("companyType")}>
               <SelectTrigger id="companyType">
                 <SelectValue placeholder="Selecione o tipo de Empresa" />
               </SelectTrigger>
@@ -134,18 +160,14 @@ export function DataInfoStep({
 
           <div className="space-y-2">
             <Label htmlFor="consultationType">Tipo de Consultoria</Label>
-            
-            <Select
-              value={formData.consultationType}
-              onValueChange={handleSelectChange("consultationType")}
-            >
+            <Select value={formData.consultationType} onValueChange={handleSelectChange("consultationType")}>
               <SelectTrigger id="consultationType">
                 <SelectValue placeholder="Selecione o tipo de consultoria" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="tecnologia">TI</SelectItem>
-                <SelectItem value="financeira">Financeira</SelectItem>
-                <SelectItem value="gestao">Gestão</SelectItem>
+                <SelectItem value="TECNOLOGIA">TI</SelectItem>
+                <SelectItem value="FINANCEIRO">Financeira</SelectItem>
+                <SelectItem value="GESTAO">Gestão</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -160,7 +182,6 @@ export function DataInfoStep({
         <div className="space-y-8 flex-1">
           <div className="space-y-2">
             <Label htmlFor="consultant">Consultor</Label>
-            
             <Select
               value={formData.consultant}
               onValueChange={handleSelectChange("consultant")}
@@ -170,17 +191,17 @@ export function DataInfoStep({
                 <SelectValue placeholder="Selecione o consultor" />
               </SelectTrigger>
               <SelectContent>
-                {filteredConsultants.map((consultant) => (
-                  <SelectItem key={consultant.value} value={consultant.value}>
-                    {consultant.label}
+                {filteredConsultants.map((consultor) => (
+                  <SelectItem key={consultor.id} value={consultor.id}>
+                    {consultor.nome}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
+
           <div className="space-y-2">
             <Label htmlFor="startDate">Início do Contrato</Label>
-            
             <Input
               type="date"
               id="startDate"
@@ -191,7 +212,6 @@ export function DataInfoStep({
           </div>
           <div className="space-y-2">
             <Label htmlFor="endDate">Término do Contrato</Label>
-            
             <Input
               type="date"
               id="endDate"
@@ -200,9 +220,9 @@ export function DataInfoStep({
               required
             />
           </div>
+
           <div className="space-y-2">
             <Label htmlFor="tipoCliente">Tipo de Cliente</Label>
-            
             <div className="flex space-x-2">
               <button
                 onClick={() => handleClientTypeClick("regular")}

@@ -61,7 +61,7 @@ const customers = [
     avatar: "http://github.com/adryanrr.png",
     cpf: "123.456.789-00",
     telefone: "(12) 3456-7890", // Alterado para 'telefone'
-    tipo: "Vip",
+    tipoCliente: "Vip",
     fidelidade: "1000",
   },
   {
@@ -71,7 +71,7 @@ const customers = [
     avatar: "http://github.com/FelipeDuan.png",
     cpf: "234.567.890-01",
     telefone: "(11) 2345-6789", // Alterado para 'telefone'
-    tipo: "Vip",
+    tipoCliente: "Vip",
     fidelidade: "1000",
   },
   {
@@ -81,7 +81,7 @@ const customers = [
     avatar: "http://github.com/MatheusJuK.png",
     cpf: "345.678.901-02",
     telefone: "(21) 3456-7890", // Alterado para 'telefone'
-    tipo: "Vip",
+    tipoCliente: "Vip",
     fidelidade: "1000",
   },
   ...Array.from({ length: 5 }, (_, i) => ({
@@ -91,7 +91,7 @@ const customers = [
     avatar: "",
     cpf: `456.789.012-${i + 3}`,
     telefone: `(31) 4567-890${i + 3}`, // Alterado para 'telefone'
-    tipo: "Padrão",
+    tipoCliente: "Padrão",
     fidelidade: "100",
   })),
 ];
@@ -283,7 +283,7 @@ export default function ClientesPage() {
             <div className="flex gap-2 items-center">
               <FaBriefcase />
               Tipo
-              <Order columnKey="tipo" onSort={handleSort} />
+              <Order columnKey="tipoCliente" onSort={handleSort} />
             </div>
             <div className="flex gap-2 items-center">
               <FaMedal />
@@ -310,7 +310,7 @@ export default function ClientesPage() {
                 </button>
                 <div>{cliente.telefone}</div>
                 <div>{cliente.email}</div>
-                <div>{cliente.tipo}</div>
+                <div>{cliente.tipoCliente}</div>
                 <div>GP {cliente.fidelidade}</div>
                 <div className="flex gap-2 justify-center">
                   <button className="text-gray-500 hover:text-gray-800">
