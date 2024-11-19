@@ -5,4 +5,6 @@ export interface Clientes {
   avatar: string;
   cpf: string;
   telefone: string;
+  tipo: string;
+  fidelidade: string;
 }
