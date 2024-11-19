@@ -7,6 +7,7 @@ import ListConsultants from "@/components/Clients/ListConsultants";
 
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
+import ChatBot from "@/components/template/chat";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -37,6 +38,7 @@ export default function Dashboard() {
           <ListVips />
         </div>
       </div>
+      <ChatBot/>
     </main>
   );
 }
