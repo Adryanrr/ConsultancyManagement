@@ -48,7 +48,7 @@ const AvatarFallback = React.forwardRef<
   <AvatarPrimitive.Fallback
     ref={ref}
     className={cn(
-      `flex h-full w-full items-center justify-center rounded-full ${randomColors [Math.floor(Math.random() * randomColors.length)]}`,
+      `flex h-full w-full items-center justify-center rounded-full text-white ${randomColors [Math.floor(Math.random() * randomColors.length)]}`,
       className
     )}
     {...props}

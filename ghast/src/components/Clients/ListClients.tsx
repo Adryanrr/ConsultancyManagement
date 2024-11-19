@@ -25,7 +25,7 @@ export default function ListClients() {
       avatar: "http://github.com/adryanrr.png",
       cpf: "123.456.789-00",
       telefone: "(12) 3456-7890",  // Alterado para 'telefone'
-      tipo: "Vip",
+      tipoCliente: "Vip",
       fidelidade: "10",
     },
     {
@@ -35,7 +35,7 @@ export default function ListClients() {
       avatar: "http://github.com/FelipeDuan.png",
       cpf: "234.567.890-01",
       telefone: "(11) 2345-6789",  // Alterado para 'telefone'
-      tipo: "Vip",
+      tipoCliente: "Vip",
       fidelidade: "20",
     },
     {
@@ -45,7 +45,7 @@ export default function ListClients() {
       avatar: "http://github.com/MatheusJuK.png",
       cpf: "345.678.901-02",
       telefone: "(21) 3456-7890",  // Alterado para 'telefone'
-      tipo: "Vip",
+      tipoCliente: "Vip",
       fidelidade: "30",
     },
     ...Array.from({ length: 5 }, (_, i) => ({
@@ -55,7 +55,7 @@ export default function ListClients() {
       avatar: "",
       cpf: `456.789.012-${i + 3}`,
       telefone: `(31) 4567-890${i + 3}`,  // Alterado para 'telefone'
-      tipo: "Padrão",
+      tipoCliente: "Padrão",
       fidelidade: `${40 + i * 10}`,
     })),
   ];
@@ -122,7 +122,7 @@ export default function ListClients() {
               key={cliente.id}
               className="flex items-center gap-2 border-b dark:border-slate-100/15 py-2 last:border-b-0"
             >
-                <Avatar className="h-10 w-10 bg-black dark:text-white">
+                <Avatar className="h-10 w-10 bg-black text-white">
                   <AvatarFallback>{getInitials(cliente.nome)}</AvatarFallback>
                 </Avatar>
               <div>

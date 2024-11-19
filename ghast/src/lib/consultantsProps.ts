@@ -1,5 +1,5 @@
 export interface Consultores{
-    id: string;
+    id: number;
     cpf: string;
     nome: string;
     email: string;
