@@ -1,10 +1,10 @@
 export interface Consultores{
-    id: number;
+    id: string;
     cpf: string;
     nome: string;
     email: string;
     avatar: string;
     telefone: string; // Deve ser 'telefone', e não 'telefonets'
-    especializacao: number;
+    especializacao: string;
     tipoAtendimento: number;
 }

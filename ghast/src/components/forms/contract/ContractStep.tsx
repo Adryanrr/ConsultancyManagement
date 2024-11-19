@@ -98,7 +98,7 @@ E, por estarem, assim, justos e contratados, assinam o presente instrumento em d
             </p>
             <h3 className="font-semibold mt-2">
               VALOR DO CONTRATO:{" "}
-              <span className="font-normal">R$ 122.000,00</span>
+              <span className="font-normal">R$ 12.000,00</span>
             </h3>
             {/* Botão para gerar PDF */}
             <button
