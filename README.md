@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sistema de Gestão de Consultoria: Projeto GHAST
 
-## Getting Started
+<table>
+  <tr>
+    <td width="250">
+      <img src="https://images.steamusercontent.com/ugc/2495634406227407267/329C2BED29B0B3EBD13ECD7E33B6D0CE4929B1DA/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Gengar Animated" width="250"/>
+    </td>
+    <td>
+      <strong>GHAST</strong> - O Sistema de Gestão de Consultoria foi desenvolvido para gerenciar e automatizar as operações de uma empresa de consultoria especializada em planejamento financeiro, gestão empresarial e análise de dados. A solução permite o cadastro e controle de clientes, consultores, contratos, projetos, faturamento, além de implementar um programa de fidelidade para a retenção de clientes.
+    </td>
+  </tr>
+</table>
 
-First, run the development server:
+## Descrição
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Este sistema oferece um atendimento diferenciado para **clientes VIP**, com recursos como **atendimento prioritário**, **descontos exclusivos** e **relatórios personalizados**. A organização dos projetos é realizada por **etapas**, e cada uma possui um **status atualizado** constantemente, gerando **relatórios periódicos de desempenho**.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Imagens
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Aqui estão algumas capturas de tela do sistema para ilustrar as funcionalidades:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Tela de Login
 
-## Learn More
+![Tela de Login](public/readme/Login.png)
 
-To learn more about Next.js, take a look at the following resources:
+### Dashboard Claro
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![Dashboard Claro](public/readme/Dashboard.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Dashboard Escuro
 
-## Deploy on Vercel
+![Dashboard Escuro](public/readme/DashboardDark.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Cadastro de Contratos
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![Contratos](public/readme/contratos/contrato.png)
+![Contrato 2](public/readme/contratos/contrato2.png)
+![Contrato 3](public/readme/contratos/contrato3.png)
+
+### Tela de Clientes
+
+![Clientes](public/readme/Clientes.png)
+
+## Funcionalidades
+
+### 1. Cadastro de Clientes, Consultores e Contratos
+
+- **Registro de Clientes**: Cadastro de clientes com detalhes como categoria (**Regular** ou **VIP**) e histórico de contratos.
+- **Cadastro de Consultores**: Consultores são registrados com especializações (**financeiro**, **gestão**, **TI**) e alocação automática a projetos.
+- **Gestão de Contratos**: Controle de contratos com prazos e cláusulas especiais para clientes VIP.
+
+### 2. Gerenciamento de Projetos e Etapas
+
+- **Divisão de Projetos**: Cada projeto é dividido em etapas, como **análise**, **implementação** e **revisão**.
+- **Controle de Status**: Acompanhamento de status e prazos de cada etapa.
+- **Notificações e Atualizações**: Atualização contínua do progresso do projeto com notificações ao cliente.
+
+### 3. Relatórios e Desempenho
+
+- **Relatórios Periódicos**: Emissão de relatórios com insights do andamento das etapas.
+- **Relatórios VIP**: Relatórios personalizados para clientes VIP com recomendações adicionais.
+- **Exportação**: Exportação de relatórios em **PDF** e outros formatos.
+
+### 4. Pagamentos e Faturamento
+
+- **Faturamento por Etapa ou Entrega**: Controle de faturamento conforme o progresso ou entrega final.
+- **Descontos VIP**: Aplicação automática de descontos para clientes VIP.
+- **Gestão de Condições de Pagamento**: Gerenciamento de parcelas, atrasos e condições especiais de pagamento.
+
+### 5. Programa de Fidelidade
+
+- **Acúmulo de Pontos**: Clientes recorrentes acumulam pontos que podem ser trocados por descontos.
+- **Histórico de Projetos**: Histórico com recomendações de novos serviços.
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo **LICENSE** para mais detalhes.
