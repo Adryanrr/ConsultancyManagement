@@ -9,10 +9,14 @@ const config: Config = {
   ],
   theme: {
   	extend: {
-			fontFamily: {
-				audiowide: ['Audiowide', 'sans-serif'],
-			},
+  		fontFamily: {
+  			audiowide: ['Audiowide', 'sans-serif']
+  		},
   		colors: {
+  			whiteMain: '#EFF2F4',
+  			darkMain: '#081028',
+  			darkSecond: '#0B1739',
+  			borderInput: '#E1E1E6',
   			lgButton: '#F3F9FA',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -69,9 +73,34 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		keyframes: {
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		},
+  		animation: {
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+		require("tailwindcss-animate"),
+		require('tailwind-scrollbar'),
+	],
 };
 export default config;

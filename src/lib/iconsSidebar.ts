@@ -10,8 +10,8 @@ import {
 
 export const items = [
   {
-    title: "Home",
-    url: "/Dashboard",
+    title: "Dashboard",
+    url: "/dashboard",
     icon: Home,
   },
   {
