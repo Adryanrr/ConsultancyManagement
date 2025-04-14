@@ -72,6 +72,19 @@ Aqui estão algumas capturas de tela do sistema para ilustrar as funcionalidades
 - **Acúmulo de Pontos**: Clientes recorrentes acumulam pontos que podem ser trocados por descontos.
 - **Histórico de Projetos**: Histórico com recomendações de novos serviços.
 
+### Desenvolvedores
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/Adryanrr"><img src="https://github.com/Adryanrr.png" width="100px;" alt="Foto do Adryan Ryan"/><br /><sub><b>Adryan Ryan</b></sub></a></td>
+    <td align="center"><a href="https://github.com/FelipeDuan"><img src="https://github.com/FelipeDuan.png" width="100px;" alt="Foto do Felipe Duan"/><br /><sub><b>Felipe Duan</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Whuanderson"><img src="https://github.com/Whuanderson.png" width="100px;" alt="Foto do Whuanderson"/><br /><sub><b>Whuanderson</b></sub></a></td>
+    <td align="center"><a href="https://github.com/MatheusJuK"><img src="https://github.com/MatheusJuK.png" width="100px;" alt="Foto do MatheusJuK"/><br /><sub><b>MatheusJuK</b></sub></a></td>
+    <td align="center"><a href="https://github.com/AndreNTeixeira"><img src="https://github.com/AndreNTeixeira.png" width="100px;" alt="Foto do AndreNTeixeira"/><br /><sub><b>AndreNTeixeira</b></sub></a></td>
+    <td align="center"><a href="https://github.com/PabloFalc"><img src="https://github.com/PabloFalc.png" width="100px;" alt="Foto do PabloFalc"/><br /><sub><b>PabloFalc</b></sub></a></td>
+  </tr>
+</table>
+
 ## Licença
 
 Este projeto está licenciado sob a licença MIT. Consulte o arquivo **LICENSE** para mais detalhes.
